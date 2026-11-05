@@ -373,3 +373,52 @@ a:hover .kova-line-arrow,button:hover .kova-line-arrow{transform:translate(2px,-
 @media(max-width:650px){.services-overview{padding:51px 0 69px}.services-overview-head{display:block;margin:57px 0 37px}.services-overview-head h2{font-size:clamp(50px,12vw,72px)}.services-overview-head>p{margin-top:25px;font-size:15px}.service-overview-grid{grid-template-columns:1fr}.service-overview-card{min-height:215px;padding:29px 26px 61px}.service-overview-card h3{font-size:33px;margin:25px 0 13px}.service-overview-card p{font-size:14px}.service-overview-card b{right:25px;bottom:20px}.service-overview-card:hover{padding-left:29px}.tools-intro{padding:65px 0}.tools-intro .shell{display:block}.tools-intro h2{font-size:55px;margin:32px 0}.tools-intro p{font-size:14px}.founder-teaser{padding:68px 0 80px}.founder-teaser-inner,.about-intro-grid,.about-chapter-grid{display:block}.founder-teaser h2{font-size:clamp(52px,12vw,77px);margin-top:44px}.founder-teaser-right{margin-top:42px}.founder-teaser-right p{font-size:15px}.about-hero .internal-headline h1{font-size:clamp(51px,12vw,80px)}.about-intro-panel{padding:62px 0 85px}.about-column-id{flex-direction:row;gap:12px;align-items:center}.about-symbol{min-height:0;width:85px}.about-column-id small{display:none}.about-intro-copy{margin-top:42px}.about-intro-copy h2{font-size:clamp(46px,10.4vw,67px)}.about-intro-copy p,.about-body p{font-size:15px;line-height:1.75}.about-intro-copy .about-lead{font-size:19px}.about-chapter{padding:72px 0 84px}.about-aside{gap:30px}.about-credential{font-size:27px}.about-body{margin-top:55px}.about-body h2{font-size:clamp(47px,11.2vw,72px);margin-bottom:33px}.about-body blockquote{margin-top:38px;font-size:23px}.about-drawing{max-width:280px;aspect-ratio:1.2}.about-future{padding:49px 0 83px}.about-future-inner{margin-top:66px}.about-future h2{font-size:clamp(46px,10.8vw,70px)}.about-future p{font-size:16px}.about-integrity{padding:35px 0}.about-integrity .shell{display:block}.about-integrity p{margin-top:21px}.insight-editions{grid-template-columns:1fr 1fr;gap:0;margin:0 0 35px}.insight-editions>div{padding:20px 16px 25px;min-height:150px}.insight-editions span{font-size:9px}.insight-editions p{font-size:12px;margin-top:14px}.insight-publication-note{display:block;margin-bottom:49px}.insight-publication-note p{margin-top:13px}}
 @media(max-width:365px){.founder-teaser h2{font-size:47px}.about-future h2{font-size:43px}.insight-editions>div{padding:15px 12px}}
 @media(prefers-reduced-motion:reduce){.service-overview-card,.service-overview-card:hover{transition:none}}
+
+/* v06.1 — single enquiry invitation; educational guides; no duplicate explainer pages */
+.header-cta{font-weight:720;letter-spacing:.035em;text-transform:uppercase;background:#171717;color:#f5f5f3;border-color:#171717}
+.header-cta:hover,.header-cta:focus-visible{background:#505050;color:#fff}
+.mobile-drawer .mobile-drawer-cta{background:#171717;color:#f5f5f2;padding-left:clamp(20px,5vw,36px);font-weight:690;letter-spacing:.015em}
+.mobile-drawer .mobile-drawer-cta span,.mobile-drawer .mobile-drawer-cta b{color:#f5f5f2}
+.footer-question{display:block;cursor:default}
+.footer-question:hover{transform:none!important}
+.footer-invitation-bottom a{display:inline-flex;gap:18px;align-items:center;font-weight:720;letter-spacing:.06em}
+.footer-directory-contact p{margin:8px 0;color:#b6b6b3}
+/* Contact page is already the enquiry destination. Never link it back to itself in the footer. */
+body:has(main[data-page="contact"]) .footer-invitation{display:none}
+.insights-preview-more{display:flex;justify-content:flex-end;margin-top:28px}
+.explainers-intro{display:flex;justify-content:space-between;gap:35px;align-items:flex-end;border-top:1px solid #d0d0cd;padding-top:22px;margin:0 0 35px}
+.explainers-intro span,.explainer-next>span,.knowledge-bridge-inner>div>span{font-size:10px;letter-spacing:.14em;font-weight:700;color:#777}
+.explainers-intro p{font-size:14px;line-height:1.6;color:#696966;max-width:440px}
+.explainer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.explainer-grid .insight-card{min-height:340px;text-align:left;padding:35px 33px;background:#e7e7e5;color:#1d1d1c;border:1px solid #d5d5d2;align-items:flex-start}
+.explainer-grid .insight-card:nth-child(2){background:#252525;color:#f4f4f2;border-color:#252525}
+.explainer-grid .insight-card:nth-child(2) p{color:#c4c4c0}
+.explainer-grid .insight-card:nth-child(3){background:#f1f1ef}
+.explainer-grid .insight-card:nth-child(4){background:#ddddda}
+.explainer-grid .insight-card h3{font-size:clamp(29px,3.7vw,52px);line-height:1.06;margin:46px 0 16px;max-width:520px;letter-spacing:-.055em}
+.explainer-grid .insight-card p{font-size:15px;color:#646460;line-height:1.65;max-width:490px}
+.explainer-grid .insight-card>span:last-child{display:inline-flex;align-items:center;gap:12px;margin-top:auto;padding-top:27px;font-size:11px;letter-spacing:.12em;font-weight:670}
+.explainer-grid .insight-card .kova-line-arrow{width:19px}
+.explainer-grid .insight-card:hover{filter:brightness(.955)}
+.explainer-detail .explainer-next{background:#e8e8e5;padding:30px 33px;margin-top:25px}
+.explainer-next .text-link{display:inline-flex;margin-top:21px;font-weight:660}
+.knowledge-bridge{background:#e7e7e4;border-top:1px solid #ccc;padding:90px 0}
+.knowledge-bridge-inner{display:flex;justify-content:space-between;align-items:flex-end;gap:36px}
+.knowledge-bridge-inner h2{font-size:clamp(42px,5.2vw,76px);letter-spacing:-.07em;line-height:1.02;margin:28px 0}
+.knowledge-bridge-inner p{font-size:15px;color:#686865;line-height:1.7;max-width:480px}
+@media(max-width:650px){.explainer-grid{grid-template-columns:1fr}.explainer-grid .insight-card{min-height:265px;padding:27px 25px}.explainer-grid .insight-card h3{font-size:clamp(33px,9vw,48px);margin-top:30px}.explainer-grid .insight-card p{font-size:14px}.explainers-intro{display:block}.explainers-intro p{margin-top:14px}.knowledge-bridge{padding:65px 0}.knowledge-bridge-inner{display:block}.knowledge-bridge-inner .text-link{margin-top:27px}.knowledge-bridge-inner h2{font-size:53px}.footer-directory-contact p{font-size:13px}}
+/* Narrow phones: preserve the typography without forcing horizontal scrolling. */
+@media(max-width:380px){
+ .chapter-gateway-title{gap:10px;align-items:center}
+ .chapter-gateway h2{font-size:clamp(42px,12vw,51px);letter-spacing:-.072em}
+ .chapter-gateway-arrow{width:34px;height:34px;flex:0 0 34px}
+ .chapter-gateway-arrow .kova-line-arrow{width:34px;height:34px}
+ .scenario-header h2,.document-header h2,.anatomy-intro h2{font-size:clamp(39px,11.6vw,50px)}
+ .services-overview-head h2,.tools-intro h2{font-size:clamp(43px,13vw,50px)}
+ .about-intro-copy h2,.about-body h2,.about-future h2{font-size:clamp(40px,11.8vw,52px)}
+ .about-drawing,.urban-panel,.anatomy-board{max-width:100%;overflow:hidden}
+}
+/* Contain off-canvas decorative SVG geometry without affecting sticky positioning. */
+html,body{max-width:100%;overflow-x:clip}
+
+body:has(main[data-page="contact"]) .header-cta{display:none}

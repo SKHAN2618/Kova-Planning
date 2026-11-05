@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v06.0
+# KOVA Planning Co. | Website v06.1
 
 Six real HTML page entry points, shared cached CSS/JS and branded supporting assets.
 
@@ -14,4 +14,12 @@ Content controls:
 - Weekly editorial research is a separate approval-first ChatGPT workflow. The website does not automatically publish articles.
 - NZ planning/legal information is general and needs review against current official law and site-specific conditions.
 
-Version 06.0, 5 November 2026.
+Version 06.1, 5 November 2026.
+
+## v06.1 navigation and content changes
+- Primary desktop CTA DISCUSS A PROJECT, single mobile menu CTA and one footer enquiry CTA. The big footer question is typography, not another link. Contact page does not link to itself through a repeated footer CTA. Enquiry form remains draft-only.
+- Homepage: links to the expertise, founder story and two evergreen planning explainers; removed the duplicate anatomy section.
+- Expertise: services and interactive learning tools remain, but FAQ copy duplicated by explainer guides was removed and replaced by a signpost.
+- Insights: four compact Planning Explained guides (zoning, site constraints, separate consents and AEEs) each offering one contextual link to a relevant existing tool or service, with source links. No unapproved news items or fabricated projects.
+- Page gateways now have contextual destinations rather than leading every visitor through a fixed sequence.
+- Source code and page HTML are synchronised, with responsive testing from 320px mobile to desktop.
