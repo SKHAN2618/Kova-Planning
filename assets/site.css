@@ -520,3 +520,87 @@ body.menu-open{overflow:visible}
  .team-coordination .kova-sketch{max-width:280px;margin-top:25px}
  .anatomy-bottom-note{flex-direction:column;gap:15px}
 }
+
+
+/* KOVA v06.4 | Architectural journal: one family of drawn, monochrome lines. */
+:root{--paper:#f9f9f7;--ink:#1d1e1d;--rule:#d7d7d3}
+/* The pen studies are transparent SVG paths (no fills); text always sits above them. */
+.hero-home{background:var(--paper)}
+.urban-panel{background:transparent!important;border:0!important;isolation:isolate}
+.urban-panel:before{display:none!important}
+.urban-site-study{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:.93;pointer-events:none;transition:transform 1.4s ease;transform:scale(1.18)}
+.urban-panel:hover .urban-site-study{transform:scale(1.20)}
+.urban-panel .urban-title,.urban-panel .urban-bottom{font-weight:550;color:#767672}
+.urban-panel::after{display:none!important}
+/* Lighter editorial dividers and one matching ink colour, no floating image cards. */
+.hero-home,.services-overview,.white-panel,.founder-teaser,.insights-preview,.insights-content,.approach-intro,.about-intro-panel,.about-founder,.about-purpose,.contact-section{background:var(--paper)}
+.internal-hero{background:#f3f3f0}
+.insights-hero,.about-hero,.contact-hero,.expertise-internal,.approach-hero{isolation:isolate;overflow:hidden}
+.insights-hero::after,.about-hero::after,.contact-hero::after,.expertise-internal::after,.approach-hero::after{content:'';position:absolute;right:-5%;top:13%;width:min(59vw,770px);height:73%;background-repeat:no-repeat;background-position:center;background-size:contain;opacity:.52;pointer-events:none;z-index:0;mask-image:linear-gradient(90deg,transparent 0%,#000 30%,#000 100%)}
+.expertise-internal::after{background-image:url('study-parcels.svg');opacity:.28}
+.approach-hero::after{background-image:url('study-streetscape.svg');opacity:.25}
+.insights-hero::after{background-image:url('study-contours.svg');opacity:.25}
+.about-hero::after{background-image:url('study-streetscape.svg');opacity:.22}
+.contact-hero::after{background-image:url('study-parcels.svg');opacity:.19}
+.internal-hero>.shell{position:relative;z-index:1}
+/* Illustration as marginalia, never sitting in a colored block. */
+.about-drawing{max-width:100%!important;aspect-ratio:1.65!important;overflow:visible;background:transparent!important}
+.about-drawing img,.approach-intro-note img,.team-coordination img,.kova-drawing-img{display:block;width:100%;height:auto;object-fit:contain;opacity:.72;filter:none}
+.about-drawing img{width:clamp(265px,32vw,500px);max-width:100%;margin-left:-25px}
+.approach-intro-note img{max-width:470px;justify-self:end}
+.team-coordination img{max-width:490px;margin:50px 0 0;opacity:.65}
+/* Consistent hairline accents and large compositional breathing room. */
+.manifesto-section,.founder-teaser,.about-chapter,.expertise-index,.knowledge-section,.scenario-section{border-color:var(--rule)}
+.insights-preview{position:relative;isolation:isolate;overflow:hidden}
+.insights-preview::before{content:'';position:absolute;width:650px;height:460px;right:-185px;top:5%;background:url('study-contours.svg') no-repeat center/contain;opacity:.09;pointer-events:none;z-index:-1}
+.insight-teasers a,.insight-card,.service-overview-card{background:transparent!important;border-color:var(--rule)!important}
+.insight-teasers a:hover,.insight-card:hover,.service-overview-card:hover{background:#f0f0ed!important}
+.information-banner,.knowledge-bridge{background:#f4f4f1;border-top:1px solid var(--rule)}
+/* Studio-style call-to-action: type and a single hairline, no heavyweight black label. */
+.header-cta{background:transparent!important;color:var(--ink)!important;border:0!important;border-bottom:1px solid #555!important;padding:10px 0!important;min-height:40px;font-size:12px;letter-spacing:0!important;font-weight:580;gap:23px;text-transform:none;white-space:nowrap;transition:border-color .25s,opacity .25s}
+.header-cta:hover,.header-cta.is-current{background:transparent!important;color:var(--ink)!important;border-bottom-color:#181818!important;opacity:.75}
+.header-cta span{display:inline-flex;align-items:center}
+.header-cta .kova-line-arrow{width:17px;height:17px}
+/* Sixth destination remains consistent with all other menu rows; the bottom rule carries emphasis. */
+.mobile-drawer .mobile-drawer-cta{background:transparent!important;color:var(--ink)!important;padding:19px 0!important;border:0!important;border-bottom:1px solid #999!important;font-size:clamp(31px,6.5vw,56px)!important;line-height:1.2;letter-spacing:-.06em!important;font-weight:490!important;text-transform:none!important;display:flex;align-items:baseline;gap:20px;min-height:auto;}
+.mobile-drawer .mobile-drawer-cta span{color:#868686!important;font-size:11px!important;flex:0 0 auto}
+.mobile-drawer .mobile-drawer-cta b{color:var(--ink)!important;font-weight:400!important}
+.mobile-drawer{background:#f5f5f2;box-shadow:0 13px 42px #00000015!important}
+.mobile-drawer a{border-bottom:1px solid #d0d0cd}
+.mobile-drawer-foot{margin-top:auto}
+/* Keep one editorial footer invitation. A light opening gradually moves to the dark brand signature. */
+.v05-footer{background:#212221}
+.v05-footer .footer-invitation{background:#f7f7f4;color:var(--ink);position:relative;padding-top:68px;padding-bottom:77px;isolation:isolate}
+.v05-footer:has(.footer-invitation) {background:#212221}
+.v05-footer .footer-invitation:before{content:'';position:absolute;inset:0;left:-100vw;right:-100vw;background:#f7f7f4;z-index:-2}
+.v05-footer .footer-invitation:after{content:'';position:absolute;right:-5%;top:-10%;width:60%;height:105%;background:url('study-parcels.svg') center/contain no-repeat;opacity:.11;pointer-events:none;z-index:-1}
+.footer-invitation-kicker{border-top:1px solid #c7c7c3!important;color:#777772!important}
+.footer-prelude{color:#74746f!important;margin-top:75px!important}
+.footer-question{border-bottom:1px solid #c7c7c3!important;padding-bottom:35px!important}
+.footer-question span{font-size:clamp(69px,9vw,145px);font-weight:430;letter-spacing:-.081em}
+.footer-invitation-bottom>a{color:#252525!important;font-size:13px!important;font-weight:570!important;letter-spacing:0!important;border-bottom:1px solid #272727;padding:0 0 12px;gap:15px}
+.footer-invitation-bottom>a:after{display:none!important}
+.footer-invitation-bottom>a:hover{opacity:.6}
+.footer-invitation-bottom>span{color:#797975!important}
+/* Forms and secondary buttons are paper/ink rather than generic heavy UI slabs. */
+.btn-dark{background:#262626;color:#fff}
+.btn-dark:hover{background:#3d3d3d}
+.form-submit{font-weight:530;letter-spacing:0}
+@media(max-width:1170px){.header-cta{gap:12px;font-size:11px}}
+@media(max-width:900px){.internal-hero::after{width:85%;right:-40%;top:25%;opacity:.16}}
+@media(max-width:650px){
+  .urban-site-study{transform:scale(1.12);opacity:.82}
+  .urban-panel:hover .urban-site-study{transform:scale(1.13)}
+  .urban-panel{min-height:355px}
+  .internal-hero::after{width:110%;height:65%;top:25%;right:-50%;opacity:.16}
+  .about-drawing img{margin-left:0;max-width:290px}
+  .footer-question span{font-size:clamp(52px,11.8vw,86px)}
+  .footer-invitation{padding-top:45px!important;padding-bottom:62px!important}
+  .footer-prelude{margin-top:58px!important}
+  .mobile-drawer .mobile-drawer-cta{font-size:clamp(31px,6.5vw,56px)!important}
+  .v05-footer .footer-invitation:after{opacity:.06;width:95%;right:-30%}
+}
+@media(prefers-reduced-motion:reduce){.urban-site-study{transition:none!important}}
+/* Narrow-screen editorial safety: maintain a complete, unbroken founder headline. */
+@media(max-width:350px){.about-hero .internal-headline h1{font-size:40px!important;letter-spacing:-.078em}}
+@media(max-width:350px){.about-intro-copy h2{font-size:36px!important;letter-spacing:-.072em}}

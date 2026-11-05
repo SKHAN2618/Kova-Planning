@@ -1,14 +1,24 @@
-# KOVA Planning Co. | v06.3
+# KOVA Planning Co. | Website v06.4
 
-Six-page KOVA planning consultancy website. Published via GitHub Pages from the `main` branch.
+Six-page static website for a founder-led Auckland planning consultancy.
 
-## Design refinement
-- Removed all sample-document cards and bundled example PDFs.
-- Established a minimalist architectural drawing language with consistent two-weight black-and-white SVG linework: parcel boundaries, street edges and light construction strokes. Each visual is deliberately sparse and unfilled.
-- Integrated these sketches into the Home, Expertise, Our Approach and About pages without image-card presentation.
-- Shifted redundant shaded cards to open sections and hairline separators. Retained purposeful dark anchor sections.
-- Reframed design/drafting/surveying/engineering support as planning-led coordination of the right practitioners, with appropriate professional scope.
-- Simplified redundant callouts and polished the single `DISCUSS A PROJECT` CTA.
-- The Contact form remains draft-only and does not send enquiries or store data on a server.
+## What changed
+- A new monochrome **architectural linework system**: aerial neighbourhood massing, subdivision/site plan, streetscape perspective and contour studies. All drawings are original SVG strokes with transparent backgrounds, shared pen weights and no photography or filled image cards.
+- The visual studies are integrated into the six page layouts and designed not to obscure copy or interactive tools.
+- Refined the header, mobile menu and footer project enquiry actions with thin rules, consistent type and light space in place of a solid black slab.
+- Existing planning content, six page journeys, tools and the draft-only enquiry form remain unchanged.
 
-Site: https://skhan2618.github.io/Kova-Planning/
+## Pages
+Home · Expertise · Our Approach · Planning Explained · About · Contact
+
+Live site: https://skhan2618.github.io/Kova-Planning/
+
+Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserved.
+
+Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserved.
+
+Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserved.
+
+Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserved.
+
+Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserved.
