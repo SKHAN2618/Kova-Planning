@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://skhan2618.github.io/Kova-Planning/sitemap.xml
