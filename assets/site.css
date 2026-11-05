@@ -455,3 +455,68 @@ body.menu-open{overflow:visible}
   .scenario-option strong{font-size:clamp(16px,2.3vw,20px)}
 }
 @media(max-width:650px){.scenario-option{padding:18px 16px;min-height:116px}.scenario-option strong{font-size:clamp(15px,4.2vw,19px)}.scenario-option>b{bottom:15px;right:15px}.team-coordination{padding:69px 0}.team-coordination h2{font-size:clamp(47px,12vw,71px)}.team-coordination p{font-size:14px}.inline-coordination-link{margin-top:6px}}
+
+/* KOVA v06.3 — Quiet monochrome architectural language */
+/* Drawings are complete strokes, not illustrations pasted into boxes. */
+.kova-sketch,.kova-ink-drawing{fill:none!important;stroke:#202020;stroke-linejoin:round;stroke-linecap:round;stroke-width:1.65;opacity:.62}
+.kova-sketch .ink-primary,.kova-ink-drawing .ink-primary{fill:none;stroke:#171717;stroke-width:1.65;vector-effect:non-scaling-stroke}
+.kova-sketch .ink-secondary,.kova-ink-drawing .ink-secondary{fill:none;stroke:#666;stroke-width:.85;vector-effect:non-scaling-stroke;opacity:.68}
+.urban-panel{background:transparent;border:none;min-height:650px}
+.urban-panel::after{display:none}
+.urban-panel .urban-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:clamp(22px,5vw,80px)}
+.urban-panel:hover .urban-svg{transform:scale(1.014)}
+.urban-panel .urban-title,.urban-panel .urban-bottom{color:#6f6f6d}
+.about-drawing{background:transparent!important;border:0!important;isolation:auto;max-width:430px;aspect-ratio:1.35}
+.about-drawing .kova-sketch{width:100%;height:100%;display:block;opacity:.55}
+.approach-intro-note .kova-sketch{display:block;width:100%;max-width:440px;height:auto;justify-self:end;opacity:.54}
+.team-coordination .kova-sketch{width:100%;max-width:350px;margin-top:45px;opacity:.55;stroke:#f8f8f6}
+.team-coordination .kova-sketch .ink-primary{stroke:#f8f8f6}
+.team-coordination .kova-sketch .ink-secondary{stroke:#bdbdbb}
+/* Quiet surface rhythm, almost no filled cards. Sections use hierarchy and line separators. */
+.hero-home,.services-overview,.insights-preview,.insights-content,.contact-section,.about-purpose,.about-founder,.scenario-section{background:#f7f7f6}
+.hero-home{background:#f8f8f7}
+.services-overview,.insights-preview,.about-founder,.about-purpose,.scenario-section{border-top:1px solid #dededb}
+.service-overview-grid{background:transparent;border:0;gap:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+.service-overview-card{background:transparent!important;box-shadow:none;border:0;border-top:1px solid #d0d0ce;min-height:225px;padding:32px 42px 65px 5px}
+.service-overview-card:nth-child(2n){padding-left:35px}
+.service-overview-card:hover,.service-overview-card:focus-visible{background:#efefed!important;padding-left:5px}
+.service-overview-card:nth-child(2n):hover{padding-left:35px}
+.team-coordination{background:#252525}
+.tools-intro{background:#f7f7f6;color:#1c1c1c;border-top:1px solid #d6d6d3;padding:72px 0 76px}
+.tools-intro span{color:#737370}.tools-intro h2 em{color:#999}.tools-intro p{color:#6c6c69}
+.scenario-viewport,.topic-panel,.knowledge-section,.anatomy-section,.stage-viewport{background:transparent}
+.insight-teasers a{background:transparent!important;color:#1c1c1c!important;border-top:1px solid #bcbcb9;min-height:255px;padding:32px 28px 42px 0}
+.insight-teasers a:nth-child(2){padding-left:25px;border-left:1px solid #dededb}
+.insight-teasers a:hover{background:#ececea!important}
+.insight-card,.explainer-grid .insight-card,.insight-card:nth-child(3){background:transparent!important;color:#242424!important;border:1px solid #d5d5d2;min-height:290px;padding:31px}
+.insight-card:hover,.insight-card:nth-child(3):hover{background:#efefed!important;color:#242424!important}
+.insight-card h3{color:inherit}
+.insight-card small,.insight-card span,.insight-card p{color:inherit}
+.anatomy-bottom-note{border-top:1px solid #d8d8d4;background:transparent!important;display:flex;justify-content:space-between;gap:30px;align-items:baseline}
+.anatomy-bottom-note>span{display:none}
+.anatomy-bottom-note p{max-width:510px;font-size:13px;line-height:1.7;color:#74746f}
+/* One primary CTA language, consistent in header/mobile/footer. */
+.header-cta{background:#1d1d1d;color:#fafaf8;border-color:#1d1d1d;min-height:44px;padding:0 19px;font-size:10px;letter-spacing:.055em;font-weight:700;gap:25px}
+.header-cta .kova-line-arrow{width:15px;height:15px}
+.header-cta:hover,.header-cta.is-current{background:#404040;border-color:#404040;color:#fff}
+.mobile-drawer-cta{background:#1d1d1d!important;letter-spacing:.06em;font-weight:700}
+.footer-invitation-bottom a{font-weight:700;letter-spacing:.055em}
+.footer-invitation-bottom a .kova-line-arrow{width:18px;height:18px}
+.btn-dark{background:#202020;color:white}
+.btn-dark:hover{background:#404040}
+/* No unnecessary editorial panel around explanations. */
+.anatomy-bottom-note,.knowledge-bridge,.team-coordination-inner,.about-drawing{box-shadow:none}
+@media(max-width:1040px){.urban-panel{min-height:485px}.about-drawing{max-width:310px}}
+@media(max-width:650px){
+ .urban-panel{min-height:350px}
+ .urban-panel .urban-svg{padding:20px 24px}
+ .urban-title,.urban-bottom{letter-spacing:.11em}
+ .service-overview-grid{grid-template-columns:1fr}
+ .service-overview-card,.service-overview-card:nth-child(2n){padding:26px 2px 42px;min-height:170px;border-left:0}
+ .service-overview-card:hover,.service-overview-card:nth-child(2n):hover{padding-left:2px}
+ .insight-teasers a,.insight-teasers a:nth-child(2){padding:28px 0 35px;min-height:215px;border-left:0;border-top:1px solid #c9c9c7}
+ .insight-card{min-height:240px}
+ .approach-intro-note .kova-sketch{margin:12px auto 0;max-width:300px}
+ .team-coordination .kova-sketch{max-width:280px;margin-top:25px}
+ .anatomy-bottom-note{flex-direction:column;gap:15px}
+}
