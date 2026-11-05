@@ -1,20 +1,13 @@
-# KOVA Planning Co. | Website v06.1
+# KOVA Planning Co. | v06.2
 
-A six-page planning consultancy website with shared CSS, JavaScript and original KOVA brand assets.
+Six-page static KOVA website.
 
-Pages: Home, Expertise, Our Approach, Planning Explained (Insights), About, and Contact.
+Changes:
+- Fix mobile menu so it opens as a viewport overlay at any scroll depth without jumping back to the top.
+- Add fourth Expertise scenario: Design & drafting (coordination with independent practitioners), while keeping existing New dwelling, Subdivision and Extension or renovation scenarios.
+- Surface all four scenarios in a responsive grid, including on phones.
+- Explain KOVA's planning-led coordination of architects, architectural designers/draftspersons, surveyors and engineers in Expertise and Our Approach, with brief contextual mentions in Home, About and Contact.
+- Add a design/drafting coordination option to the enquiry draft form. The form still does not send enquiries.
+- Keep professional design, surveying, engineering and certification work with appropriately qualified independent professionals. Scope and engagement are subject to agreement.
 
-v06.1 changes (5 November 2026):
-- Clarified a single distinct purpose for each of the six pages.
-- Replaced dated Insights articles with four evergreen Planning Explained guides.
-- Updated homepage previews to link to relevant explainers instead of news articles.
-- Removed duplicate home consent-analysis panel and Expertise FAQ; added contextual cross-page links.
-- Reworked relevant next-page navigation destinations to follow user intent rather than an arbitrary sequence.
-- Kept one clear “DISCUSS A PROJECT” action and removed competing footer enquiry links.
-- Retained the Contact form as an unsent draft; it does not email or store enquiries.
-- Maintained the KOVA founder story, brand assets, and site graphics.
-
-Publish the directory contents to the root of SKHAN2618/Kova-Planning on GitHub Pages (main branch, /(root)).
-Site: https://skhan2618.github.io/Kova-Planning/
-
-Guides are general educational information, not site-specific planning advice. Verify operative rules, legislation and property facts before relying on them.
+Deploy files in repository root of SKHAN2618/Kova-Planning on GitHub Pages.

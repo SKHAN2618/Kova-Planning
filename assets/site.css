@@ -422,3 +422,36 @@ body:has(main[data-page="contact"]) .footer-invitation{display:none}
 html,body{max-width:100%;overflow-x:clip}
 
 body:has(main[data-page="contact"]) .header-cta{display:none}
+
+/* v06.2 / Viewport-attached mobile navigation and coordinated project scope */
+/* The drawer is portalled to <body> by site.js; it no longer relies on the header's original scroll position. */
+body.menu-open{overflow:visible}
+@media(max-width:900px){
+  .mobile-drawer{position:fixed!important;top:var(--kova-menu-top,80px)!important;left:0;right:0;bottom:0;z-index:239;min-height:0!important;height:auto;max-height:none;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:max(45px,env(safe-area-inset-bottom));box-shadow:0 25px 60px rgba(0,0,0,.23)}
+  .mobile-drawer[hidden]{display:none!important}
+  body.menu-open .mobile-drawer{touch-action:pan-y}
+}
+@media(max-width:650px){.mobile-drawer{top:var(--kova-menu-top,72px)!important}}
+.team-coordination{background:#242424;color:#f5f5f2;padding:clamp(65px,8vw,125px) 0}
+.team-coordination-inner{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(35px,6vw,110px);align-items:start}
+.team-coordination-inner>div>span{font-size:10px;letter-spacing:.15em;font-weight:690;color:#b2b2b2}
+.team-coordination h2{font-size:clamp(51px,6vw,102px);letter-spacing:-.072em;line-height:1.02;margin-top:48px}
+.team-coordination h2 em{font-style:normal;color:#9f9f9f}
+.team-coordination p{font-size:clamp(14px,1.2vw,17px);line-height:1.8;color:#cececc;max-width:575px;margin:0 0 25px}
+.team-coordination .text-link{margin-top:25px;color:#fff;border-color:#888}
+.inline-coordination-link{display:inline-flex;align-items:center;gap:3px;color:#171717;border-bottom:1px solid #777;font-weight:670}
+.inline-coordination-link .kova-line-arrow{width:15px;height:15px;margin-left:3px}
+#project-coordination{scroll-margin-top:calc(var(--v05-header,72px) + 18px)}
+/* All scenarios visible: nobody should need to discover a hidden fourth option by swiping. */
+.scenario-selector{grid-template-columns:repeat(4,minmax(0,1fr))}
+.scenario-option strong{font-size:clamp(15px,1.55vw,19px)}
+@media(max-width:1000px){
+  .team-coordination-inner{grid-template-columns:1fr;gap:32px}
+  .team-coordination h2{margin-top:25px}
+  .scenario-selector{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;scroll-snap-type:none}
+  .scenario-option{min-width:0;min-height:112px;padding:clamp(16px,3vw,25px);gap:15px;border-right:1px solid #c8c8c6;border-bottom:1px solid #c8c8c6;scroll-snap-align:none}
+  .scenario-option:nth-child(2n){border-right:0}
+  .scenario-option:nth-child(n+3){border-bottom:0}
+  .scenario-option strong{font-size:clamp(16px,2.3vw,20px)}
+}
+@media(max-width:650px){.scenario-option{padding:18px 16px;min-height:116px}.scenario-option strong{font-size:clamp(15px,4.2vw,19px)}.scenario-option>b{bottom:15px;right:15px}.team-coordination{padding:69px 0}.team-coordination h2{font-size:clamp(47px,12vw,71px)}.team-coordination p{font-size:14px}.inline-coordination-link{margin-top:6px}}
