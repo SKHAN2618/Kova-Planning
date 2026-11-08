@@ -59,3 +59,11 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Removed external guidance links from the Expertise topic and Anatomy sections (static and interactive views), while preserving the useful explanatory context.
 - Simplified the article navigation panel by removing the “Where to go next” label and fixing its spacing, padding, mobile behaviour and link alignment.
 - Updated CSS/JS asset versions and smoke-test expectations to v06.9 so browsers load the latest presentation.
+
+## v07.0 — Architectural motion and contrast
+
+- Selected charcoal accents for the home founder feature, Planning Explained header and one editorial teaser; all original KOVA logos and typography retained.
+- Replaced dual wipe navigation with one transform-only curtain synchronised using transitionend, with a safety timeout and reduced-motion bypass.
+- Added pinned Lenis 1.3.27 smooth-wheel easing on fine-pointer desktop only. No scroll smoothing on touch devices or when reduced motion is preferred. Native scrolling remains available if the external script fails.
+- Added softer editorial reveals, architectural diagram wipe, restrained hover motion and smoother transitions inside planning modules.
+- All seven static pages use versioned v07.0 CSS/JS to avoid stale cache; existing contact draft and planning content unchanged.
