@@ -107,3 +107,10 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Updated the Privacy page to accurately disclose self-hosted fonts and the remaining optional unpkg smooth-scroll dependency. KOVA brand/vector logo remains untouched.
 - Added regression tests for asset paths, WOFF2 magic bytes, licences, font loading diagnostics, page-local resources, lack of explicit Arial styling and privacy copy parity.
 - Note: Offline browsers or failed local requests still require a fallback. KOVA now prefers the device-native system UI font rather than deliberately styling website content in Arial. No webfont implementation can completely prevent a temporary fallback before the file is available.
+
+## v07.6 — matching the KOVA architectural headline style
+- Home Planning Explained cards, all ten Insights explainer cards, and Expertise service overview cards now share the uppercase Space Grotesk 500 editorial treatment already used by “ASK BETTER QUESTIONS.”
+- Longer explanatory headings in consent topics, seven Approach stages, scenarios, anatomy and individual guide headers keep natural-case text while using Space Grotesk with consistent weight and spacing.
+- Responsive font sizes for narrow screens avoid overpowering card content, keeping the existing light/dark palette, side padding and navigation animations.
+- The typography studio now shows a real “ZONING IS ONLY THE BEGINNING.” editorial-card specimen.
+- All main pages use v07.6 cache references for the refreshed CSS, JS and local font stylesheet.
