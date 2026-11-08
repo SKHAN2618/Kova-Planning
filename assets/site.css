@@ -937,3 +937,71 @@ a:hover .kova-line-arrow,button:hover .kova-line-arrow{transform:translate3d(3px
   .process-trust::before{width:110%;right:-60%;opacity:.13;background-size:49px 49px}
   .about-future::before{width:125%;right:-70%;opacity:.055}
 }
+
+
+/* KOVA v07.3 / BREATH — expressive editorial type and buttery transitions */
+:root{
+  --font:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
+  --font-display:'Space Grotesk','Instrument Sans',Arial,sans-serif;
+  --kova-breathe-ease:cubic-bezier(.16,1,.3,1);
+  --kova-route-x:23px;
+}
+body,button,input,select,textarea{font-family:var(--font)}
+h1,h2,h3,.internal-headline h1,.hero-left h1,.manifesto-grid h2,
+.section-intro h2,.chapter-gateway h2,.founder-teaser h2,.about-future h2,
+.footer-question span,.footer-prelude,.contact-message h2{
+  font-family:var(--font-display);
+}
+h1,h2,h3{font-weight:500}
+.hero-left h1,.internal-headline h1{font-weight:500;letter-spacing:-.066em;line-height:1.01}
+.section-intro h2,.chapter-gateway h2,.founder-teaser h2,.about-future h2{letter-spacing:-.062em}
+.desktop-nav,.header-cta,.mobile-drawer,.text-link{font-family:var(--font)}
+/* "Breathe in / breathe out" while changing pages. Header stays stationary. */
+@keyframes kova-breathe-out{
+  0%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+  100%{opacity:.16;transform:translate3d(calc(var(--kova-route-x)*-.28),-7px,0) scale(.989)}
+}
+@keyframes kova-breathe-in{
+  0%{opacity:.08;transform:translate3d(var(--kova-route-x),17px,0) scale(.984)}
+  100%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+@supports(view-transition-name:kova-content){
+  ::view-transition-old(kova-content){
+    animation:kova-breathe-out .41s cubic-bezier(.55,0,.84,.38) both!important
+  }
+  ::view-transition-new(kova-content){
+    animation:kova-breathe-in .82s var(--kova-breathe-ease) .045s both!important
+  }
+  ::view-transition-group(kova-content){animation-duration:.86s!important}
+}
+/* Internal expertise panels and articles are animated using the Web Animations
+   API, allowing cancel-and-replace on fast repeated clicks. */
+#topic-viewport,#stage-viewport,#scenario-viewport,#anatomy-detail,#insights-viewport{
+  transform-origin:50% 15%;min-width:0
+}
+.topic-tab,.stage-tab,.scenario-option,.anatomy-part,
+.expertise-index-inner a,.insight-card,.explainer-grid .insight-card{
+  transition:background-color .45s var(--kova-breathe-ease),
+  border-color .42s var(--kova-breathe-ease),
+  color .37s var(--kova-breathe-ease),
+  transform .58s var(--kova-breathe-ease);
+}
+@media(hover:hover) and (pointer:fine){
+  .topic-tab:hover,.stage-tab:hover,.scenario-option:hover,.anatomy-part:hover{
+    transform:translate3d(0,-2px,0)
+  }
+}
+/* Lower-motion reveals: composited opacity and transforms only. */
+.reveal{transition:opacity .82s cubic-bezier(.22,.7,.31,1),transform .96s var(--kova-breathe-ease)}
+.reveal.is-visible{opacity:1;transform:translate3d(0,0,0)}
+@media(max-width:650px){
+  .hero-left h1,.internal-headline h1{letter-spacing:-.065em;line-height:1.015}
+  .insights-preview .insight-teasers a>h3{letter-spacing:-.049em}
+  .page-section .section-intro h2{letter-spacing:-.058em}
+}
+@media(prefers-reduced-motion:reduce){
+  ::view-transition-old(kova-content),::view-transition-new(kova-content){
+    animation:none!important
+  }
+  .topic-tab,.stage-tab,.scenario-option,.anatomy-part,.reveal{transition:none!important}
+}
