@@ -1033,9 +1033,6 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
 .stage-tab.active::after,.topic-tab.active::after,.anatomy-part.active::after,.scenario-option.active::after{
   transform:scaleX(1)
 }
-#topic-viewport,#stage-viewport,#scenario-viewport,#anatomy-detail,#insights-viewport{
-  contain:layout style;
-}
 @media(prefers-reduced-motion:reduce){
   #main{will-change:auto!important}
   .stage-tab::after,.topic-tab::after,.anatomy-part::after,.scenario-option::after{transition:none!important}
