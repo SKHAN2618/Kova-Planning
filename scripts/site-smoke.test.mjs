@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=072/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=072/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=073/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=073/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -119,13 +119,15 @@ assert.match(js,/typeof ROOT\.animate/,'Graceful legacy-browser animation fallba
 assert.match(js,/function enhanceNavLetters/,'Staggered menu-letter hover effect');
 assert.doesNotMatch(js,/const transition = document\.getElementById\('page-transition'\)/,'Obsolete blackout curtain removed from runtime');
 assert.match(css,/KOVA v07\.2 \/ SILK/,'v07.2 design language included');
-assert.match(css,/--font:'Geist'/,'Geist is the website-wide font');
+assert.match(css,/--font:'Instrument Sans'/,'Instrument Sans is the website body font');
+assert.match(css,/--font-display:'Space Grotesk'/,'Space Grotesk gives headlines character');
 assert.match(css,/::view-transition-new\(kova-content\)/,'New page fades in through View Transitions');
 assert.match(css,/@keyframes kova-letter-ripple/,'Navigation ripple is defined');
 assert.match(css,/\.about-drawing\.reveal img/,'Architectural drawing entrance implemented');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/fonts\.googleapis\.com\/css2\?family=Geist/,'Geist font linked on '+page);
+  assert.match(html,/family=Instrument\+Sans/,'Instrument Sans is loaded on '+page);
+  assert.match(html,/family=Space\+Grotesk/,'Space Grotesk is loaded on '+page);
   assert.doesNotMatch(html,/id="page-transition"/,'Blackout overlay removed from '+page);
 }
 const privacy=readFileSync('privacy.html','utf8');
@@ -169,3 +171,19 @@ vm.runInContext('go()',nativeContext,{timeout:5000});
 assert.equal(nativeDoc.transitions,1,'Native transition invoked exactly once');
 assert.match(byId('main').innerHTML,/id="anatomy-of-consent"/,'Native transition installs the next page');
 console.log('PASS: runtime View Transition lifecycle and accessible nav ripple.');
+
+/* v07.3 breathing transitions, panel swaps and scrolling checks */
+assert.match(js,/const panelAnimations=new WeakMap\(\)/,'Rapid panel changes are tracked');
+assert.match(js,/function swapPanel\(/,'Central two-stage panel animator exists');
+assert.match(js,/outgoing\.finished\.then/,'Outgoing panel is allowed to finish before the next mounts');
+assert.match(js,/panelAnimations\.get\(panel\)!==outgoing/,'Superseded panel changes cannot overwrite newer selections');
+assert.match(js,/swapPanel\(vp,guideMarkup\(key\)/,'Guide detail transitions use the shared animation');
+assert.match(js,/showGuide\(key,false,true\)/,'Directly linked guides render without delayed swaps');
+assert.match(js,/selectTopic\(key,true,true\)/,'Directly linked consent topics render without delayed swaps');
+assert.match(js,/lerp: 0\.073, wheelMultiplier: 0\.88/,'Desktop wheel easing has been softened');
+assert.match(js,/syncTouch: false/,'iOS native kinetic scrolling remains intact');
+assert.match(css,/KOVA v07\.3 \/ BREATH/,'v07.3 motion and font design system exists');
+assert.match(css,/@keyframes kova-breathe-in/,'Breathe-in entrance animation exists');
+assert.match(css,/@keyframes kova-breathe-out/,'Breathe-out exit animation exists');
+assert.match(css,/@media\(hover:none\) and \(pointer:coarse\)/,'Touch hardware avoids expensive scrolling blur');
+console.log('PASS: v07.3 refined navigation, animated panel exchanges and scrolling guardrails.');
