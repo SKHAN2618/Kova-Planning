@@ -67,3 +67,10 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Added pinned Lenis 1.3.27 smooth-wheel easing on fine-pointer desktop only. No scroll smoothing on touch devices or when reduced motion is preferred. Native scrolling remains available if the external script fails.
 - Added softer editorial reveals, architectural diagram wipe, restrained hover motion and smoother transitions inside planning modules.
 - All seven static pages use versioned v07.0 CSS/JS to avoid stale cache; existing contact draft and planning content unchanged.
+
+## v07.1 — Responsive spacing refinement
+- Restored deliberate padding on both homepage Planning Explained cards, including the charcoal second card on phones and tablets.
+- Harmonised text spacing and link alignment on desktop, tablet, mobile and narrow phones.
+- Changed the homepage CTA to “Explore all our planning explainers” in static markup and the JavaScript renderer.
+- Audited shared grid minimum sizes, contact form stacking at tablet widths, footer text wrapping and compact mobile gutters.
+- Retained v07.0 motion, existing KOVA brand treatments and ten-guide content.
