@@ -1041,3 +1041,89 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
 /* KOVA v07.5 — no on-page text or glyph is assigned Arial. Approved font
    roles are provided by assets/font-families.css and this shared cascade.
    Network failures fall back to the device's native system UI typeface. */
+
+
+/* KOVA v07.6 / THE SAME VOICE — carry the ASK BETTER QUESTIONS. display
+   treatment to feature cards without changing the readable body typeface. */
+.insights-preview .insight-teasers a>h3,
+.explainer-grid .insight-card h3,
+.service-overview-card h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-optical-sizing:auto;
+  text-transform:uppercase;
+  letter-spacing:-.068em;
+  line-height:1.04;
+  text-wrap:balance;
+  overflow-wrap:normal;
+  hyphens:none;
+}
+.insights-preview .insight-teasers a>h3{
+  max-width:20ch;
+  font-size:clamp(31px,3.4vw,53px);
+}
+.explainer-grid .insight-card h3{
+  max-width:21ch;
+  font-size:clamp(30px,3.65vw,52px);
+}
+.service-overview-card h3{
+  max-width:21ch;
+  font-size:clamp(29px,3.05vw,49px);
+}
+/* Keep longer information-rich planning titles in natural case, but retain
+   the same Space Grotesk display family and refined spacing. */
+.topic-hero h3,
+.stage-v04 .stage-main h3,
+.scenario-title h3,
+.anatomy-detail h3,
+.full-article header h2{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-optical-sizing:auto;
+  letter-spacing:-.065em;
+  text-wrap:balance;
+}
+@media(max-width:760px){
+  .insights-preview .insight-teasers a>h3{
+    font-size:clamp(31px,6.2vw,44px);
+    line-height:1.06;
+    max-width:22ch;
+  }
+  .explainer-grid .insight-card h3{
+    font-size:clamp(29px,6.3vw,45px);
+    line-height:1.06;
+  }
+  .service-overview-card h3{
+    font-size:clamp(29px,5.8vw,39px);
+    line-height:1.06;
+  }
+}
+@media(max-width:650px){
+  .insights-preview .insight-teasers>a,
+  .insights-preview .insight-teasers>a:nth-child(2){
+    min-height:335px;
+  }
+  .insights-preview .insight-teasers a>h3{
+    font-size:clamp(29px,7.65vw,39px);
+    line-height:1.06;
+    letter-spacing:-.059em;
+    max-width:19ch;
+  }
+  .explainer-grid .insight-card h3{
+    font-size:clamp(28px,7.3vw,39px);
+    line-height:1.07;
+    letter-spacing:-.057em;
+  }
+}
+@media(max-width:380px){
+  .insights-preview .insight-teasers a>h3{
+    font-size:clamp(27px,7.3vw,31px);
+    letter-spacing:-.055em;
+    line-height:1.08;
+  }
+  .explainer-grid .insight-card h3{
+    font-size:clamp(27px,7.3vw,34px);
+    letter-spacing:-.054em;
+    line-height:1.07;
+  }
+}
