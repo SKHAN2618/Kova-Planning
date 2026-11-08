@@ -86,7 +86,7 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=068/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=068/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=069/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=069/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
