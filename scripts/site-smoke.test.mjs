@@ -57,7 +57,7 @@ const click=selectorAndNode=>{
 assert.equal((callbacks['document:click']||[]).length>=2,true,'Delegated clicks should be registered');
 api.mount('expertise',new URLSearchParams());
 assert.match(byId('main').innerHTML,/id="anatomy-of-consent"/);
-assert.equal((byId('main').innerHTML.match(/class="anatomy-part/g)||[]).length,7,'Seven anatomy topic controls');
+assert.equal((byId('main').innerHTML.match(/class="anatomy-part(?:\s|")/g)||[]).length,7,'Seven anatomy topic controls');
 for(let i=0;i<7;i++){
  click({'[data-anatomy]':{dataset:{anatomy:String(i)}}});
  assert.ok(byId('anatomy-detail').innerHTML.includes(api.anatomyNodes[i].title),'Anatomy topic '+i);
