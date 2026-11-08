@@ -86,14 +86,14 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=073/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=073/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=074/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=074/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
 const css=readFileSync('assets/site.css','utf8');
 assert.match(js,/new window\.Lenis/, 'Desktop smooth scrolling with native fallback');
-assert.match(js,/document\.startViewTransition/, 'Native page transition crossfades content');
+assert.match(js,/outgoing\.finished\.then/, 'Outgoing page finishes before content changes');
 assert.match(css,/KOVA V07\.0/, 'KOVA v07 motion and contrast design system');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
@@ -114,8 +114,8 @@ assert.match(css,/\.contact-layout\{grid-template-columns:minmax\(0,1fr\)/,'Tabl
 console.log('PASS: KOVA v07.1 responsive card spacing, CTA and page asset versions.');
 
 /* v07.2 / smooth navigation, font and architectural motion regressions */
-assert.match(js,/document\.startViewTransition/,'Native crossfade navigation enabled');
-assert.match(js,/typeof ROOT\.animate/,'Graceful legacy-browser animation fallback');
+assert.match(js,/ROOT\.animate/,'Two-phase page fade uses Web Animations');
+assert.match(js,/reduceMotion\|\|typeof ROOT\.animate/,'Reduced motion and older browsers retain direct navigation');
 assert.match(js,/function enhanceNavLetters/,'Staggered menu-letter hover effect');
 assert.doesNotMatch(js,/const transition = document\.getElementById\('page-transition'\)/,'Obsolete blackout curtain removed from runtime');
 assert.match(css,/KOVA v07\.2 \/ SILK/,'v07.2 design language included');
@@ -166,11 +166,23 @@ new vm.Script(js,{filename:'assets/site.js'}).runInContext(nativeContext,{timeou
 assert.ok(rippleLinks.every(link=>link.innerHTML.includes('nav-letter')),'Navigation text is wrapped in ripple spans');
 assert.ok(rippleLinks.every((link,i)=>link['aria-label']===rippleLabels[i]),'Navigation retains accessible labels');
 assert.match(rippleLinks[2].innerHTML,/nav-space/,'Multiword navigation spacing retained');
+const activeMain=byId('main');
+const navigationAnimations=[];
+activeMain.animate=(keyframes,options)=>{
+  navigationAnimations.push({keyframes,options});
+  return {finished:Promise.resolve(),cancel(){}};
+};
+const oldMarkup=activeMain.innerHTML;
 nativeLocation.pathname='/Kova-Planning/expertise.html';
 vm.runInContext('go()',nativeContext,{timeout:5000});
-assert.equal(nativeDoc.transitions,1,'Native transition invoked exactly once');
-assert.match(byId('main').innerHTML,/id="anatomy-of-consent"/,'Native transition installs the next page');
-console.log('PASS: runtime View Transition lifecycle and accessible nav ripple.');
+assert.equal(navigationAnimations.length,1,'Old page fades before new content is mounted');
+assert.equal(activeMain.innerHTML,oldMarkup,'Old content remains until exit fade is complete');
+await Promise.resolve();
+assert.match(activeMain.innerHTML,/id="anatomy-of-consent"/,'New page mounts after exit fade');
+assert.equal(navigationAnimations.length,2,'New page has a separate entrance animation');
+assert.equal(nativeDoc.transitions,0,'Legacy immediate view-transition swap is no longer used');
+await Promise.resolve();
+console.log('PASS: two-stage page lifecycle and accessible navigation ripple.');
 
 /* v07.3 breathing transitions, panel swaps and scrolling checks */
 assert.match(js,/const panelAnimations=new WeakMap\(\)/,'Rapid panel changes are tracked');
@@ -187,3 +199,22 @@ assert.match(css,/@keyframes kova-breathe-in/,'Breathe-in entrance animation exi
 assert.match(css,/@keyframes kova-breathe-out/,'Breathe-out exit animation exists');
 assert.match(css,/@media\(hover:none\) and \(pointer:coarse\)/,'Touch hardware avoids expensive scrolling blur');
 console.log('PASS: v07.3 refined navigation, animated panel exchanges and scrolling guardrails.');
+
+/* v07.4 / scroll-reset-before-reveal and font specimen safeguards */
+assert.match(js,/ROOT\.style\.opacity='0'/,'Old page remains hidden during the scroll reset');
+assert.match(js,/outgoing\.finished\.then\(\(\)=>/,'Content swaps only after outgoing opacity reaches zero');
+assert.match(js,/arriving\.finished\.then/,'Incoming page has a distinct completion lifecycle');
+assert.match(js,/scrollToTarget\(document\.querySelector\('\.knowledge-section'\),instant\)/,'Deep-link focus positions without animated top jumping');
+assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and page-reset styles included');
+assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.match(html,/assets\/site\.css\?v=074/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=074/,'New JS version '+page);
+}
+const typeStudy=readFileSync('type-study.html','utf8');
+assert.match(typeStudy,/family=Space\+Grotesk/,'Live display specimen');
+assert.match(typeStudy,/family=Instrument\+Sans/,'Live body specimen');
+assert.match(typeStudy,/TRY YOUR OWN HEADLINE/,'Editable typography sample');
+assert.match(typeStudy,/PREVIEW ON CHARCOAL/,'Dark and light type comparison');
+console.log('PASS: v07.4 staged navigation, scroll reset and typography examples.');
