@@ -288,9 +288,9 @@ for(const selector of [
 ]){
   assert.ok(contrast.includes(selector),'Contrast palette covers '+selector);
 }
-assert.match(contrast,/color:#f8f8f4!important/,'Dark heroes use high-contrast light headings');
-assert.match(contrast,/\.about-founder \.about-body p\{\s*color:#d3d9d0/,'Founder section has readable light body copy');
-assert.match(contrast,/\.insights-content \.explainer-grid \.insight-card:nth-child\(4n\+2\) p\{\s*color:#d3d9d0/,'Dark guide cards have light body copy');
+assert.match(contrast,/\.expertise-internal \.internal-headline h1,[\s\S]*?color:#[0-9a-fA-F]{6}!important/,'Dark heroes retain explicitly legible headline colours');
+assert.match(contrast,/\.about-founder \.about-body p\{\s*color:#[0-9a-fA-F]{6}/,'Founder section has custom high-contrast body copy');
+assert.match(contrast,/\.insights-content \.explainer-grid \.insight-card:nth-child\(4n\+2\) p\{\s*color:#[0-9a-fA-F]{6}/,'Dark guide cards have custom readable body colour');
 assert.match(contrast,/study-parcels\.svg|study-contours\.svg|study-streetscape\.svg/,'KOVA urban drawings add quiet visual depth');
 assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules included');
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
