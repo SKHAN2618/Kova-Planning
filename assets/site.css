@@ -687,3 +687,13 @@ body:has(main[data-page="privacy"]) .footer-invitation{display:none}
 .service-overview-card p{font-size:15px;line-height:1.75;color:#51514f;}
 .contact-message>p{line-height:1.78;}
 @media(max-width:650px){.v05-footer .footer-bottom{padding-inline:var(--gutter);gap:18px;flex-wrap:wrap;}.section-intro>p{font-size:15px;line-height:1.7}.internal-headline p{font-size:16px}}
+
+/* KOVA v06.7 — ten curated field notes, consistently light editorial index */
+.explainer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid #d8d8d5;border-left:1px solid #d8d8d5;margin-top:33px}
+.explainer-grid .insight-card{margin:0!important;min-height:270px!important;padding:32px clamp(20px,3vw,44px)!important;background:transparent!important;border:0!important;border-right:1px solid #d8d8d5!important;border-bottom:1px solid #d8d8d5!important;border-radius:0!important;transition:background .25s ease!important}
+.explainer-grid .insight-card:hover,.explainer-grid .insight-card:focus-visible{background:#efefed!important}
+.explainer-grid .insight-card h3{font-size:clamp(28px,3.1vw,47px);line-height:1.09;letter-spacing:-.055em;margin:33px 0 16px}
+.explainer-grid .insight-card p{max-width:450px;font-size:15px;line-height:1.66;color:#656562!important}
+.explainer-grid .insight-card>span{margin-top:auto;letter-spacing:.1em;font-size:11px}
+.explainers-intro span{font-size:10px;letter-spacing:.14em;font-weight:630}
+@media(max-width:720px){.explainer-grid{grid-template-columns:1fr}.explainer-grid .insight-card{min-height:242px!important;padding:27px 23px!important}.explainer-grid .insight-card h3{font-size:clamp(28px,7vw,41px);margin:26px 0 13px}.explainer-grid .insight-card p{font-size:14px}}
