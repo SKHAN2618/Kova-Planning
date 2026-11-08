@@ -125,3 +125,13 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Contact: introduced a charcoal hero to frame the enquiry form against white paper, without modifying fields or submission logic.
 - Continued to use the original KOVA site study assets and current Space Grotesk / Instrument Sans WOFF2 fonts. Existing navigation effects, reduced-motion preferences, and guide/consent interactions are preserved.
 - Expanded automated regression assertions for each major contrast section, dark-surface readability, local assets and responsive rules.
+
+## v07.8 — Full Cool-Tone KOVA Palette
+- Migrated the entire website visual system from yellow/olive/warm-neutrals to an architectural cool monochrome: cool paper `#F5F8FA`, mist `#E8EDF1`, concrete `#D0D9E0`, steel `#93A1AC`, graphite `#252C33`, and ink `#171D23`.
+- Remapped every existing neutral hexadecimal and RGB(A) value in the main CSS according to a luminance-preserving steel-blue-grey scale, rather than only recolouring feature sections. Contrast, typographic hierarchy, card alternation and page animations remain structurally unchanged.
+- Updated original KOVA conceptual aerial, contour, street and parcel SVG line studies to cool grey strokes. White-on-charcoal illustrations now use true white linework to avoid inversion creating accidental warm tints; PNG line studies remain neutral monochrome.
+- Refreshed the Typography Studio's actual backgrounds and accent colours, keeping the approved Space Grotesk / Instrument Sans local webfonts and font-load diagnostics.
+- Updated all seven HTML page style/script cache references to v07.8 and iPhone/browser theme colours to the cool paper tone.
+- Preserved the official monochrome brand mark, the ten explainer guides, seven planning stages, enquiry form, text content, reduced-motion support and navigation transition logic.
+- Kept the two existing form-error colours red for clear validation feedback; pure black and pure white remain neutral where they serve legibility or graphic contrast.
+- Extended regression checks for the new shared palette, cool SVG artwork, local fonts, site-wide asset versions and seven-page colour consistency.
