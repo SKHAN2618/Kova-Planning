@@ -959,7 +959,7 @@ h1,h2,h3{font-weight:500}
 /* "Breathe in / breathe out" while changing pages. Header stays stationary. */
 @keyframes kova-breathe-out{
   0%{opacity:1;transform:translate3d(0,0,0) scale(1)}
-  100%{opacity:.16;transform:translate3d(calc(var(--kova-route-x)*-.28),-7px,0) scale(.989)}
+  100%{opacity:.16;transform:translate3d(0,-7px,0) scale(.989)}
 }
 @keyframes kova-breathe-in{
   0%{opacity:.08;transform:translate3d(var(--kova-route-x),17px,0) scale(.984)}
@@ -1004,4 +1004,11 @@ h1,h2,h3{font-weight:500}
     animation:none!important
   }
   .topic-tab,.stage-tab,.scenario-option,.anatomy-part,.reveal{transition:none!important}
+}
+
+/* Mobile touch scrolling stays native. Avoid a costly full header backdrop
+   repaint on every kinetic scroll frame; keep its soft glass-like feel. */
+@media(hover:none) and (pointer:coarse){
+  .header{-webkit-backdrop-filter:blur(8px) saturate(112%);backdrop-filter:blur(8px) saturate(112%)}
+  .desktop-nav .nav-letter{will-change:auto}
 }
