@@ -677,3 +677,13 @@ body:has(main[data-page="privacy"]) .footer-invitation{display:none}
 @media(max-width:650px){
  .insights-hero::after,.about-hero::after,.approach-hero::after,.contact-hero::after{opacity:.17!important;top:43%!important;height:43%!important;right:-66%!important}
 }
+
+/* KOVA v06.6 — measured typography and safe footer gutters */
+.v05-footer .footer-bottom{padding-left:var(--gutter);padding-right:var(--gutter);max-width:1640px;margin-inline:auto;}
+.v05-footer .footer-bottom>span:last-child{text-align:right;}
+.hero-bottom p{font-size:clamp(15px,1.16vw,17px);line-height:1.75;color:#575757;}
+.section-intro>p{font-size:clamp(15px,1.12vw,17px);line-height:1.73;max-width:375px;color:#545454;}
+.internal-headline p{font-size:clamp(16px,1.14vw,18px);line-height:1.72;max-width:385px;color:#575757;}
+.service-overview-card p{font-size:15px;line-height:1.75;color:#51514f;}
+.contact-message>p{line-height:1.78;}
+@media(max-width:650px){.v05-footer .footer-bottom{padding-inline:var(--gutter);gap:18px;flex-wrap:wrap;}.section-intro>p{font-size:15px;line-height:1.7}.internal-headline p{font-size:16px}}

@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v06.5
+# KOVA Planning Co. | Website v06.6
 
 Six-page static website for a founder-led Auckland planning consultancy.
 
@@ -24,9 +24,17 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserved.
 
 
-## v06.5 update
+## v06.6 update
 - A permanent branded Privacy page (`privacy.html`) replaces the short modal; all footers link to it.
 - The privacy page explains browser-only draft enquiries, GitHub Pages IP logging, direct correspondence, limited sharing, rights and current contact limitations.
 - Two additional generated architectural line studies integrated at section level with alpha transparency and consistent monochrome treatment.
 - Existing four vector sketches remain.
 - No new collection mechanism, analytics or backend has been added.
+
+## v06.6 copy and layout refinements
+
+- Edited introductory and supporting copy for confident, precise planning language; retained source-specific legal/technical details and the founder's main story.
+- Changed the general service dropdown option to `General Inquiries`.
+- Consistent `Our Approach` navigation title case and corrected Contact chapter number.
+- Improved secondary text contrast and reading rhythm without replacing the approved KOVA typeface.
+- Removed the redundant footer home link and restored horizontal footer gutter on mobile and desktop.
