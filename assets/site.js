@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.0
+/* KOVA PLANNING CO. / WEBSITE V07.1
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -97,7 +97,7 @@ function home(){return `
   </div>
 </section>
 <section class="founder-teaser"><div class="shell founder-teaser-inner"><div class="founder-teaser-left"><span>03 / THE THINKING BEHIND KOVA</span><h2>CITIES ARE<br><em>NEVER FINISHED.</em></h2></div><div class="founder-teaser-right"><span>FOUNDER-LED / BUILT ON CURIOSITY</span><p>Places evolve through the choices made for them. KOVA began with a curiosity about those choices and the opportunities they create for people and communities.</p>${A('about','Discover why KOVA began','text-link')}</div></div></section>
-<section class="insights-preview page-section"><div class="shell">${sectionHead('04','PLANNING EXPLAINED','FIELD NOTES / KOVA')}<div class="section-intro"><h2>ASK BETTER<br><span>QUESTIONS.</span></h2><p>Practical ideas, clearly explained. Explore the questions that shape a site's possibilities, and where to look next.</p></div><div class="insight-teasers"><a href="insights.html?guide=zoning" data-route="insights"><small>EXPLAINER / 01</small><h3>Zoning is only the beginning.</h3><span>What your site rules really tell you ${lineArrow}</span></a><a href="insights.html?guide=constraints" data-route="insights"><small>EXPLAINER / 02</small><h3>Why some sites are harder to develop.</h3><span>Explore the hidden considerations ${lineArrow}</span></a></div><div class="insights-preview-more">${A('insights','Explore all 10 planning explainers','text-link')}</div></div></section>
+<section class="insights-preview page-section"><div class="shell">${sectionHead('04','PLANNING EXPLAINED','FIELD NOTES / KOVA')}<div class="section-intro"><h2>ASK BETTER<br><span>QUESTIONS.</span></h2><p>Practical ideas, clearly explained. Explore the questions that shape a site's possibilities, and where to look next.</p></div><div class="insight-teasers"><a href="insights.html?guide=zoning" data-route="insights"><small>EXPLAINER / 01</small><h3>Zoning is only the beginning.</h3><span>What your site rules really tell you ${lineArrow}</span></a><a href="insights.html?guide=constraints" data-route="insights"><small>EXPLAINER / 02</small><h3>Why some sites are harder to develop.</h3><span>Explore the hidden considerations ${lineArrow}</span></a></div><div class="insights-preview-more">${A('insights','Explore all our planning explainers','text-link')}</div></div></section>
 `;}
 
 const topicContent = {
