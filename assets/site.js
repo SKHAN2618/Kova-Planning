@@ -26,7 +26,7 @@ const smoothScroll = (() => {
 })();
 const scrollToTarget = (node, immediate = false) => {
   if (!node) return;
-  if (smoothScroll) smoothScroll.scrollTo(node, {immediate, duration: 1.18, offset: -(window.innerWidth < 761 ? 88 : 118), easing:t=>1-Math.pow(1-t,4)});
+  if (smoothScroll) smoothScroll.scrollTo(node, {immediate, duration: 1.18, offset: -(window.innerWidth < 761 ? 88 : 118), easing:t=>1-Math.pow(1-t,4), force:immediate});
   else node.scrollIntoView({behavior: immediate || reduceMotion ? 'instant' : 'smooth', block:'start'});
 };
 const scrollToTop = (immediate = false) => {
