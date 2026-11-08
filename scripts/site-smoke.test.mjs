@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=070/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=070/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=071/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=071/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -99,3 +99,16 @@ for(const page of ['index','expertise','approach','insights','about','contact','
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/lenis@1\.3\.27/, 'Pinned scroll library on '+page);
 }
+
+const homepage=readFileSync('index.html','utf8');
+assert.match(homepage,/Explore all our planning explainers/,'Static homepage CTA is timeless');
+assert.match(js,/Explore all our planning explainers/,'Dynamic homepage CTA matches');
+assert.doesNotMatch(homepage,/Explore all 10 planning explainers/,'No numeric CTA in static markup');
+assert.doesNotMatch(js,/Explore all 10 planning explainers/,'No numeric CTA in dynamic markup');
+assert.match(css,/KOVA v07\.1 — responsive spacing audit/,'v07.1 CSS is present');
+assert.match(css,/\.insights-preview \.insight-teasers>a:nth-child\(2\)\{/,'Dark card uses an explicit gutter');
+assert.match(css,/@media\(max-width:760px\)/,'Tablet card spacing included');
+assert.match(css,/@media\(max-width:650px\)/,'Phone card spacing included');
+assert.match(css,/@media\(max-width:380px\)/,'Compact phone spacing included');
+assert.match(css,/\.contact-layout\{grid-template-columns:minmax\(0,1fr\)/,'Tablet contact stacks gracefully');
+console.log('PASS: KOVA v07.1 responsive card spacing, CTA and page asset versions.');
