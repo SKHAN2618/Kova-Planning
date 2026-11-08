@@ -93,7 +93,7 @@ console.log('PASS: syntax, seven anatomy controls, ten guide open/return interac
 
 const css=readFileSync('assets/site.css','utf8');
 assert.match(js,/new window\.Lenis/, 'Desktop smooth scrolling with native fallback');
-assert.match(js,/transitionend/, 'Page transition follows CSS completion');
+assert.match(js,/document\.startViewTransition/, 'Native page transition crossfades content');
 assert.match(css,/KOVA V07\.0/, 'KOVA v07 motion and contrast design system');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
