@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=075/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=075/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=076/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=076/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -209,11 +209,11 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=075/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=075/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=076/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=076/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
-assert.match(typeStudy,/assets\/font-families\.css\?v=075/,'Font specimen uses local shared families');
+assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
 assert.match(typeStudy,/id="font-audit"/,'Font specimen tests actual downloaded faces');
 assert.match(typeStudy,/TRY YOUR OWN HEADLINE/,'Editable typography sample');
 assert.match(typeStudy,/PREVIEW ON CHARCOAL/,'Dark and light type comparison');
@@ -246,9 +246,29 @@ assert.match(js,/function checkKovaFonts\(/,'Every page can inspect actual loade
 assert.match(js,/fonts\.load\(/,'Font checks use browser FontFaceSet rather than guessing from CSS');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/font-families\.css\?v=075/,'Local face CSS linked on '+page);
+  assert.match(html,/assets\/font-families\.css\?v=076/,'Local face CSS linked on '+page);
   assert.doesNotMatch(html,/fonts\.googleapis\.com|fonts\.gstatic\.com/,'No external font host on '+page);
 }
 assert.doesNotMatch(typeStudy,/fonts\.googleapis\.com|fonts\.gstatic\.com/,'Type study also loads fonts locally');
 assert.match(typeStudy,/auditKovaFonts/,'Typography preview reports font status');
 console.log('PASS: 6 local WOFF2 fonts, 2 OFL licenses, 7 pages, no Arial overrides or Google Fonts requests.');
+
+/* v07.6 — matching the KOVA editorial display treatment */
+assert.match(css,/KOVA v07\.6 \/ THE SAME VOICE/,'Coordinated card typography ships');
+for(const selector of [
+  '.insights-preview .insight-teasers a>h3',
+  '.explainer-grid .insight-card h3',
+  '.service-overview-card h3',
+  '.topic-hero h3',
+  '.stage-v04 .stage-main h3',
+  '.scenario-title h3',
+  '.anatomy-detail h3',
+  '.full-article header h2'
+]){
+  assert.ok(css.slice(css.lastIndexOf('KOVA v07.6 / THE SAME VOICE')).includes(selector),'Display font applies to '+selector);
+}
+assert.match(css,/text-transform:uppercase/,'Feature cards have uppercase editorial styling');
+assert.match(typeStudy,/02 \/ EDITORIAL CARD TITLES/,'Font studio demonstrates matching card type');
+assert.match(typeStudy,/ZONING IS ONLY/,'The zoning sample is shown with the correct styling');
+assert.match(js,/WEBSITE V07\.6/,'Site renderer version is current');
+console.log('PASS v07.6 — typography hierarchy, guide titles and responsive readability.');
