@@ -132,3 +132,40 @@ const privacy=readFileSync('privacy.html','utf8');
 assert.match(privacy,/Google Fonts and an optional smooth-scrolling library/,'Third-party font and script disclosed');
 assert.match(js,/Google Fonts and an optional smooth-scrolling library/,'Interactive privacy copy remains in sync');
 console.log('PASS: v07.2 font, transitions, accessible navigation ripple and architectural motion.');
+
+/* Native transition and nav ripple lifecycle test: exercises runtime, not only source strings. */
+const rippleLabels=['Home','Expertise','Our Approach','Insights','About'];
+const rippleLinks=rippleLabels.map(label=>({
+  textContent:label,innerHTML:'',querySelector(){return null},
+  setAttribute(name,value){this[name]=value}
+}));
+const nativeDoc={
+  ...document,
+  transitions:0,
+  querySelector(selector){
+    if(selector==='.desktop-nav')return {querySelectorAll:()=>rippleLinks};
+    return document.querySelector(selector);
+  },
+  startViewTransition(callback){
+    this.transitions++;
+    callback();
+    return {finished:Promise.resolve()};
+  }
+};
+const nativeWindow={...window,matchMedia(){return {matches:false}}};
+const nativeLocation={...location,pathname:'/Kova-Planning/index.html'};
+const nativeContext=vm.createContext({
+  document:nativeDoc,window:nativeWindow,history,location:nativeLocation,
+  navigator:{clipboard:{}},URL,URLSearchParams,console,
+  requestAnimationFrame(fn){fn()},
+  IntersectionObserver:class{observe(){} unobserve(){}}
+});
+new vm.Script(js,{filename:'assets/site.js'}).runInContext(nativeContext,{timeout:5000});
+assert.ok(rippleLinks.every(link=>link.innerHTML.includes('nav-letter')),'Navigation text is wrapped in ripple spans');
+assert.ok(rippleLinks.every((link,i)=>link['aria-label']===rippleLabels[i]),'Navigation retains accessible labels');
+assert.match(rippleLinks[2].innerHTML,/nav-space/,'Multiword navigation spacing retained');
+nativeLocation.pathname='/Kova-Planning/expertise.html';
+vm.runInContext('go()',nativeContext,{timeout:5000});
+assert.equal(nativeDoc.transitions,1,'Native transition invoked exactly once');
+assert.match(byId('main').innerHTML,/id="anatomy-of-consent"/,'Native transition installs the next page');
+console.log('PASS: runtime View Transition lifecycle and accessible nav ripple.');
