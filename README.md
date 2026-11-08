@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v07.5
+# KOVA Planning Co. | Website v07.9
 
 Six-page static website for a founder-led Auckland planning consultancy.
 
@@ -135,3 +135,12 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Preserved the official monochrome brand mark, the ten explainer guides, seven planning stages, enquiry form, text content, reduced-motion support and navigation transition logic.
 - Kept the two existing form-error colours red for clear validation feedback; pure black and pure white remain neutral where they serve legibility or graphic contrast.
 - Extended regression checks for the new shared palette, cool SVG artwork, local fonts, site-wide asset versions and seven-page colour consistency.
+
+## v07.9 — Fluid interactions and mobile shortcut spacing
+- Fixed a mobile layout regression visible on iPhone: the Expertise page's "01 / Consent explorer" shortcut rail previously used zero horizontal padding. It now has a full shell gutter, an additional first-item inset, and matching scroll padding.
+- Refactored planning tool transitions so the outgoing content fades away **concurrently** with the new content fading and easing in. This replaces the previous delayed 220 ms exit + 650 ms separate entrance that felt jittery and staggered.
+- The outgoing content is a temporary inert, aria-hidden visual overlay; the new live DOM responds immediately. Rapid clicks cancel and remove old transitions without stale content or unhandled animation promises.
+- Applied this across topic tabs, all seven consent anatomy steps, project scenarios, all seven Approach stages, and guide open/back interactions. Reduced-motion settings and older browser fallbacks still use direct content updates.
+- Refined page navigation to a shorter, subtler fade-and-slide sequence, maintaining the existing fade-out before the scroll-to-top reset.
+- Unified timing/easing for site-wide buttons, links, active tab indicators and scroll reveals without introducing constant parallax or heavy scroll effects on mobile.
+- Updated all seven page asset references and smoke tests. The approved cool palette, locally hosted fonts, six-page architecture and content remain intact.
