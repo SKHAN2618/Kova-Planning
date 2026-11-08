@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v06.6
+# KOVA Planning Co. | Website v07.3
 
 Six-page static website for a founder-led Auckland planning consultancy.
 
@@ -82,3 +82,10 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Refined section entrances, scroll-responsive original architectural illustrations and understated background details. No scroll hijacking on phones.
 - Updated all seven HTML entry pages and the interactive renderer; retired unused curtain markup, updated privacy disclosures for Google Fonts and unpkg, and strengthened smoke tests.
 - Preserved ten Planning Explained guides, consent tools, contact draft functionality, brand assets and site structure.
+
+## v07.3 — Breathe / Move / Read
+- Introduced a two-typeface system: Space Grotesk for architectural headlines, and Instrument Sans for body text, navigation and controls. Both are open-source Google Fonts and require no commercial font licence. The supplied SVG logo remains untouched.
+- Improved route transitions with direction-aware horizontal motion, subtle breathing-scale and longer coordinated fades without returning to the old blackout curtain.
+- Refactored consent topics, scenario explorer, anatomy, approach stages and explainer detail/return interactions to a cancel-safe two-stage fade/slide in and out, preserving reduced-motion support.
+- Made Lenis desktop wheel input feel softer (lerp 0.073, wheel multiplier 0.88), with longer eased anchor scrolling; mobile touch scrolling remains native and the fixed header uses a lighter blur on touch devices.
+- Preserved direct-link guide/topic initial rendering, all planning content, brand assets and enquiry draft functionality. Regression checks verify the new font links, panel sequences and page assets.
