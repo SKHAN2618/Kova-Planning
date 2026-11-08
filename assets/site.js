@@ -95,6 +95,8 @@ function swapPanel(panel,markup,afterSwap,instant=false){
       {opacity:1,transform:'translate3d(0,0,0)'},
       {opacity:0,transform:'translate3d(0,-7px,0)'}
     ],{duration:360,easing:'cubic-bezier(.32,0,.65,1)',fill:'both'});
+    // Cancelling a superseded ghost rejects finished; consume it safely.
+    exit.finished.catch(()=>{});
     state={
       cancel(){
         for(const effect of [...enter,exit]){
