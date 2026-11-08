@@ -912,3 +912,28 @@ a:hover .kova-line-arrow,button:hover .kova-line-arrow{transform:translate3d(3px
   .team-coordination .kova-sketch.reveal img{animation:none!important;transition:none!important;opacity:.9!important;transform:none!important}
   body.menu-open .mobile-drawer a{animation:none!important}
 }
+
+
+/* Original KOVA visual language: quiet architectural grids on charcoal sections. */
+.process-trust,.about-future{position:relative;isolation:isolate;overflow:hidden}
+.process-trust::before{
+  content:'';position:absolute;right:-5%;top:0;width:min(62vw,890px);height:100%;
+  background-image:linear-gradient(to right,rgba(255,255,255,.17) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(255,255,255,.17) 1px,transparent 1px);
+  background-size:58px 58px;opacity:.22;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 58%);
+  mask-image:linear-gradient(90deg,transparent,#000 58%);
+  pointer-events:none;z-index:0
+}
+.about-future::before{
+  content:'';position:absolute;right:-11%;top:-19%;width:min(72vw,870px);height:125%;
+  background:url('study-contours.svg') no-repeat center/contain;
+  opacity:.105;filter:invert(1);pointer-events:none;z-index:0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 60%);
+  mask-image:linear-gradient(90deg,transparent,#000 60%)
+}
+.process-trust-inner,.about-future>.shell{position:relative;z-index:1}
+@media(max-width:650px){
+  .process-trust::before{width:110%;right:-60%;opacity:.13;background-size:49px 49px}
+  .about-future::before{width:125%;right:-70%;opacity:.055}
+}
