@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.8
+/* KOVA PLANNING CO. / WEBSITE V07.9
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -35,42 +35,87 @@ const scrollToTop = (immediate = false) => {
 };
 
 
-/* Controlled two-phase motion for planning tools. The outgoing panel recedes,
-   new content arrives gently from the side, and rapid repeated selections
-   cancel stale animations rather than applying an out-of-order result. */
+/* KOVA 07.9 / Fluid panel transitions.
+   Previous panels did a full exit followed by a separate entrance: an
+   unnecessary 870 ms dead period. Keep the old content as a noninteractive
+   visual snapshot while the new content enters *concurrently*. The live DOM
+   and panel height update immediately, so tab selection stays responsive.
+   Cancel and clean up any superseded motion on rapid successive clicks. */
 const panelAnimations=new WeakMap();
 function swapPanel(panel,markup,afterSwap,instant=false){
   if(!panel)return;
   const previous=panelAnimations.get(panel);
-  if(previous){previous.cancel();panelAnimations.delete(panel);}
+  if(previous){
+    previous.cancel();
+    panelAnimations.delete(panel);
+  }
+  const after=()=>{if(afterSwap)afterSwap()};
   const apply=()=>{
     panel.innerHTML=markup;
     smoothScroll?.resize();
   };
-  const after=()=>{if(afterSwap)afterSwap()};
-  if(instant||reduceMotion||typeof panel.animate!=='function'){apply();after();return;}
+  if(markup===panel.innerHTML){after();return;}
+  if(instant||reduceMotion||typeof panel.animate!=='function'){
+    apply();after();return;
+  }
+  // A small opacity-only fallback for synthetic DOMs and older browsers.
+  if(typeof document.createElement!=='function'||typeof panel.appendChild!=='function'){
+    apply();
+    try{
+      const fade=panel.animate([{opacity:.65},{opacity:1}],
+        {duration:420,easing:'cubic-bezier(.22,1,.36,1)'});
+      fade.finished.then(after,after);
+    }catch(error){after();}
+    return;
+  }
+  let state=null;
   try{
-    const outgoing=panel.animate([
-      {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
-      {opacity:.18,transform:'translate3d(-11px,0,0)'}
-    ],{duration:220,easing:'cubic-bezier(.48,0,.86,.36)',fill:'both'});
-    panelAnimations.set(panel,outgoing);
-    outgoing.finished.then(()=>{
-      if(panelAnimations.get(panel)!==outgoing)return;
-      outgoing.cancel();
-      apply();
-      const incoming=panel.animate([
-        {opacity:.09,transform:'translate3d(15px,0,0)'},
-        {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
-      ],{duration:650,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
-      panelAnimations.set(panel,incoming);
-      incoming.finished.then(()=>{
-        if(panelAnimations.get(panel)!==incoming)return;
-        incoming.cancel();panelAnimations.delete(panel);after();
-      },()=>{});
-    },()=>{});
+    const priorMarkup=panel.innerHTML;
+    const oldHeight=panel.getBoundingClientRect?.().height||0;
+    const ghost=document.createElement('div');
+    ghost.className='kova-panel-ghost';
+    ghost.setAttribute('aria-hidden','true');
+    ghost.inert=true;
+    ghost.innerHTML=priorMarkup;
+    ghost.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
+    // Ghost links and form fields must not enter the keyboard focus order.
+    ghost.querySelectorAll('a,button,input,textarea,select,[tabindex]').forEach(node=>node.setAttribute('tabindex','-1'));
+    apply();
+    const incoming=Array.from(panel.children);
+    if(!incoming.length){
+      after();return;
+    }
+    if(oldHeight>0)ghost.style.height=oldHeight+'px';
+    panel.appendChild(ghost);
+    const enter=incoming.map(node=>node.animate([
+      {opacity:.22,transform:'translate3d(0,11px,0)'},
+      {opacity:1,transform:'translate3d(0,0,0)'}
+    ],{duration:560,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));
+    const exit=ghost.animate([
+      {opacity:1,transform:'translate3d(0,0,0)'},
+      {opacity:0,transform:'translate3d(0,-7px,0)'}
+    ],{duration:360,easing:'cubic-bezier(.32,0,.65,1)',fill:'both'});
+    state={
+      cancel(){
+        for(const effect of [...enter,exit]){
+          try{effect.cancel()}catch(error){}
+        }
+        ghost.remove();
+      }
+    };
+    panelAnimations.set(panel,state);
+    Promise.allSettled(enter.map(animation=>animation.finished)).then(()=>{
+      if(panelAnimations.get(panel)!==state)return;
+      state.cancel();
+      panelAnimations.delete(panel);
+      after();
+    });
   }catch(error){
-    panelAnimations.delete(panel);
+    if(state){state.cancel();panelAnimations.delete(panel);}
+    else{
+      const lingering=panel.querySelector?.('.kova-panel-ghost');
+      lingering?.remove();
+    }
     apply();after();
   }
 }
@@ -437,7 +482,7 @@ function go(){
   busy=true;
   closeMenu();
   const previous=pages.indexOf(currentPage),incoming=pages.indexOf(page);
-  const slide=incoming>=previous?18:-18;
+  const slide=incoming>=previous?12:-12;
   document.documentElement.style.setProperty('--kova-route-x',slide+'px');
   const done=()=>{ROOT.style.opacity='';busy=false;smoothScroll?.start?.();};
   const change=()=>{mount(page,query);smoothScroll?.resize();};
@@ -450,17 +495,17 @@ function go(){
   try{
     const outgoing=ROOT.animate([
       {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
-      {opacity:0,transform:'translate3d('+(-slide*.3)+'px,-8px,0) scale(.993)'}
-    ],{duration:275,easing:'cubic-bezier(.55,0,.85,.36)',fill:'forwards'});
+      {opacity:0,transform:'translate3d('+(-slide*.25)+'px,-5px,0) scale(.997)'}
+    ],{duration:205,easing:'cubic-bezier(.45,0,.82,.35)',fill:'forwards'});
     outgoing.finished.then(()=>{
       ROOT.style.opacity='0'; // Old page stays invisible during the scroll reset.
       outgoing.cancel();
       try{change()}catch(error){console.warn('KOVA navigation failed',error);done();return;}
       try{
         const arriving=ROOT.animate([
-          {opacity:0,transform:'translate3d('+slide+'px,13px,0) scale(.988)'},
+          {opacity:0,transform:'translate3d('+slide+'px,9px,0) scale(.995)'},
           {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
-        ],{duration:710,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+        ],{duration:565,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'});
         ROOT.style.opacity=''; // Snapshot remains hidden by the animation fill.
         arriving.finished.then(()=>{
           arriving.cancel();done();
