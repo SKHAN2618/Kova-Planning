@@ -114,3 +114,14 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Responsive font sizes for narrow screens avoid overpowering card content, keeping the existing light/dark palette, side padding and navigation animations.
 - The typography studio now shows a real “ZONING IS ONLY THE BEGINNING.” editorial-card specimen.
 - All main pages use v07.6 cache references for the refreshed CSS, JS and local font stylesheet.
+
+## v07.7 — Architectural Contrast / Studio Editorial
+- Created a more intentional monochrome rhythm without simply making every other section black: paper, architectural stone, graphite and charcoal are now used to give major moments distinct weight.
+- Home: strengthened the urban study stone palette, gave the manifesto a subtle KOVA parcel-line illustration and reinforced the contrast of the existing charcoal founder section.
+- Expertise: redesigned the opening as a dark architectural statement with high-contrast headings and line studies; service cards shift between crisp paper, charcoal and stone, with legible descriptions.
+- Our Approach: turned the opening planning thesis into a charcoal editorial interlude, used contour drawings as a subtle layer, and paired the seven interactive stages with a dark technical drawing panel against a pale information area.
+- Insights: alternated selected guide cards between paper, stone and charcoal, with matching text colours and faint urban-grid details; the context statement uses a dramatic dark canvas.
+- About: gave the founder chapter its own high-contrast dark identity between light/stone narrative chapters, with explicit overrides for body paragraphs, quotes and qualifications.
+- Contact: introduced a charcoal hero to frame the enquiry form against white paper, without modifying fields or submission logic.
+- Continued to use the original KOVA site study assets and current Space Grotesk / Instrument Sans WOFF2 fonts. Existing navigation effects, reduced-motion preferences, and guide/consent interactions are preserved.
+- Expanded automated regression assertions for each major contrast section, dark-surface readability, local assets and responsive rules.
