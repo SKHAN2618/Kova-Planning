@@ -1012,3 +1012,31 @@ h1,h2,h3{font-weight:500}
   .header{-webkit-backdrop-filter:blur(8px) saturate(112%);backdrop-filter:blur(8px) saturate(112%)}
   .desktop-nav .nav-letter{will-change:auto}
 }
+
+
+/* KOVA v07.4 / EDITORIAL NAVIGATION — fade out before resetting scroll. */
+#main{view-transition-name:none!important;will-change:auto}
+html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
+/* Smooth active selection without jumping the layout. */
+.stage-tab,.topic-tab,.anatomy-part,.scenario-option{
+  position:relative;
+  transition:background-color .48s cubic-bezier(.16,1,.3,1),
+  color .45s cubic-bezier(.16,1,.3,1),
+  border-color .45s cubic-bezier(.16,1,.3,1),
+  transform .55s cubic-bezier(.16,1,.3,1)!important
+}
+.stage-tab::after,.topic-tab::after,.anatomy-part::after,.scenario-option::after{
+  content:'';position:absolute;left:14px;right:14px;bottom:0;height:2px;
+  background:currentColor;opacity:.48;transform:scaleX(0);transform-origin:left;
+  transition:transform .56s cubic-bezier(.16,1,.3,1);pointer-events:none
+}
+.stage-tab.active::after,.topic-tab.active::after,.anatomy-part.active::after,.scenario-option.active::after{
+  transform:scaleX(1)
+}
+#topic-viewport,#stage-viewport,#scenario-viewport,#anatomy-detail,#insights-viewport{
+  contain:layout style;
+}
+@media(prefers-reduced-motion:reduce){
+  #main{will-change:auto!important}
+  .stage-tab::after,.topic-tab::after,.anatomy-part::after,.scenario-option::after{transition:none!important}
+}
