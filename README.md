@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v07.3
+# KOVA Planning Co. | Website v07.4
 
 Six-page static website for a founder-led Auckland planning consultancy.
 
@@ -89,3 +89,11 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Refactored consent topics, scenario explorer, anatomy, approach stages and explainer detail/return interactions to a cancel-safe two-stage fade/slide in and out, preserving reduced-motion support.
 - Made Lenis desktop wheel input feel softer (lerp 0.073, wheel multiplier 0.88), with longer eased anchor scrolling; mobile touch scrolling remains native and the fixed header uses a lighter blur on touch devices.
 - Preserved direct-link guide/topic initial rendering, all planning content, brand assets and enquiry draft functionality. Regression checks verify the new font links, panel sequences and page assets.
+
+## v07.4 — Seamless navigation and live font specimens
+- Page changes now fade out the outgoing content **before** mounting a new page and resetting scroll. The incoming page then fades and glides in from its navigation direction. The fixed header and official logos remain unchanged. This replaces the previous overlapping content-snapshot swap that could expose a scroll-top jump.
+- The scroll reset happens once while the old page is invisible; deep-linked Expertise sections position instantly before the new content becomes visible.
+- Refined two-phase transitions across the seven consent anatomy controls, the seven Approach stages, planning topics, scenario cards and Planning Explained guides. Delayed callbacks now run after the entrance animation so they do not compete with content swaps. Active tab states receive understated animated lines.
+- Preserved reduced-motion and fallback navigation for browsers without Web Animations. Desktop scroll easing remains Lenis; touch scrolling stays native.
+- Updated `type-study.html` to an interactive live font specimen covering **Space Grotesk** display headings, **Instrument Sans** body and interface text, Arial decorative/fallback text, and the original KOVA vector wordmark. The specimen has editable headline text plus a light/charcoal preview; no font family on the website itself changed in v07.4.
+- Updated all seven HTML asset cache references and expanded the smoke tests to confirm that page content changes only after the outgoing fade and that the font specimen remains current.
