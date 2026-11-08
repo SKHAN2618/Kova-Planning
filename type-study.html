@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#f5f5f2">
-  <title>KOVA / Typeface Specimens — v07.4</title>
+  <title>KOVA / Typeface Specimens — v07.5</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+  <link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/font-families.css?v=075">
   <style>
-    :root{--paper:#f7f7f4;--ink:#1b1b1a;--muted:#6b6b69;--line:#d3d3ce;--display:'Space Grotesk','Instrument Sans',Arial,sans-serif;--text:'Instrument Sans','Helvetica Neue',Arial,sans-serif}
+    :root{--paper:#f7f7f4;--ink:#1b1b1a;--muted:#6b6b69;--line:#d3d3ce;--display:'Space Grotesk','Instrument Sans',system-ui,sans-serif;--text:'Instrument Sans',system-ui,sans-serif}
     *,*::before,*::after{box-sizing:border-box}
     html{background:var(--paper);color:var(--ink)}
     body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);-webkit-font-smoothing:antialiased;transition:background .32s,color .32s}
@@ -28,6 +28,9 @@
     .intro h1{font-family:var(--display);font-size:clamp(52px,8vw,118px);letter-spacing:-.071em;line-height:.98;font-weight:500;max-width:1000px;margin:26px 0 30px}
     .intro p{font-size:clamp(15px,1.35vw,18px);line-height:1.7;color:var(--muted);max-width:650px}
     .note{font-size:14px;line-height:1.7;color:var(--muted);align-self:end;border-top:1px solid var(--line);padding-top:25px}
+    .font-audit{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0 19px;display:flex;flex-direction:column;gap:7px;font-size:12px;line-height:1.55;color:var(--muted)}
+    .font-audit strong{font-size:11px;letter-spacing:.09em;color:var(--ink)}
+    .font-audit span{overflow-wrap:anywhere}
     .toolbar{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:21px 0;border-top:1px solid var(--line)}
     .toolbar label{font-weight:600;font-size:12px;display:flex;gap:14px;align-items:center}
     .toolbar input{width:min(480px,65vw);font:500 13px var(--text);background:transparent;border:1px solid var(--line);color:var(--ink);padding:14px 16px;outline-offset:3px}
@@ -42,7 +45,7 @@
     .body-copy{font:400 clamp(17px,1.65vw,22px)/1.72 var(--text);max-width:560px;letter-spacing:-.018em}
     .nav-copy{font:600 clamp(16px,2.3vw,29px)/1.4 var(--text);letter-spacing:-.025em}
     .meta-copy{font:600 11px/1.6 var(--text);letter-spacing:.14em}
-    .fallback-copy{font:400 clamp(25px,3vw,42px)/1.25 Arial,sans-serif;letter-spacing:-.04em}
+    .fallback-copy{font:400 clamp(25px,3vw,42px)/1.25 system-ui,sans-serif;letter-spacing:-.04em}
     .glyph{margin-top:20px;display:block;font:500 16px/1.8 var(--text);letter-spacing:.025em;color:var(--muted);overflow-wrap:anywhere}
     .caption{font:400 14px/1.6 var(--text);color:var(--muted);padding-top:20px;border-top:1px solid var(--line)}
     .spec .pill{display:inline-flex;align-self:flex-start;padding:8px 12px;border:1px solid var(--line);font-size:10px;font-weight:600;letter-spacing:.08em}
@@ -63,10 +66,11 @@
     <div>
       <span class="eyebrow">KOVA / TYPE STUDY · 09 NOVEMBER 2026</span>
       <h1>THE CHARACTER<br>OF A PLACE.</h1>
-      <p>Actual typefaces used across the live KOVA website. Explore a heading, body copy, navigation text and the fallback font before choosing what needs refinement.</p>
+      <p>Actual typefaces used across the live KOVA website. Explore a heading, body copy and navigation text. This page also checks whether your browser actually loaded the approved typefaces.</p>
     </div>
-    <p class="note">Live pair: <strong>Space Grotesk + Instrument Sans</strong>.<br>Artwork: original KOVA vector logo. The display and text typefaces are loaded from Google Fonts; your browser may fall back if offline.</p>
+    <p class="note">Live pair: <strong>Space Grotesk + Instrument Sans</strong>.<br>Artwork: original KOVA vector logo. Both typefaces are served directly by KOVA as licensed local WOFF2 files. Your device's system font appears only if a font cannot load or while loading.</p>
   </section>
+  <div class="font-audit" id="font-audit" role="status" aria-live="polite"><strong>BROWSER FONT STATUS</strong><span id="font-audit-detail">Checking actual downloaded typefaces…</span></div>
   <div class="toolbar">
     <label for="try-headline">TRY YOUR OWN HEADLINE <input id="try-headline" type="text" maxlength="80" placeholder="SHAPING WHAT COMES NEXT." aria-label="Try a different specimen headline"></label>
     <button type="button" id="toggle-theme" aria-pressed="false">PREVIEW ON CHARCOAL</button>
@@ -104,10 +108,10 @@
       <p class="caption">Desktop navigation, mobile menus, calls to action, numbered labels, tabs and interface controls.</p>
     </section>
     <section class="spec">
-      <div class="flag"><span>05 / SYSTEM FALLBACK</span><span>ARIAL</span></div>
+      <div class="flag"><span>05 / SYSTEM FALLBACK</span><span>SYSTEM UI</span></div>
       <span class="pill">NOT THE MAIN FONT</span>
       <div class="letters fallback-copy">A plain interface fallback.<br>01 ↗ 02 / 07</div>
-      <p class="caption">Arial is used explicitly for a couple of decorative symbols and as the last-resort fallback. Helvetica Neue is a secondary fallback for Instrument Sans.</p>
+      <p class="caption">KOVA no longer assigns Arial to any website element. If a local font cannot load, your device’s system interface font is used temporarily or as a final fallback. The exact appearance depends on the operating system.</p>
     </section>
     <section class="spec">
       <div class="flag"><span>06 / ORIGINAL LOGO</span><span>KOVA VECTOR WORDMARK</span></div>
@@ -127,6 +131,27 @@ const specimens=document.querySelectorAll('[data-preview-headline]');
 headline.addEventListener('input',()=>{const value=headline.value.trim();specimens.forEach(el=>{el.textContent=value||'SHAPING WHAT COMES NEXT.'})});
 const theme=document.getElementById('toggle-theme');
 theme.addEventListener('click',()=>{const dark=document.body.classList.toggle('dark');theme.setAttribute('aria-pressed',String(dark));theme.textContent=dark?'PREVIEW ON LIGHT':'PREVIEW ON CHARCOAL'});
+
+const audit=document.getElementById('font-audit-detail');
+async function auditKovaFonts(){
+  if(!document.fonts?.load){audit.textContent='This browser does not expose font-loading diagnostics; device fallback will be used if fonts cannot load.';return;}
+  const variants=[
+    ['Space Grotesk','500 32px "Space Grotesk"','SHAPING WHAT COMES NEXT.'],
+    ['Instrument Sans','400 18px "Instrument Sans"','Planning support in Auckland.'],
+    ['Māori macrons','500 22px "Space Grotesk"','TĀMAKI MAKAURAU Ā'],
+    ['Extended body characters','400 18px "Instrument Sans"','Māori planning']
+  ];
+  const checks=await Promise.all(variants.map(async([label,descriptor,sample])=>{
+    try{const faces=await document.fonts.load(descriptor,sample);return {label,loaded:faces.length>0&&faces.every(face=>face.status==='loaded')};}
+    catch{return {label,loaded:false}}
+  }));
+  const failed=checks.filter(item=>!item.loaded);
+  audit.textContent=failed.length===0
+    ? 'LOCAL FONTS LOADED ✓  Space Grotesk · Instrument Sans · extended Latin glyphs. This preview uses KOVA’s approved typefaces.'
+    : 'FONT FALLBACK ACTIVE — '+failed.map(x=>x.label).join(', ')+' could not load. Those characters may appear in a device font. Check your connection and refresh.';
+  document.documentElement.dataset.fontAudit=failed.length?'fallback':'ready';
+}
+auditKovaFonts();
 </script>
 </body>
 </html>
