@@ -373,3 +373,60 @@ assert.match(js,/Promise\.allSettled\(enter\.map\(/,'All new panels complete the
 assert.match(js,/if\(panelAnimations\.get\(panel\)!==state\)return/,'Cancelled transitions cannot finish out of order');
 assert.match(js,/const slide=incoming>=previous\?12:-12/,'Page-to-page motion is restrained');
 console.log('PASS: v07.9 mobile shortcut spacing and simultaneous panel motion checks.');
+
+
+/* v07.9 — exercise the overlapping ghost animation, fast double taps and cleanup */
+{
+  const begin=js.indexOf('const panelAnimations=new WeakMap();');
+  const finish=js.indexOf('const sourceLinks = {',begin);
+  assert.ok(begin>=0&&finish>begin,'Panel animator can be isolated for interaction tests');
+  const motionSource=js.slice(begin,finish);
+  const activeAnimations=[];
+  const makeNode=(label)=>{
+    let html='';
+    const node={
+      label,children:[],parent:null,style:{},inert:false,
+      setAttribute(){},removeAttribute(){},querySelectorAll(){return []},
+      getBoundingClientRect(){return {height:360}},
+      appendChild(child){this.children.push(child);child.parent=this;return child},
+      remove(){if(this.parent){this.parent.children=this.parent.children.filter(n=>n!==this);this.parent=null}},
+      animate(frames,options){
+        let resolve,reject;
+        const finished=new Promise((yes,no)=>{resolve=yes;reject=no});
+        const animation={label:this.label,options,frames,finished,cancelled:false,
+          resolve(){resolve()},cancel(){if(!this.cancelled){this.cancelled=true;reject(new Error('cancelled'))}}
+        };
+        activeAnimations.push(animation);
+        return animation;
+      }
+    };
+    Object.defineProperty(node,'innerHTML',{
+      get(){return html},
+      set(value){html=value;node.children=value?[makeNode('content:'+value.slice(0,12))]:[]}
+    });
+    return node;
+  };
+  const testDocument={createElement:()=>makeNode('ghost')};
+  const swap=new Function('document','reduceMotion','smoothScroll',
+    motionSource+'return swapPanel;')(testDocument,false,null);
+  const panel=makeNode('tabpanel');panel.innerHTML='<article>FIRST</article>';
+  let oldCallbacks=0,newCallbacks=0;
+  swap(panel,'<article>SECOND</article>',()=>oldCallbacks++);
+  assert.equal(panel.innerHTML,'<article>SECOND</article>','New topic responds immediately');
+  assert.equal(activeAnimations.length,2,'Old and new panels animate concurrently');
+  assert.equal(panel.children.length,2,'Outgoing inert ghost overlaps the new panel');
+  assert.equal(panel.children[1].inert,true,'Outgoing content is not keyboard interactive');
+  swap(panel,'<article>THIRD</article>',()=>newCallbacks++);
+  assert.equal(activeAnimations[0].cancelled,true,'Rapid taps cancel first incoming animation');
+  assert.equal(activeAnimations[1].cancelled,true,'Rapid taps cancel first outgoing animation');
+  assert.equal(panel.children.length,2,'Superseded ghost is removed');
+  activeAnimations[2].resolve();
+  await Promise.resolve();await Promise.resolve();await Promise.resolve();
+  assert.equal(panel.children.length,1,'Ghost cleans up after entrance completes');
+  assert.equal(newCallbacks,1,'Only latest callback fires');
+  assert.equal(oldCallbacks,0,'Superseded callback is never called');
+  assert.equal(panel.innerHTML,'<article>THIRD</article>','Latest content wins rapid selection');
+  swap(panel,'<article>FOURTH</article>',null,true);
+  assert.equal(panel.innerHTML,'<article>FOURTH</article>','Instant deep-link updates still work');
+  console.log('PASS: v07.9 simultaneous content crossfade, rapid taps, inert snapshots and cleanup.');
+}
