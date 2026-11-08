@@ -1607,3 +1607,14 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
 @media(hover:none) and (pointer:coarse){
   .header{background:rgba(245,248,250,.97)}
 }
+
+/* Reused raster architectural line studies are forced to neutral luminance,
+   then inherit the cool paper/graphite beneath them through transparency. */
+.founder-teaser::before,.services-overview::before,.stages-section::before,
+.approach-hero::after,.about-hero::after{
+  filter:grayscale(1) contrast(1.05);
+}
+@media(prefers-reduced-motion:reduce){
+  .founder-teaser::before,.services-overview::before,.stages-section::before,
+  .approach-hero::after,.about-hero::after{transition:none!important}
+}
