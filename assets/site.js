@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.3
+/* KOVA PLANNING CO. / WEBSITE V07.4
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -45,33 +45,33 @@ function swapPanel(panel,markup,afterSwap,instant=false){
   if(previous){previous.cancel();panelAnimations.delete(panel);}
   const apply=()=>{
     panel.innerHTML=markup;
-    if(afterSwap)afterSwap();
     smoothScroll?.resize();
   };
-  if(instant||reduceMotion||typeof panel.animate!=='function'){apply();return;}
+  const after=()=>{if(afterSwap)afterSwap()};
+  if(instant||reduceMotion||typeof panel.animate!=='function'){apply();after();return;}
   try{
     const outgoing=panel.animate([
       {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
-      {opacity:.3,transform:'translate3d(-10px,0,0) scale(.993)'}
-    ],{duration:185,easing:'cubic-bezier(.5,0,.84,.33)',fill:'both'});
+      {opacity:.18,transform:'translate3d(-11px,0,0)'}
+    ],{duration:220,easing:'cubic-bezier(.48,0,.86,.36)',fill:'both'});
     panelAnimations.set(panel,outgoing);
     outgoing.finished.then(()=>{
       if(panelAnimations.get(panel)!==outgoing)return;
       outgoing.cancel();
       apply();
       const incoming=panel.animate([
-        {opacity:.16,transform:'translate3d(18px,0,0) scale(.986)'},
+        {opacity:.09,transform:'translate3d(15px,0,0)'},
         {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
-      ],{duration:680,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+      ],{duration:650,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
       panelAnimations.set(panel,incoming);
       incoming.finished.then(()=>{
         if(panelAnimations.get(panel)!==incoming)return;
-        incoming.cancel();panelAnimations.delete(panel);
+        incoming.cancel();panelAnimations.delete(panel);after();
       },()=>{});
     },()=>{});
   }catch(error){
     panelAnimations.delete(panel);
-    apply();
+    apply();after();
   }
 }
 
@@ -396,7 +396,34 @@ const updateMobileMenuPosition = () => {
 };
 const closeMenu = () => {mobileMenu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open navigation');document.body.classList.remove('menu-open');};
 const updateNav = page => {document.querySelectorAll('a[data-route]').forEach(el=>{let act=el.dataset.route===page;el.classList.toggle('is-current',act);if(act)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')}); document.getElementById('utility-current').textContent=page==='privacy'?'INFO / PRIVACY':`${String(pages.indexOf(page)+1).padStart(2,'0')} / 06 — ${titles[page].toUpperCase()}`; document.getElementById('header-page-name').textContent=titles[page].toUpperCase(); document.title=`${titles[page]} — KOVA Planning Co.`;};
-function mount(page,query){ROOT.innerHTML=renderers[page]()+gateway(page);ROOT.setAttribute('data-page',page);currentPage=page;updateNav(page);document.documentElement.style.scrollBehavior='auto';scrollToTop(true);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior='';smoothScroll?.resize()}); closeMenu(); setupReveals(); if(page==='expertise') {const key=query.get('focus'); if(key&&topicContent[key]) selectTopic(key,true,true);const view=query.get('view');if(view==='anatomy'||view==='coordination')requestAnimationFrame(()=>{scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true)})} if(page==='insights') {const key=query.get('guide')||query.get('article');if(key&&guides[key]) showGuide(key,false,true)} if(page==='contact')setupForm(); updateProgress();}
+function mount(page,query){
+  // Content is mounted only after outgoing motion has made it invisible.
+  // Reset once, without an animated scroll-to-top that competes with the fade.
+  document.documentElement.style.scrollBehavior='auto';
+  ROOT.innerHTML=renderers[page]()+gateway(page);
+  ROOT.setAttribute('data-page',page);
+  currentPage=page;updateNav(page);
+  scrollToTop(true);
+  if(!smoothScroll)window.scrollTo(0,0);
+  document.documentElement.scrollTop=0;document.body.scrollTop=0;
+  closeMenu();
+  setupReveals();
+  if(page==='expertise'){
+    const key=query.get('focus');
+    if(key&&topicContent[key])selectTopic(key,true,true);
+    const view=query.get('view');
+    if(view==='anatomy'||view==='coordination'){
+      scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true);
+    }
+  }
+  if(page==='insights'){
+    const key=query.get('guide')||query.get('article');
+    if(key&&guides[key])showGuide(key,false,true);
+  }
+  if(page==='contact')setupForm();
+  requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior='';smoothScroll?.resize()});
+  updateProgress();
+}
 function go(){
   const {page,query}=parseRoute();
   if(page===currentPage){
@@ -411,35 +438,44 @@ function go(){
   busy=true;
   closeMenu();
   const previous=pages.indexOf(currentPage),incoming=pages.indexOf(page);
-  document.documentElement.style.setProperty('--kova-route-x',incoming>=previous?'23px':'-23px');
-  if(reduceMotion){
-    mount(page,query);busy=false;return;
+  const slide=incoming>=previous?18:-18;
+  document.documentElement.style.setProperty('--kova-route-x',slide+'px');
+  const done=()=>{ROOT.style.opacity='';busy=false;smoothScroll?.start?.();};
+  const change=()=>{mount(page,query);smoothScroll?.resize();};
+  if(reduceMotion||typeof ROOT.animate!=='function'){
+    change();done();return;
   }
-  // Crossfade only the page content: the fixed/sticky header remains visually
-  // stable while the browser blends old and new main snapshots together.
-  if(typeof document.startViewTransition==='function'){
-    try{
-      const view=document.startViewTransition(()=>mount(page,query));
-      view.finished.then(()=>{busy=false},()=>{busy=false});
-      return;
-    }catch(error){
-      console.warn('KOVA: native page transition unavailable, using fallback.',error);
-    }
+  // Two-phase transition rather than a scroll-and-swap while the old page is
+  // still visible. This removes the "jitter back to top" on page navigation.
+  smoothScroll?.stop?.();
+  try{
+    const outgoing=ROOT.animate([
+      {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
+      {opacity:0,transform:'translate3d('+(-slide*.3)+'px,-8px,0) scale(.993)'}
+    ],{duration:275,easing:'cubic-bezier(.55,0,.85,.36)',fill:'forwards'});
+    outgoing.finished.then(()=>{
+      ROOT.style.opacity='0'; // Old page stays invisible during the scroll reset.
+      outgoing.cancel();
+      try{change()}catch(error){console.warn('KOVA navigation failed',error);done();return;}
+      try{
+        const arriving=ROOT.animate([
+          {opacity:0,transform:'translate3d('+slide+'px,13px,0) scale(.988)'},
+          {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+        ],{duration:710,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+        ROOT.style.opacity=''; // Snapshot remains hidden by the animation fill.
+        arriving.finished.then(()=>{
+          arriving.cancel();done();
+        },()=>{done()});
+      }catch(error){done()}
+    },()=>{
+      change();done();
+    });
+  }catch(error){
+    change();done();
   }
-  // Older browsers: a gentle entrance, never a blackout or full-page flash.
-  mount(page,query);
-  if(typeof ROOT.animate==='function'){
-    try{
-      const animation=ROOT.animate(
-        [{opacity:.12,transform:'translate3d(17px,14px,0) scale(.987)'},{opacity:1,transform:'translate3d(0,0,0) scale(1)'}],
-        {duration:760,easing:'cubic-bezier(.16,1,.3,1)'}
-      );
-      animation.finished.then(()=>{busy=false},()=>{busy=false});
-    }catch(error){busy=false;}
-  }else busy=false;
 }
 function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.insights-preview .insight-teasers,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
-function selectTopic(key,scroll,instant=false){if(!topicContent[key])return;const viewport=document.getElementById('topic-viewport');if(!viewport)return;swapPanel(viewport,topicPanel(key),scroll?()=>scrollToTarget(document.querySelector('.knowledge-section')):null,instant);document.querySelectorAll('.topic-tab').forEach(b=>{let on=b.dataset.topic===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
+function selectTopic(key,scroll,instant=false){if(!topicContent[key])return;const viewport=document.getElementById('topic-viewport');if(!viewport)return;swapPanel(viewport,topicPanel(key),scroll?()=>scrollToTarget(document.querySelector('.knowledge-section'),instant):null,instant);document.querySelectorAll('.topic-tab').forEach(b=>{let on=b.dataset.topic===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
 function selectStage(idx){const viewport=document.getElementById('stage-viewport');if(!viewport)return;swapPanel(viewport,stagePanel(idx));document.querySelectorAll('.stage-tab').forEach(b=>{let on=+b.dataset.stage===idx;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
 function showGuide(key,scroll,instant=false){if(!guides[key])return;const vp=document.getElementById('insights-viewport');if(!vp)return;guideOpen=key;swapPanel(vp,guideMarkup(key),scroll?()=>scrollToTarget(document.querySelector('.insights-content')):null,instant);}
 function backToGuides(){guideOpen=null;const vp=document.getElementById('insights-viewport');swapPanel(vp,insightListing(),()=>scrollToTarget(document.querySelector('.insights-content')));history.replaceState(null,'','insights.html');}
