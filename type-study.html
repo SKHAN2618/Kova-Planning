@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#f5f5f2">
-  <title>KOVA / Typeface Specimens — v07.6</title>
+  <meta name="theme-color" content="#f2f5f8">
+  <title>KOVA / Typeface Specimens — v07.8</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/font-families.css?v=076">
   <style>
-    :root{--paper:#f7f7f4;--ink:#1b1b1a;--muted:#6b6b69;--line:#d3d3ce;--display:'Space Grotesk','Instrument Sans',system-ui,sans-serif;--text:'Instrument Sans',system-ui,sans-serif}
+    :root{--paper:#f4f7f9;--ink:#161a1e;--muted:#606b74;--line:#ccd4da;--display:'Space Grotesk','Instrument Sans',system-ui,sans-serif;--text:'Instrument Sans',system-ui,sans-serif}
     *,*::before,*::after{box-sizing:border-box}
     html{background:var(--paper);color:var(--ink)}
     body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);-webkit-font-smoothing:antialiased;transition:background .32s,color .32s}
-    body.dark{--paper:#202120;--ink:#f2f2ed;--muted:#b3b3ac;--line:#51514c}
+    body.dark{--paper:#1b1f24;--ink:#eef2f5;--muted:#a9b3bd;--line:#475058}
     h1,h2,h3,p{margin:0}a{color:inherit}
     .wrap{max-width:1440px;padding:0 clamp(22px,5vw,82px);margin:0 auto}
     .bar{display:flex;align-items:center;justify-content:space-between;gap:30px;min-height:93px;border-bottom:1px solid var(--line)}
@@ -35,7 +35,7 @@
     .toolbar label{font-weight:600;font-size:12px;display:flex;gap:14px;align-items:center}
     .toolbar input{width:min(480px,65vw);font:500 13px var(--text);background:transparent;border:1px solid var(--line);color:var(--ink);padding:14px 16px;outline-offset:3px}
     .toolbar button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:13px 18px;font:600 11px var(--text);letter-spacing:.03em;cursor:pointer;transition:background .25s}
-    .toolbar button:hover{background:rgba(140,140,140,.13)}
+    .toolbar button:hover{background:rgba(129,141,150,.13)}
     .specimens{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-bottom:84px}
     .spec{padding:clamp(28px,4vw,60px);border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0;display:flex;flex-direction:column;gap:28px;min-height:465px}
     .flag{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
@@ -73,7 +73,7 @@
   <div class="font-audit" id="font-audit" role="status" aria-live="polite"><strong>BROWSER FONT STATUS</strong><span id="font-audit-detail">Checking actual downloaded typefaces…</span></div>
   <div class="toolbar">
     <label for="try-headline">TRY YOUR OWN HEADLINE <input id="try-headline" type="text" maxlength="80" placeholder="SHAPING WHAT COMES NEXT." aria-label="Try a different specimen headline"></label>
-    <button type="button" id="toggle-theme" aria-pressed="false">PREVIEW ON CHARCOAL</button>
+    <button type="button" id="toggle-theme" aria-pressed="false">PREVIEW ON COOL GRAPHITE</button>
   </div>
   <main class="specimens" aria-label="KOVA typography examples">
     <section class="spec">
@@ -116,7 +116,7 @@
     <section class="spec">
       <div class="flag"><span>06 / ORIGINAL LOGO</span><span>KOVA VECTOR WORDMARK</span></div>
       <span class="pill">ARTWORK, NOT A FONT</span>
-      <div class="letters"><img src="assets/kova-primary-black.svg" alt="Official KOVA Planning Co. logo" style="width:min(360px,100%);height:auto;display:block;background:#f5f5f2;padding:12px"></div>
+      <div class="letters"><img src="assets/kova-primary-black.svg" alt="Official KOVA Planning Co. logo" style="width:min(360px,100%);height:auto;display:block;background:#f2f5f8;padding:12px"></div>
       <p class="caption">The official wordmark is supplied SVG artwork. No website font change alters its letterforms.</p>
     </section>
   </main>
@@ -130,7 +130,7 @@ const headline=document.getElementById('try-headline');
 const specimens=document.querySelectorAll('[data-preview-headline]');
 headline.addEventListener('input',()=>{const value=headline.value.trim();specimens.forEach(el=>{el.textContent=value||'SHAPING WHAT COMES NEXT.'})});
 const theme=document.getElementById('toggle-theme');
-theme.addEventListener('click',()=>{const dark=document.body.classList.toggle('dark');theme.setAttribute('aria-pressed',String(dark));theme.textContent=dark?'PREVIEW ON LIGHT':'PREVIEW ON CHARCOAL'});
+theme.addEventListener('click',()=>{const dark=document.body.classList.toggle('dark');theme.setAttribute('aria-pressed',String(dark));theme.textContent=dark?'PREVIEW ON COOL WHITE':'PREVIEW ON CHARCOAL'});
 
 const audit=document.getElementById('font-audit-detail');
 async function auditKovaFonts(){
