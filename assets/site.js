@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.7
+/* KOVA PLANNING CO. / WEBSITE V07.8
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
