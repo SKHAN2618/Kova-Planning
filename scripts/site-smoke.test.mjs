@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=076/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=076/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=077/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=077/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -209,8 +209,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=076/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=076/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=077/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=077/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -270,5 +270,34 @@ for(const selector of [
 assert.match(css,/text-transform:uppercase/,'Feature cards have uppercase editorial styling');
 assert.match(typeStudy,/02 \/ EDITORIAL CARD TITLES/,'Font studio demonstrates matching card type');
 assert.match(typeStudy,/ZONING IS ONLY/,'The zoning sample is shown with the correct styling');
-assert.match(js,/WEBSITE V07\.6/,'Site renderer version is current');
+assert.match(js,/WEBSITE V07\.7/,'Site renderer version is current');
 console.log('PASS v07.6 — typography hierarchy, guide titles and responsive readability.');
+
+/* v07.7 — editorial contrast, urban diagrams, readable dark surfaces */
+const contrast=css.slice(css.lastIndexOf('KOVA v07.7 / ARCHITECTURAL CONTRAST'));
+assert.ok(contrast.length>10000,'v07.7 full design layer exists');
+for(const selector of [
+  '.expertise-internal,', '.contact-hero{',
+  '.approach-intro{','.about-founder{',
+  '.information-banner{','.manifesto-section{',
+  '.services-overview-grid .service-overview-card:nth-child(2)',
+  '.insights-content .explainer-grid .insight-card:nth-child(4n+2)',
+  '.insights-content .explainer-grid .insight-card:nth-child(4n+3)',
+  '.stages-section .stage-v04 .stage-side',
+  '.contact-section{'
+]){
+  assert.ok(contrast.includes(selector),'Contrast palette covers '+selector);
+}
+assert.match(contrast,/color:#f8f8f4!important/,'Dark heroes use high-contrast light headings');
+assert.match(contrast,/\.about-founder \.about-body p\{\s*color:#d3d9d0/,'Founder section has readable light body copy');
+assert.match(contrast,/\.insights-content \.explainer-grid \.insight-card:nth-child\(4n\+2\) p\{\s*color:#d3d9d0/,'Dark guide cards have light body copy');
+assert.match(contrast,/study-parcels\.svg|study-contours\.svg|study-streetscape\.svg/,'KOVA urban drawings add quiet visual depth');
+assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules included');
+assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.match(html,/assets\/site\.css\?v=077/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=077/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
+}
+console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
