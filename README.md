@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v07.4
+# KOVA Planning Co. | Website v07.5
 
 Six-page static website for a founder-led Auckland planning consultancy.
 
@@ -97,3 +97,13 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Preserved reduced-motion and fallback navigation for browsers without Web Animations. Desktop scroll easing remains Lenis; touch scrolling stays native.
 - Updated `type-study.html` to an interactive live font specimen covering **Space Grotesk** display headings, **Instrument Sans** body and interface text, Arial decorative/fallback text, and the original KOVA vector wordmark. The specimen has editable headline text plus a light/charcoal preview; no font family on the website itself changed in v07.4.
 - Updated all seven HTML asset cache references and expanded the smoke tests to confirm that page content changes only after the outgoing fade and that the font specimen remains current.
+
+## v07.5 — reliable typography on every page and device
+- Fixed the font delivery issue: Space Grotesk and Instrument Sans are now served as six local variable WOFF2 files by KOVA on GitHub Pages, not fetched from Google Fonts. Latin and Latin-extended subsets cover Aotearoa / Māori macrons without loading a huge font bundle for basic text.
+- Added the official SIL Open Font License texts in `assets/fonts/` and a dedicated `assets/font-families.css` used by all seven pages and the interactive type specimen.
+- Removed explicit Arial assignments from two decorative elements, and replaced old font stacks with the same consistent Instrument Sans / Space Grotesk system fallback order.
+- Added preloads for the two main Latin font files, reducing the time the browser might display its fallback while fetching the fonts.
+- The live site now records a non-blocking `data-kova-fonts` status on the HTML root: loading, ready, or fallback. The independent type-study page visibly confirms Space Grotesk, Instrument Sans and extended Latin glyphs actually loaded.
+- Updated the Privacy page to accurately disclose self-hosted fonts and the remaining optional unpkg smooth-scroll dependency. KOVA brand/vector logo remains untouched.
+- Added regression tests for asset paths, WOFF2 magic bytes, licences, font loading diagnostics, page-local resources, lack of explicit Arial styling and privacy copy parity.
+- Note: Offline browsers or failed local requests still require a fallback. KOVA now prefers the device-native system UI font rather than deliberately styling website content in Arial. No webfont implementation can completely prevent a temporary fallback before the file is available.
