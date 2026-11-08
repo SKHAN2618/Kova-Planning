@@ -280,7 +280,7 @@ for(const selector of [
   '.expertise-internal,', '.contact-hero{',
   '.approach-intro{','.about-founder{',
   '.information-banner{','.manifesto-section{',
-  '.services-overview-grid .service-overview-card:nth-child(2)',
+  '.service-overview-grid .service-overview-card:nth-child(2)',
   '.insights-content .explainer-grid .insight-card:nth-child(4n+2)',
   '.insights-content .explainer-grid .insight-card:nth-child(4n+3)',
   '.stages-section .stage-v04 .stage-side',
