@@ -32,7 +32,7 @@ const document={
    return null;
  },
  body:createNode('body'),
- documentElement:{style:{},scrollHeight:1900,scrollTop:0},
+ documentElement:{style:{setProperty(){}},scrollHeight:1900,scrollTop:0},
  addEventListener(type,fn){(callbacks['document:'+type]??=[]).push(fn)}
 };
 const window={
