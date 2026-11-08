@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=071/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=071/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=072/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=072/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -112,3 +112,23 @@ assert.match(css,/@media\(max-width:650px\)/,'Phone card spacing included');
 assert.match(css,/@media\(max-width:380px\)/,'Compact phone spacing included');
 assert.match(css,/\.contact-layout\{grid-template-columns:minmax\(0,1fr\)/,'Tablet contact stacks gracefully');
 console.log('PASS: KOVA v07.1 responsive card spacing, CTA and page asset versions.');
+
+/* v07.2 / smooth navigation, font and architectural motion regressions */
+assert.match(js,/document\.startViewTransition/,'Native crossfade navigation enabled');
+assert.match(js,/typeof ROOT\.animate/,'Graceful legacy-browser animation fallback');
+assert.match(js,/function enhanceNavLetters/,'Staggered menu-letter hover effect');
+assert.doesNotMatch(js,/const transition = document\.getElementById\('page-transition'\)/,'Obsolete blackout curtain removed from runtime');
+assert.match(css,/KOVA v07\.2 \/ SILK/,'v07.2 design language included');
+assert.match(css,/--font:'Geist'/,'Geist is the website-wide font');
+assert.match(css,/::view-transition-new\(kova-content\)/,'New page fades in through View Transitions');
+assert.match(css,/@keyframes kova-letter-ripple/,'Navigation ripple is defined');
+assert.match(css,/\.about-drawing\.reveal img/,'Architectural drawing entrance implemented');
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.match(html,/fonts\.googleapis\.com\/css2\?family=Geist/,'Geist font linked on '+page);
+  assert.doesNotMatch(html,/id="page-transition"/,'Blackout overlay removed from '+page);
+}
+const privacy=readFileSync('privacy.html','utf8');
+assert.match(privacy,/Google Fonts and an optional smooth-scrolling library/,'Third-party font and script disclosed');
+assert.match(js,/Google Fonts and an optional smooth-scrolling library/,'Interactive privacy copy remains in sync');
+console.log('PASS: v07.2 font, transitions, accessible navigation ripple and architectural motion.');
