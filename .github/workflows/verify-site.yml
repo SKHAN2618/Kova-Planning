@@ -1,0 +1,17 @@
+name: Verify KOVA interactions
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  smoke-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: node --check assets/site.js
+      - name: Exercise interactive components
+        run: node scripts/site-smoke.test.mjs

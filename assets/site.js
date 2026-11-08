@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V06.7
+/* KOVA PLANNING CO. / WEBSITE V06.8
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend, storage, or third-party JS. Content is maintained for KOVA editorial review.
  */

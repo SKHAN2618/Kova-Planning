@@ -46,3 +46,9 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Homepage remains limited to two previews with a link to the complete ten-guide library.
 - Introduced a restrained line-separated guide index rather than additional heavy shaded cards.
 - Added `type-study.html` for an actual KOVA copy comparison of the current Helvetica fallback stack and open-license Geist, plus official licensed specimen links for Neue Haas Grotesk and Helvetica Now. The live site font remains unchanged pending selection and web-font licence. The study loads Geist via Google Fonts only when opened.
+
+## v06.8 — Interaction reliability
+
+- Repaired script cache behaviour by versioning all seven page stylesheet/script references. A browser with cached v06.6 code now requests v06.8 JavaScript explicitly.
+- Added automated syntax and interaction smoke checks for Anatomy of a Consent (7 steps), Planning Explained (10 guides and back action), scenario explorer, consent topics and seven-stage Approach; run on each GitHub update.
+- No changes to the draft-only enquiry form, professional copy, approved visual direction or fonts.
