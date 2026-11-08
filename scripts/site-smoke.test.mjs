@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,existsSync} from 'node:fs';
 import vm from 'node:vm';
 
 const js=readFileSync('assets/site.js','utf8');
@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=074/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=074/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=075/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=075/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -126,13 +126,13 @@ assert.match(css,/@keyframes kova-letter-ripple/,'Navigation ripple is defined')
 assert.match(css,/\.about-drawing\.reveal img/,'Architectural drawing entrance implemented');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/family=Instrument\+Sans/,'Instrument Sans is loaded on '+page);
-  assert.match(html,/family=Space\+Grotesk/,'Space Grotesk is loaded on '+page);
+  assert.match(html,/assets\/fonts\/instrument-sans-latin-wght-normal\.woff2/,'Instrument Sans preload on '+page);
+  assert.match(html,/assets\/fonts\/space-grotesk-latin-wght-normal\.woff2/,'Space Grotesk preload on '+page);
   assert.doesNotMatch(html,/id="page-transition"/,'Blackout overlay removed from '+page);
 }
 const privacy=readFileSync('privacy.html','utf8');
-assert.match(privacy,/Google Fonts and an optional smooth-scrolling library/,'Third-party font and script disclosed');
-assert.match(js,/Google Fonts and an optional smooth-scrolling library/,'Interactive privacy copy remains in sync');
+assert.match(privacy,/No separate Google Fonts connection is required/,'Third-party font and script disclosed');
+assert.match(js,/No separate Google Fonts connection is required/,'Interactive privacy copy remains in sync');
 console.log('PASS: v07.2 font, transitions, accessible navigation ripple and architectural motion.');
 
 /* Native transition and nav ripple lifecycle test: exercises runtime, not only source strings. */
@@ -209,12 +209,46 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=074/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=074/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=075/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=075/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
-assert.match(typeStudy,/family=Space\+Grotesk/,'Live display specimen');
-assert.match(typeStudy,/family=Instrument\+Sans/,'Live body specimen');
+assert.match(typeStudy,/assets\/font-families\.css\?v=075/,'Font specimen uses local shared families');
+assert.match(typeStudy,/id="font-audit"/,'Font specimen tests actual downloaded faces');
 assert.match(typeStudy,/TRY YOUR OWN HEADLINE/,'Editable typography sample');
 assert.match(typeStudy,/PREVIEW ON CHARCOAL/,'Dark and light type comparison');
 console.log('PASS: v07.4 staged navigation, scroll reset and typography examples.');
+
+/* v07.5 — local font files, source consistency and genuine font diagnostics */
+const fontCSS=readFileSync('assets/font-families.css','utf8');
+const fonts=[
+  'space-grotesk-latin-wght-normal.woff2',
+  'space-grotesk-latin-ext-wght-normal.woff2',
+  'instrument-sans-latin-wght-normal.woff2',
+  'instrument-sans-latin-ext-wght-normal.woff2',
+  'instrument-sans-latin-wght-italic.woff2',
+  'instrument-sans-latin-ext-wght-italic.woff2'
+];
+for(const file of fonts){
+  assert.ok(existsSync('assets/fonts/'+file),'Local WOFF2 asset exists: '+file);
+  const header=readFileSync('assets/fonts/'+file).toString('ascii',0,4);
+  assert.equal(header,'wOF2','Valid WOFF2 signature: '+file);
+  assert.ok(fontCSS.includes(file),'Shared @font-face points to '+file);
+}
+assert.match(fontCSS,/font-family:'Space Grotesk'/,'Display family defined locally');
+assert.match(fontCSS,/font-family:'Instrument Sans'/,'Body family defined locally');
+assert.match(fontCSS,/unicode-range:/,'Extended Latin glyph coverage is configured');
+assert.ok(existsSync('assets/fonts/OFL-InstrumentSans.txt'),'Body font license supplied');
+assert.ok(existsSync('assets/fonts/OFL-SpaceGrotesk.txt'),'Display font license supplied');
+assert.doesNotMatch(css,/font-family\s*:\s*Arial/i,'No element explicitly uses Arial');
+assert.doesNotMatch(css,/--font(?:-display)?\s*:[^;]*Arial/i,'Approved stacks never fall back to hard-coded Arial');
+assert.match(js,/function checkKovaFonts\(/,'Every page can inspect actual loaded fonts');
+assert.match(js,/fonts\.load\(/,'Font checks use browser FontFaceSet rather than guessing from CSS');
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.match(html,/assets\/font-families\.css\?v=075/,'Local face CSS linked on '+page);
+  assert.doesNotMatch(html,/fonts\.googleapis\.com|fonts\.gstatic\.com/,'No external font host on '+page);
+}
+assert.doesNotMatch(typeStudy,/fonts\.googleapis\.com|fonts\.gstatic\.com/,'Type study also loads fonts locally');
+assert.match(typeStudy,/auditKovaFonts/,'Typography preview reports font status');
+console.log('PASS: 6 local WOFF2 fonts, 2 OFL licenses, 7 pages, no Arial overrides or Google Fonts requests.');
