@@ -334,3 +334,25 @@ for(const page of ['index','expertise','approach','insights','about','contact','
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
+
+/* v07.8 / guard against warm palette regressions at future releases */
+function parseRGB(color){
+  let raw=color.slice(1);
+  if(raw.length===3||raw.length===4)raw=[...raw].map(ch=>ch+ch).join('');
+  return [0,2,4].map(i=>parseInt(raw.slice(i,i+2),16));
+}
+const semanticErrors=new Set(['#6a3030','#7a4646']);
+for(const item of css.matchAll(/#(?:[0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{4}|[0-9a-f]{3})(?![\w-])/gi)){
+  const rgb=parseRGB(item[0]);
+  if(semanticErrors.has(item[0].toLowerCase()))continue;
+  assert.ok(rgb[0]<=rgb[1]+1&&rgb[1]<=rgb[2]+1,
+    'Main website has no beige, olive or warm-grey token: '+item[0]);
+}
+for(const item of css.matchAll(/rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})/gi)){
+  const r=Number(item[1]),g=Number(item[2]),b=Number(item[3]);
+  assert.ok(r<=g+1&&g<=b+1,
+    'RGB(A) surfaces follow the cool-grey palette: '+item[0]);
+}
+assert.match(css,/filter:grayscale\(1\) contrast\(1\.05\)/,
+  'Raster architectural backgrounds are neutralised');
+console.log('PASS: site-wide hexadecimal, RGB(A), raster and theme colour audit.');
