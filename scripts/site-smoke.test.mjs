@@ -86,7 +86,16 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=069/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=069/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=070/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=070/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
+
+const css=readFileSync('assets/site.css','utf8');
+assert.match(js,/new window\.Lenis/, 'Desktop smooth scrolling with native fallback');
+assert.match(js,/transitionend/, 'Page transition follows CSS completion');
+assert.match(css,/KOVA V07\.0/, 'KOVA v07 motion and contrast design system');
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.match(html,/lenis@1\.3\.27/, 'Pinned scroll library on '+page);
+}
