@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.2
+/* KOVA PLANNING CO. / WEBSITE V07.3
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -18,7 +18,7 @@ const smoothScroll = (() => {
   if (reduceMotion || !window.matchMedia('(min-width: 901px) and (pointer: fine)').matches || typeof window.Lenis !== 'function') return null;
   try {
     return new window.Lenis({
-      autoRaf: true, lerp: 0.095, smoothWheel: true, syncTouch: false,
+      autoRaf: true, lerp: 0.073, wheelMultiplier: 0.88, smoothWheel: true, syncTouch: false,
       anchors: false, allowNestedScroll: true, stopInertiaOnNavigate: true,
       prevent: node => !!node.closest?.('[data-lenis-prevent], .enquiry-dialog, .mobile-drawer, .kova-select-menu')
     });
@@ -26,13 +26,54 @@ const smoothScroll = (() => {
 })();
 const scrollToTarget = (node, immediate = false) => {
   if (!node) return;
-  if (smoothScroll) smoothScroll.scrollTo(node, {immediate, duration: .85, offset: -(window.innerWidth < 761 ? 88 : 118)});
+  if (smoothScroll) smoothScroll.scrollTo(node, {immediate, duration: 1.18, offset: -(window.innerWidth < 761 ? 88 : 118), easing:t=>1-Math.pow(1-t,4)});
   else node.scrollIntoView({behavior: immediate || reduceMotion ? 'instant' : 'smooth', block:'start'});
 };
 const scrollToTop = (immediate = false) => {
-  if (smoothScroll) smoothScroll.scrollTo(0, {immediate, duration:.75, force:true});
+  if (smoothScroll) smoothScroll.scrollTo(0, {immediate, duration:1.08, easing:t=>1-Math.pow(1-t,4), force:true});
   else window.scrollTo({top:0,behavior: immediate || reduceMotion ? 'instant' : 'smooth'});
 };
+
+
+/* Controlled two-phase motion for planning tools. The outgoing panel recedes,
+   new content arrives gently from the side, and rapid repeated selections
+   cancel stale animations rather than applying an out-of-order result. */
+const panelAnimations=new WeakMap();
+function swapPanel(panel,markup,afterSwap,instant=false){
+  if(!panel)return;
+  const previous=panelAnimations.get(panel);
+  if(previous){previous.cancel();panelAnimations.delete(panel);}
+  const apply=()=>{
+    panel.innerHTML=markup;
+    if(afterSwap)afterSwap();
+    smoothScroll?.resize();
+  };
+  if(instant||reduceMotion||typeof panel.animate!=='function'){apply();return;}
+  try{
+    const outgoing=panel.animate([
+      {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
+      {opacity:.3,transform:'translate3d(-10px,0,0) scale(.993)'}
+    ],{duration:185,easing:'cubic-bezier(.5,0,.84,.33)',fill:'both'});
+    panelAnimations.set(panel,outgoing);
+    outgoing.finished.then(()=>{
+      if(panelAnimations.get(panel)!==outgoing)return;
+      outgoing.cancel();
+      apply();
+      const incoming=panel.animate([
+        {opacity:.16,transform:'translate3d(18px,0,0) scale(.986)'},
+        {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
+      ],{duration:680,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});
+      panelAnimations.set(panel,incoming);
+      incoming.finished.then(()=>{
+        if(panelAnimations.get(panel)!==incoming)return;
+        incoming.cancel();panelAnimations.delete(panel);
+      },()=>{});
+    },()=>{});
+  }catch(error){
+    panelAnimations.delete(panel);
+    apply();
+  }
+}
 
 const sourceLinks = {
  transition: 'https://www.planning.govt.nz/implementation-and-guidance/transitional-consenting/how-consenting-works-during-the-transition/',
@@ -151,7 +192,7 @@ const consentScenarios = {
  design: {n:'04',label:'Design & drafting',tag:'COORDINATED DESIGN + APPROVALS',headline:'Good design begins with a clear brief and the right team.',intro:'Need architectural drawings? We can help develop the right brief and connect you with an architect, architectural designer or draftsperson, bringing in surveying and engineering input where the project requires it.',resourceLabel:'PLANNING STRATEGY & CONSENT PATHWAY',buildingLabel:'DESIGN, DRAFTING & SPECIALISTS',resource:['Review the site, proposal, zoning, constraints and likely consent pathway before design progresses too far.','Help align concept plans with planning standards, environmental considerations and any resource consent requirements.','Clarify which assessments, drawings and reports may be needed for a coordinated application.'],building:['Agree the design scope and identify an appropriate independent architect, architectural designer or draftsperson.','Coordinate surveying, civil, structural, geotechnical and other specialist inputs as the project requires.','Have the relevant practitioners prepare drawings and technical building-consent documentation, where applicable.'],note:'We help align the design brief, planning requirements and specialist contributions from the outset. Practitioners deliver their respective professional work within an agreed scope.'}
 };
 function scenarioPanel(key){const s=consentScenarios[key];return `<div class="scenario-panel"><div class="scenario-title"><span>${s.n} / ${s.tag}</span><h3>${s.headline}</h3><p>${s.intro}</p></div><div class="scenario-cards"><div><div class="scenario-card-label"><span>01 /</span> ${s.resourceLabel||'RESOURCE CONSENT — QUESTIONS TO CHECK'}</div><ul>${s.resource.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><div class="scenario-card-label"><span>02 /</span> ${s.buildingLabel||'BUILDING CONSENT — QUESTIONS TO CHECK'}</div><ul>${s.building.map(x=>`<li>${x}</li>`).join('')}</ul></div></div><p class="scenario-caution">${s.note}</p></div>`;}
-function selectScenario(key){if(!consentScenarios[key])return;const vp=document.getElementById('scenario-viewport');if(!vp)return;vp.classList.add('content-changing');window.setTimeout(()=>{vp.innerHTML=scenarioPanel(key);vp.classList.remove('content-changing')},reduceMotion?0:130);document.querySelectorAll('[data-scenario]').forEach(b=>{const on=b.dataset.scenario===key;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))})}
+function selectScenario(key){if(!consentScenarios[key])return;const vp=document.getElementById('scenario-viewport');if(!vp)return;swapPanel(vp,scenarioPanel(key));document.querySelectorAll('[data-scenario]').forEach(b=>{const on=b.dataset.scenario===key;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))})}
 
 const anatomyNodes = [
  {n:'01',short:'The site',title:'Establish the physical and legal context.',lead:'Planning begins with the property—not the proposed drawing.',why:'The assessment should describe the location, site, surrounding environment and the legal interests that matter to the proposal.',items:['Site address, legal description, title and relevant interests','Existing activity, built form, neighbouring context and access','Known constraints or matters needing further investigation'],caution:'A desktop map does not confirm precise boundaries, ownership interests or site conditions.'},
@@ -168,7 +209,7 @@ function anatomySvg(){return `<svg class="anatomy-svg kova-ink-drawing" viewBox=
 </svg>${anatomyNodes.map((n,i)=>{let pos=[[18,25],[43,20],[72,25],[54,45],[25,65],[67,72],[35,85]][i];return `<button type="button" class="anatomy-hotspot ${i===0?'active':''}" style="left:${pos[0]}%;top:${pos[1]}%" data-anatomy="${i}" aria-label="${n.n} ${n.short}" aria-pressed="${i===0}">${n.n}</button>`}).join('')}`;}
 
 function anatomyPanel(i){const n=anatomyNodes[i];return `<div class="anatomy-detail-inner"><span>${n.n} / ASSESSMENT COMPONENT</span><h3>${n.title}</h3><p class="anatomy-lead">${n.lead}</p><p>${n.why}</p><div class="anatomy-list-label">TYPICAL QUESTIONS & INFORMATION</div><ul>${n.items.map(x=>`<li>${x}</li>`).join('')}</ul><div class="anatomy-caution"><span>THE IMPORTANT DISTINCTION</span><p>${n.caution}</p></div></div>`;}
-function selectAnatomy(i){if(!anatomyNodes[i])return;document.querySelectorAll('[data-anatomy]').forEach(b=>{let on=+b.dataset.anatomy===i;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});const vp=document.getElementById('anatomy-detail');if(vp){vp.classList.add('content-changing');window.setTimeout(()=>{vp.innerHTML=anatomyPanel(i);vp.classList.remove('content-changing')},reduceMotion?0:140)}}
+function selectAnatomy(i){if(!anatomyNodes[i])return;document.querySelectorAll('[data-anatomy]').forEach(b=>{let on=+b.dataset.anatomy===i;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});swapPanel(document.getElementById('anatomy-detail'),anatomyPanel(i))}
 
 function expertise(){return `<section class="internal-hero expertise-internal"><div class="shell">${eyebrow('02','EXPERTISE','PLANNING & DEVELOPMENT')}<div class="internal-headline"><h1>UNDERSTAND<br>THE RULES.<br><em>SEE THE POTENTIAL.</em></h1><p>Every site has a context, a set of constraints and a range of possibilities. Planning brings these into focus.</p></div><div class="internal-hero-footer"><span>RESOURCE CONSENTS / BUILDING CONSENTS / AEE / FEASIBILITY</span><span>SCROLL TO EXPLORE ↓</span></div></div></section>
 <section class="services-overview" id="planning-services"><div class="shell">${sectionHead('01','WHAT WE CAN HELP WITH','PRACTICAL PLANNING SUPPORT')}<div class="services-overview-head"><h2>CLARITY BEFORE<br><em>COMMITMENT.</em></h2><p>Before plans become commitments, we look closely at the land, the rules and the decisions ahead.</p></div><div class="service-overview-grid">
@@ -355,7 +396,7 @@ const updateMobileMenuPosition = () => {
 };
 const closeMenu = () => {mobileMenu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open navigation');document.body.classList.remove('menu-open');};
 const updateNav = page => {document.querySelectorAll('a[data-route]').forEach(el=>{let act=el.dataset.route===page;el.classList.toggle('is-current',act);if(act)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')}); document.getElementById('utility-current').textContent=page==='privacy'?'INFO / PRIVACY':`${String(pages.indexOf(page)+1).padStart(2,'0')} / 06 — ${titles[page].toUpperCase()}`; document.getElementById('header-page-name').textContent=titles[page].toUpperCase(); document.title=`${titles[page]} — KOVA Planning Co.`;};
-function mount(page,query){ROOT.innerHTML=renderers[page]()+gateway(page);ROOT.setAttribute('data-page',page);currentPage=page;updateNav(page);document.documentElement.style.scrollBehavior='auto';scrollToTop(true);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior='';smoothScroll?.resize()}); closeMenu(); setupReveals(); if(page==='expertise') {const key=query.get('focus'); if(key&&topicContent[key]) selectTopic(key,true);const view=query.get('view');if(view==='anatomy'||view==='coordination')requestAnimationFrame(()=>{scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true)})} if(page==='insights') {const key=query.get('guide')||query.get('article');if(key&&guides[key]) showGuide(key,false)} if(page==='contact')setupForm(); updateProgress();}
+function mount(page,query){ROOT.innerHTML=renderers[page]()+gateway(page);ROOT.setAttribute('data-page',page);currentPage=page;updateNav(page);document.documentElement.style.scrollBehavior='auto';scrollToTop(true);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior='';smoothScroll?.resize()}); closeMenu(); setupReveals(); if(page==='expertise') {const key=query.get('focus'); if(key&&topicContent[key]) selectTopic(key,true);const view=query.get('view');if(view==='anatomy'||view==='coordination')requestAnimationFrame(()=>{scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true)})} if(page==='insights') {const key=query.get('guide')||query.get('article');if(key&&guides[key]) showGuide(key,false,true)} if(page==='contact')setupForm(); updateProgress();}
 function go(){
   const {page,query}=parseRoute();
   if(page===currentPage){
@@ -369,6 +410,8 @@ function go(){
   if(busy)return;
   busy=true;
   closeMenu();
+  const previous=pages.indexOf(currentPage),incoming=pages.indexOf(page);
+  document.documentElement.style.setProperty('--kova-route-x',incoming>=previous?'23px':'-23px');
   if(reduceMotion){
     mount(page,query);busy=false;return;
   }
@@ -388,18 +431,18 @@ function go(){
   if(typeof ROOT.animate==='function'){
     try{
       const animation=ROOT.animate(
-        [{opacity:.82,transform:'translate3d(0,12px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}],
-        {duration:460,easing:'cubic-bezier(.19,1,.22,1)'}
+        [{opacity:.12,transform:'translate3d(17px,14px,0) scale(.987)'},{opacity:1,transform:'translate3d(0,0,0) scale(1)'}],
+        {duration:760,easing:'cubic-bezier(.16,1,.3,1)'}
       );
       animation.finished.then(()=>{busy=false},()=>{busy=false});
     }catch(error){busy=false;}
   }else busy=false;
 }
 function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.insights-preview .insight-teasers,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
-function selectTopic(key,scroll){if(!topicContent[key])return;let viewport=document.getElementById('topic-viewport');if(!viewport)return;viewport.classList.add('content-changing');window.setTimeout(()=>{viewport.innerHTML=topicPanel(key);viewport.classList.remove('content-changing');if(scroll){scrollToTarget(document.querySelector('.knowledge-section'))}},reduceMotion?0:150);document.querySelectorAll('.topic-tab').forEach(b=>{let on=b.dataset.topic===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
-function selectStage(idx){let viewport=document.getElementById('stage-viewport');if(!viewport)return;viewport.classList.add('content-changing');window.setTimeout(()=>{viewport.innerHTML=stagePanel(idx);viewport.classList.remove('content-changing')},reduceMotion?0:140);document.querySelectorAll('.stage-tab').forEach(b=>{let on=+b.dataset.stage===idx;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
-function showGuide(key,scroll){if(!guides[key])return;let vp=document.getElementById('insights-viewport');if(!vp)return;guideOpen=key;vp.innerHTML=guideMarkup(key);if(scroll)scrollToTarget(document.querySelector('.insights-content'));}
-function backToGuides(){guideOpen=null;const vp=document.getElementById('insights-viewport');if(vp)vp.innerHTML=insightListing();history.replaceState(null,'','insights.html');scrollToTarget(document.querySelector('.insights-content'));}
+function selectTopic(key,scroll){if(!topicContent[key])return;const viewport=document.getElementById('topic-viewport');if(!viewport)return;swapPanel(viewport,topicPanel(key),scroll?()=>scrollToTarget(document.querySelector('.knowledge-section')):null);document.querySelectorAll('.topic-tab').forEach(b=>{let on=b.dataset.topic===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
+function selectStage(idx){const viewport=document.getElementById('stage-viewport');if(!viewport)return;swapPanel(viewport,stagePanel(idx));document.querySelectorAll('.stage-tab').forEach(b=>{let on=+b.dataset.stage===idx;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
+function showGuide(key,scroll,instant=false){if(!guides[key])return;const vp=document.getElementById('insights-viewport');if(!vp)return;guideOpen=key;swapPanel(vp,guideMarkup(key),scroll?()=>scrollToTarget(document.querySelector('.insights-content')):null,instant);}
+function backToGuides(){guideOpen=null;const vp=document.getElementById('insights-viewport');swapPanel(vp,insightListing(),()=>scrollToTarget(document.querySelector('.insights-content')));history.replaceState(null,'','insights.html');}
 function safe(s){return String(s||'').trim();}
 
 // KOVA SELECT / reusable, branded dropdown for all present and future select elements.
