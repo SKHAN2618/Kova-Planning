@@ -52,3 +52,10 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Repaired script cache behaviour by versioning all seven page stylesheet/script references. A browser with cached v06.6 code now requests v06.8 JavaScript explicitly.
 - Added automated syntax and interaction smoke checks for Anatomy of a Consent (7 steps), Planning Explained (10 guides and back action), scenario explorer, consent topics and seven-stage Approach; run on each GitHub update.
 - No changes to the draft-only enquiry form, professional copy, approved visual direction or fonts.
+
+## v06.9 — Focused editorial presentation
+
+- Removed public-facing external government source-link lists from all ten Planning Explained guide detail views; retained their editorial source references in the content data for future verification.
+- Removed external guidance links from the Expertise topic and Anatomy sections (static and interactive views), while preserving the useful explanatory context.
+- Simplified the article navigation panel by removing the “Where to go next” label and fixing its spacing, padding, mobile behaviour and link alignment.
+- Updated CSS/JS asset versions and smoke-test expectations to v06.9 so browsers load the latest presentation.
