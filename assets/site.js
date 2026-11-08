@@ -404,7 +404,6 @@ function mount(page,query){
   ROOT.setAttribute('data-page',page);
   currentPage=page;updateNav(page);
   scrollToTop(true);
-  if(!smoothScroll)window.scrollTo(0,0);
   document.documentElement.scrollTop=0;document.body.scrollTop=0;
   closeMenu();
   setupReveals();
