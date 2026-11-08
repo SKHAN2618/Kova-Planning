@@ -697,3 +697,11 @@ body:has(main[data-page="privacy"]) .footer-invitation{display:none}
 .explainer-grid .insight-card>span{margin-top:auto;letter-spacing:.1em;font-size:11px}
 .explainers-intro span{font-size:10px;letter-spacing:.14em;font-weight:630}
 @media(max-width:720px){.explainer-grid{grid-template-columns:1fr}.explainer-grid .insight-card{min-height:242px!important;padding:27px 23px!important}.explainer-grid .insight-card h3{font-size:clamp(28px,7vw,41px);margin:26px 0 13px}.explainer-grid .insight-card p{font-size:14px}}
+
+/* KOVA v06.9 — clean editorial exits and article navigation spacing. */
+.explainer-detail .article-body>div:nth-child(2) section.explainer-next{display:flex;align-items:center;min-height:156px;margin:clamp(40px,5vw,70px) 0 0;padding:clamp(28px,4vw,50px);background:#e8e8e5;border:0}
+.explainer-detail .explainer-next .text-link{display:flex;width:100%;max-width:100%;align-items:center;justify-content:space-between;gap:28px;margin:0;padding:0 0 14px;font-size:clamp(16px,1.4vw,21px);font-weight:650;line-height:1.45}
+.explainer-detail .explainer-next .text-link>span{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.anatomy-bottom-note{justify-content:flex-start}
+.anatomy-bottom-note p{max-width:800px}
+@media(max-width:650px){.explainer-detail .article-body>div:nth-child(2) section.explainer-next{min-height:122px;padding:27px 23px;margin-top:34px}.explainer-detail .explainer-next .text-link{font-size:16px;gap:16px}}
