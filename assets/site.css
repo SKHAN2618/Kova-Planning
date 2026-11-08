@@ -824,3 +824,91 @@ main.page-arriving>section:first-child{animation:kova-page-enter .65s var(--moti
   .insights-preview-more .text-link{font-size:13px;gap:15px}
   .footer-directory-contact>a{font-size:clamp(21px,7vw,27px)}
 }
+
+
+/* KOVA v07.2 / SILK: typographic consistency, fluid motion, no blackout. */
+:root{--font:'Geist','Helvetica Neue',Arial,sans-serif;--silk-ease:cubic-bezier(.19,1,.22,1)}
+body,button,textarea,input,select{font-family:var(--font)}
+/* The KOVA wordmark remains the supplied SVG, never typeset in the UI font. */
+.hero-left h1,.internal-headline h1{letter-spacing:-.073em}
+.section-intro h2,.chapter-gateway h2,.founder-teaser h2{letter-spacing:-.069em}
+.header{
+  background:rgba(247,247,244,.89);
+  -webkit-backdrop-filter:blur(23px) saturate(118%);
+  backdrop-filter:blur(23px) saturate(118%);
+  box-shadow:0 1px 0 rgba(0,0,0,.026);
+}
+/* Match the view-transition snapshots only to main; header and controls stay put. */
+#main{view-transition-name:kova-content}
+.page-transition{display:none!important}
+main.page-arriving>section:first-child{animation:none!important}
+@keyframes kova-old-page{from{opacity:1;transform:translate3d(0,0,0)}to{opacity:0;transform:translate3d(0,-9px,0)}}
+@keyframes kova-new-page{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@supports(view-transition-name:kova-content){
+  ::view-transition-old(root),::view-transition-new(root){animation:none!important}
+  ::view-transition-old(kova-content){animation:kova-old-page .24s ease-in both}
+  ::view-transition-new(kova-content){animation:kova-new-page .56s var(--silk-ease) .045s both}
+  ::view-transition-group(kova-content){animation-duration:.56s}
+}
+/* A short, one-shot ripple, not a perpetual bounce or distorted letters. */
+.desktop-nav a{white-space:nowrap}
+.desktop-nav .nav-word{display:inline-flex;align-items:baseline;white-space:nowrap;gap:0}
+.desktop-nav .nav-letter{display:inline-block;position:relative;transform:translate3d(0,0,0);backface-visibility:hidden;will-change:auto}
+.desktop-nav .nav-letter.nav-space{width:.285em}
+@keyframes kova-letter-ripple{
+  0%,100%{transform:translate3d(0,0,0)}
+  39%{transform:translate3d(0,-5px,0)}
+  68%{transform:translate3d(0,1px,0)}
+}
+@media(hover:hover) and (pointer:fine){
+  .desktop-nav a:hover .nav-letter,
+  .desktop-nav a:focus-visible .nav-letter{
+    animation:kova-letter-ripple .67s var(--silk-ease) both;
+    animation-delay:calc(var(--letter-index)*27ms);
+  }
+}
+.desktop-nav a::after{transition:transform .48s var(--silk-ease)}
+.kova-line-arrow{transition:transform .55s var(--silk-ease)}
+a:hover .kova-line-arrow,button:hover .kova-line-arrow{transform:translate3d(3px,-3px,0)}
+/* Cinematic but quiet page entrances. No animations that delay reading. */
+.reveal{transform:translate3d(0,13px,0);transition:opacity .7s cubic-bezier(.25,.8,.35,1),transform .86s var(--silk-ease)}
+.reveal.is-visible{opacity:1;transform:translate3d(0,0,0)}
+.section-intro.reveal.is-visible h2{animation:kova-title-settle .78s var(--silk-ease) both}
+@keyframes kova-title-settle{from{opacity:.7;transform:translate3d(0,9px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+/* Original KOVA architectural illustrations animate as drawings, not cards. */
+.urban-panel .urban-site-study{
+  animation:none!important;clip-path:none;opacity:.86;
+  transition:opacity 1.05s var(--silk-ease),transform 1.45s var(--silk-ease);
+  transform:scale(1.09)
+}
+.urban-panel.reveal.is-visible .urban-site-study{opacity:.95;transform:scale(1.13)}
+@media(hover:hover) and (pointer:fine){
+  .urban-panel:hover .urban-site-study,.urban-panel.reveal.is-visible:hover .urban-site-study{transform:scale(1.16)}
+}
+.about-drawing.reveal img,.approach-intro-note.reveal img,.team-coordination .kova-sketch.reveal img{
+  opacity:.25;transform:translate3d(0,16px,0);
+  transition:opacity 1.05s var(--silk-ease) .08s,transform 1.2s var(--silk-ease) .08s
+}
+.about-drawing.reveal.is-visible img,.approach-intro-note.reveal.is-visible img,
+.team-coordination .kova-sketch.reveal.is-visible img{opacity:.76;transform:translate3d(0,0,0)}
+/* Quiet graphic accents: a legible paper texture and architectural ruled edges. */
+.about-purpose,.approach-intro,.insights-preview{background-image:linear-gradient(90deg,transparent 0%,rgba(27,28,27,.028) 50%,transparent 100%);background-size:220% 100%}
+.expertise-index-inner a,.topic-tab,.stage-tab{transition:color .3s var(--silk-ease),background-color .38s var(--silk-ease),border-color .38s var(--silk-ease)}
+.insight-teasers a,.service-overview-card,.chapter-gateway-link{transition-timing-function:var(--silk-ease)}
+@media(max-width:900px){
+  .header{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .about-drawing.reveal img,.approach-intro-note.reveal img,.team-coordination .kova-sketch.reveal img{transition-duration:.8s}
+  body.menu-open .mobile-drawer a{animation:kova-mobile-nav-in .55s var(--silk-ease) both;animation-delay:calc(var(--menu-index,0)*34ms)}
+  .mobile-drawer a:nth-child(1){--menu-index:0}.mobile-drawer a:nth-child(2){--menu-index:1}
+  .mobile-drawer a:nth-child(3){--menu-index:2}.mobile-drawer a:nth-child(4){--menu-index:3}
+  .mobile-drawer a:nth-child(5){--menu-index:4}.mobile-drawer a:nth-child(6){--menu-index:5}
+  @keyframes kova-mobile-nav-in{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+}
+@media(prefers-reduced-motion:reduce){
+  #main{view-transition-name:none!important}
+  ::view-transition-old(kova-content),::view-transition-new(kova-content){animation:none!important}
+  .desktop-nav a:hover .nav-letter,.desktop-nav a:focus-visible .nav-letter{animation:none!important}
+  .urban-panel .urban-site-study,.about-drawing.reveal img,.approach-intro-note.reveal img,
+  .team-coordination .kova-sketch.reveal img{animation:none!important;transition:none!important;opacity:.9!important;transform:none!important}
+  body.menu-open .mobile-drawer a{animation:none!important}
+}
