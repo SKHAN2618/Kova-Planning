@@ -74,3 +74,11 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Changed the homepage CTA to “Explore all our planning explainers” in static markup and the JavaScript renderer.
 - Audited shared grid minimum sizes, contact form stacking at tablet widths, footer text wrapping and compact mobile gutters.
 - Retained v07.0 motion, existing KOVA brand treatments and ten-guide content.
+
+## v07.2 — Silky transitions and architectural motion
+- Eliminated full-screen charcoal page wipes. Navigation now uses native View Transitions where supported, crossfading main content without moving the masthead; a gentle animation-only fallback is used otherwise. Reduced-motion settings skip these animations.
+- Updated the live UI font from the previous device-dependent fallback stack to the openly licensed Geist Sans typeface, served by Google Fonts. The official SVG KOVA wordmark is unchanged.
+- Added subtle, accessible per-letter nav ripple on mouse hover and keyboard focus, and staggered mobile menu entrances.
+- Refined section entrances, scroll-responsive original architectural illustrations and understated background details. No scroll hijacking on phones.
+- Updated all seven HTML entry pages and the interactive renderer; retired unused curtain markup, updated privacy disclosures for Google Fonts and unpkg, and strengthened smoke tests.
+- Preserved ten Planning Explained guides, consent tools, contact draft functionality, brand assets and site structure.
