@@ -1618,3 +1618,100 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
   .founder-teaser::before,.services-overview::before,.stages-section::before,
   .approach-hero::after,.about-hero::after{transition:none!important}
 }
+
+
+/* KOVA v07.9 / APPLE-LEVEL MOTION REFINEMENT (quiet, tactile, accessible)
+   The scroll container below used padding:0 on iPhone, cutting off the 01
+   navigation shortcut at the viewport edge. Restore an intentional gutter. */
+:root{
+  --kova-motion-fluid:cubic-bezier(.22,1,.36,1);
+  --kova-motion-quick:340ms;
+  --kova-motion-standard:560ms;
+}
+@media(max-width:760px){
+  .expertise-index-inner.shell{
+    box-sizing:border-box;
+    width:100%;
+    max-width:100%;
+    padding-left:max(22px,var(--gutter,22px))!important;
+    padding-right:max(22px,var(--gutter,22px))!important;
+    scroll-padding-inline:max(22px,var(--gutter,22px));
+    overflow-x:auto;
+  }
+  .expertise-index-inner>a:first-of-type{
+    padding-left:12px!important;
+  }
+  .expertise-index-inner>a:last-of-type{
+    padding-right:12px!important;
+  }
+}
+/* The panel itself never shifts or scales: moving a large, height-changing
+   container creates compositing jitter and blurred text on mobile Safari. */
+#topic-viewport,#stage-viewport,#scenario-viewport,
+#anatomy-detail,#insights-viewport{
+  position:relative;
+  isolation:isolate;
+  overflow-anchor:none;
+  transform:none;
+}
+.kova-panel-ghost{
+  position:absolute;
+  z-index:2;
+  inset:0 0 auto 0;
+  width:100%;
+  margin:0;
+  overflow:hidden;
+  pointer-events:none;
+  user-select:none;
+  contain:paint;
+}
+/* Keep the selected tab in sync with the simultaneous content crossfade. */
+.topic-tab,.stage-tab,.scenario-option,.anatomy-part{
+  transition:
+    background-color var(--kova-motion-quick) var(--kova-motion-fluid),
+    color var(--kova-motion-quick) var(--kova-motion-fluid),
+    border-color var(--kova-motion-quick) var(--kova-motion-fluid),
+    transform var(--kova-motion-standard) var(--kova-motion-fluid)!important;
+}
+.topic-tab::after,.stage-tab::after,
+.scenario-option::after,.anatomy-part::after{
+  transition:transform 480ms var(--kova-motion-fluid)!important;
+}
+:is(.topic-tab,.stage-tab,.scenario-option,.anatomy-part):focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:-4px;
+}
+/* Design motion is consistent across site-wide links, cards and CTAs.
+   Avoid animating layout-affecting padding, width or font-size. */
+:where(.text-link,.btn,.header-cta,.expertise-row,.service-overview-card,
+       .insight-card,.insight-teasers a,.chapter-gateway-link){
+  transition-timing-function:var(--kova-motion-fluid)!important;
+}
+:is(.text-link,.btn,.header-cta,.expertise-row,.service-overview-card,
+    .insight-card,.insight-teasers a,.chapter-gateway-link) .kova-line-arrow{
+  transition:transform 560ms var(--kova-motion-fluid)!important;
+}
+@media(hover:hover) and (pointer:fine){
+  :is(.text-link,.btn,.header-cta,.expertise-row,.service-overview-card,
+      .insight-card,.insight-teasers a,.chapter-gateway-link):hover .kova-line-arrow{
+    transform:translate3d(3px,-3px,0);
+  }
+}
+/* Restrained reveals remain clear and keep scrolling cheap. */
+.reveal{
+  transition:opacity 700ms cubic-bezier(.25,.7,.31,1),
+             transform 820ms var(--kova-motion-fluid)!important;
+}
+@media(max-width:760px){
+  .reveal{transition-duration:570ms,660ms!important}
+  .kova-panel-ghost{will-change:opacity}
+}
+@media(prefers-reduced-motion:reduce){
+  .kova-panel-ghost{display:none!important}
+  .topic-tab,.stage-tab,.scenario-option,.anatomy-part,
+  .topic-tab::after,.stage-tab::after,.scenario-option::after,
+  .anatomy-part::after,.reveal{
+    transition:none!important;
+    animation:none!important;
+  }
+}
