@@ -1,10 +1,9 @@
-/* KOVA PLANNING CO. / WEBSITE V07.1
+/* KOVA PLANNING CO. / WEBSITE V07.2
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
 'use strict';
 const ROOT = document.getElementById('main');
-const transition = document.getElementById('page-transition');
 const menuBtn = document.getElementById('menu-button');
 const mobileMenu = document.getElementById('mobile-drawer');
 const lineArrow = '<svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg>';
@@ -332,12 +331,12 @@ function privacy(){return `<section class="internal-hero privacy-hero">
   <div class="privacy-opening"><h2>YOUR INFORMATION<br><span>MATTERS.</span></h2><p>Planning involves people, places and important decisions. We believe the handling of personal information deserves the same clarity and care. This statement explains our website's current operation and how information may be handled when you correspond with KOVA outside the website.</p></div>
   <div class="privacy-chapters">
    <section class="privacy-chapter" id="privacy-identity"><div class="privacy-chapter-label"><span>01 / WHO WE ARE</span></div><div><h3>KOVA Planning Co.</h3><p>KOVA Planning Co. is a founder-led planning consultancy based in Auckland, New Zealand. This statement covers visits to our website and personal information that may be received when people make enquiries or engage with us through separate communication channels.</p></div></section>
-   <section class="privacy-chapter" id="privacy-visiting"><div class="privacy-chapter-label"><span>02 / VISITING THE WEBSITE</span></div><div><h3>What happens when you browse.</h3><p>Our site is hosted using GitHub Pages. GitHub states that it logs visitors' IP addresses for security purposes. That hosting activity is separate from KOVA collecting a project enquiry. For details of GitHub's practices, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.</p><p>KOVA has not installed a separate website analytics service, advertising trackers or an online marketing signup system in the current version of this site. We may update this statement if that changes.</p></div></section>
+   <section class="privacy-chapter" id="privacy-visiting"><div class="privacy-chapter-label"><span>02 / VISITING THE WEBSITE</span></div><div><h3>What happens when you browse.</h3><p>Our site is hosted using GitHub Pages. GitHub states that it logs visitors' IP addresses for security purposes. That hosting activity is separate from KOVA collecting a project enquiry. For details of GitHub's practices, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.</p><p>KOVA has not installed a separate website analytics service, advertising trackers or an online marketing signup system. The site loads the Geist font through Google Fonts and an optional smooth-scrolling library through unpkg; your browser may send those providers technical connection information, including your IP address, when requesting these files. The local enquiry draft is not transmitted to either provider. We will update this statement if our services change.</p></div></section>
    <section class="privacy-chapter" id="privacy-enquiries"><div class="privacy-chapter-label"><span>03 / PROJECT ENQUIRIES</span></div><div><h3>Drafted here. Not automatically sent.</h3><p>The current project enquiry form asks for your name, email address, optional telephone number, site location, service and project details. It prepares a draft locally in your browser that you can copy or download. Submitting this form does <strong>not</strong> transmit an enquiry to KOVA, a mailing list or a website database.</p><p>Any copy or downloaded file is controlled by you and your device. If you choose to share that draft through a separate email or messaging service, the privacy terms of that service may also apply.</p></div></section>
    <section class="privacy-chapter" id="privacy-contact"><div class="privacy-chapter-label"><span>04 / DIRECT CORRESPONDENCE</span></div><div><h3>When you contact KOVA directly.</h3><p>If you communicate with KOVA outside this website, we may receive contact details and the project information you choose to provide. That information may be used to understand your enquiry, assess the requested services, communicate about a project, coordinate appropriate specialist inputs and maintain necessary business records.</p><p>Providing information for an initial enquiry is generally voluntary, but without enough detail we may not be able to assess or respond meaningfully to the request.</p></div></section>
    <section class="privacy-chapter" id="privacy-sharing"><div class="privacy-chapter-label"><span>05 / SHARING &amp; SECURITY</span></div><div><h3>Only where there is a reason.</h3><p>Planning work can involve architectural designers, surveyors, engineers, councils and other specialists. Where appropriate for a project, relevant information may need to be shared with those involved, with suitable regard to the purpose of the work, confidentiality and applicable law.</p><p>We aim to limit access to information to those who need it, take reasonable steps to protect it, and retain it no longer than needed for legitimate purposes and legal obligations. No online method of communication is entirely risk-free; avoid sending sensitive documents unless an appropriate channel has been agreed.</p></div></section>
    <section class="privacy-chapter" id="privacy-rights"><div class="privacy-chapter-label"><span>06 / YOUR RIGHTS</span></div><div><h3>Access, correction and questions.</h3><p>Under New Zealand's Privacy Act 2020, you can ask to access personal information an organisation holds about you and ask for it to be corrected if inaccurate. If you have already communicated with KOVA, please use that existing correspondence channel to make an access, correction or privacy enquiry.</p><p><strong>Current website limitation:</strong> the online enquiry form only creates a draft; it cannot deliver privacy requests to us. We will publish a direct privacy contact channel when online enquiries are activated. In the meantime, do not assume a message has been received merely because you completed the website form.</p><p>You can learn more about your rights through the <a href="https://www.privacy.org.nz/your-rights/your-privacy-rights/" target="_blank" rel="noopener noreferrer">Office of the Privacy Commissioner</a>.</p></div></section>
-   <section class="privacy-chapter" id="privacy-changes"><div class="privacy-chapter-label"><span>07 / UPDATES</span></div><div><h3>Keeping this current.</h3><p>We will review this statement when website functionality or personal information practices change. A connected online enquiry service, new analytics or different providers would require this statement to be updated before launch.</p><p class="privacy-date">LAST REVIEWED / 05 NOVEMBER 2026</p></div></section>
+   <section class="privacy-chapter" id="privacy-changes"><div class="privacy-chapter-label"><span>07 / UPDATES</span></div><div><h3>Keeping this current.</h3><p>We will review this statement when website functionality or personal information practices change. A connected online enquiry service, new analytics or different providers would require this statement to be updated before launch.</p><p class="privacy-date">LAST REVIEWED / 09 NOVEMBER 2026</p></div></section>
   </div>
   <div class="privacy-return"><a href="contact.html" data-route="contact">See how to prepare an enquiry <svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 25L25 7M10 7h15v15"/></svg></a><span>SHAPING WHAT COMES NEXT.</span></div>
  </div>
@@ -356,7 +355,7 @@ const updateMobileMenuPosition = () => {
 };
 const closeMenu = () => {mobileMenu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open navigation');document.body.classList.remove('menu-open');};
 const updateNav = page => {document.querySelectorAll('a[data-route]').forEach(el=>{let act=el.dataset.route===page;el.classList.toggle('is-current',act);if(act)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')}); document.getElementById('utility-current').textContent=page==='privacy'?'INFO / PRIVACY':`${String(pages.indexOf(page)+1).padStart(2,'0')} / 06 — ${titles[page].toUpperCase()}`; document.getElementById('header-page-name').textContent=titles[page].toUpperCase(); document.title=`${titles[page]} — KOVA Planning Co.`;};
-function mount(page,query){ROOT.classList.remove('page-arriving');ROOT.innerHTML=renderers[page]()+gateway(page);ROOT.setAttribute('data-page',page);currentPage=page;updateNav(page);document.documentElement.style.scrollBehavior='auto';scrollToTop(true);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior='';ROOT.classList.add('page-arriving');smoothScroll?.resize()}); closeMenu(); setupReveals(); if(page==='expertise') {const key=query.get('focus'); if(key&&topicContent[key]) selectTopic(key,true);const view=query.get('view');if(view==='anatomy'||view==='coordination')requestAnimationFrame(()=>{scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true)})} if(page==='insights') {const key=query.get('guide')||query.get('article');if(key&&guides[key]) showGuide(key,false)} if(page==='contact')setupForm(); updateProgress();}
+function mount(page,query){ROOT.innerHTML=renderers[page]()+gateway(page);ROOT.setAttribute('data-page',page);currentPage=page;updateNav(page);document.documentElement.style.scrollBehavior='auto';scrollToTop(true);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{document.documentElement.style.scrollBehavior='';smoothScroll?.resize()}); closeMenu(); setupReveals(); if(page==='expertise') {const key=query.get('focus'); if(key&&topicContent[key]) selectTopic(key,true);const view=query.get('view');if(view==='anatomy'||view==='coordination')requestAnimationFrame(()=>{scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true)})} if(page==='insights') {const key=query.get('guide')||query.get('article');if(key&&guides[key]) showGuide(key,false)} if(page==='contact')setupForm(); updateProgress();}
 function go(){
   const {page,query}=parseRoute();
   if(page===currentPage){
@@ -368,28 +367,35 @@ function go(){
     return;
   }
   if(busy)return;
-  busy=true;closeMenu();
-  const panel=transition.querySelector('.transition-top');
-  if(reduceMotion||!panel){mount(page,query);busy=false;return;}
-  let phase='cover', fallback;
-  const cleanup=()=>{window.clearTimeout(fallback);panel.removeEventListener('transitionend',onTransitionEnd);};
-  const finish=()=>{if(phase==='done')return;phase='done';cleanup();transition.classList.remove('entering','leaving');busy=false;};
-  const advance=()=>{
-    if(phase==='cover'){
-      phase='reveal';window.clearTimeout(fallback);
-      mount(page,query);
-      transition.classList.remove('entering');transition.classList.add('leaving');
-      fallback=window.setTimeout(finish,850);
-    }else if(phase==='reveal')finish();
-  };
-  const onTransitionEnd=event=>{if(event.target===panel&&event.propertyName==='transform')advance();};
-  transition.classList.remove('entering','leaving');
-  panel.addEventListener('transitionend',onTransitionEnd);
-  void panel.offsetHeight;
-  transition.classList.add('entering');
-  fallback=window.setTimeout(()=>{if(phase==='cover')advance()},650);
+  busy=true;
+  closeMenu();
+  if(reduceMotion){
+    mount(page,query);busy=false;return;
+  }
+  // Crossfade only the page content: the fixed/sticky header remains visually
+  // stable while the browser blends old and new main snapshots together.
+  if(typeof document.startViewTransition==='function'){
+    try{
+      const view=document.startViewTransition(()=>mount(page,query));
+      view.finished.then(()=>{busy=false},()=>{busy=false});
+      return;
+    }catch(error){
+      console.warn('KOVA: native page transition unavailable, using fallback.',error);
+    }
+  }
+  // Older browsers: a gentle entrance, never a blackout or full-page flash.
+  mount(page,query);
+  if(typeof ROOT.animate==='function'){
+    try{
+      const animation=ROOT.animate(
+        [{opacity:.82,transform:'translate3d(0,12px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}],
+        {duration:460,easing:'cubic-bezier(.19,1,.22,1)'}
+      );
+      animation.finished.then(()=>{busy=false},()=>{busy=false});
+    }catch(error){busy=false;}
+  }else busy=false;
 }
-function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.insights-preview .insight-teasers,.about-body,.chapter-gateway-inner,.contact-message');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
+function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.insights-preview .insight-teasers,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
 function selectTopic(key,scroll){if(!topicContent[key])return;let viewport=document.getElementById('topic-viewport');if(!viewport)return;viewport.classList.add('content-changing');window.setTimeout(()=>{viewport.innerHTML=topicPanel(key);viewport.classList.remove('content-changing');if(scroll){scrollToTarget(document.querySelector('.knowledge-section'))}},reduceMotion?0:150);document.querySelectorAll('.topic-tab').forEach(b=>{let on=b.dataset.topic===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
 function selectStage(idx){let viewport=document.getElementById('stage-viewport');if(!viewport)return;viewport.classList.add('content-changing');window.setTimeout(()=>{viewport.innerHTML=stagePanel(idx);viewport.classList.remove('content-changing')},reduceMotion?0:140);document.querySelectorAll('.stage-tab').forEach(b=>{let on=+b.dataset.stage===idx;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
 function showGuide(key,scroll){if(!guides[key])return;let vp=document.getElementById('insights-viewport');if(!vp)return;guideOpen=key;vp.innerHTML=guideMarkup(key);if(scroll)scrollToTarget(document.querySelector('.insights-content'));}
@@ -516,7 +522,7 @@ function enhanceKovaSelects(root){
 
 function setupForm(){const form=document.getElementById('enquiry-form');if(!form)return;enhanceKovaSelects(form);form.addEventListener('submit',ev=>{ev.preventDefault();if(!form.querySelector('.kova-select')?.kovaValidate())return;if(!form.reportValidity())return;const d=new FormData(form);const summary=['KOVA PLANNING CO. — PROJECT ENQUIRY DRAFT','',`Name: ${safe(d.get('name'))}`,`Email: ${safe(d.get('email'))}`,`Phone: ${safe(d.get('phone'))||'Not provided'}`,`Site: ${safe(d.get('location'))||'Not provided'}`,`Service: ${safe(d.get('service'))}`,'', 'Project details:',safe(d.get('message')),'','Enquiry draft — not sent.','This draft is prepared on your device and is not delivered automatically.'].join('\n'); const dialog=document.getElementById('enquiry-dialog');dialog.setAttribute('data-lenis-prevent','');const body=document.getElementById('enquiry-dialog-body');body.innerHTML=`<div class="dialog-kicker">KOVA / ENQUIRY PREVIEW</div><h2>READY TO<br><em>TAKE THE NEXT STEP.</em></h2><p>We've prepared your project enquiry below. Nothing has been sent or saved online.</p><pre id="draft-text"></pre><div class="dialog-actions"><button type="button" class="btn btn-dark" id="copy-draft">Copy enquiry <span><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></span></button><button type="button" class="btn btn-outline" id="download-draft">Download .txt <span>↓</span></button></div><p id="draft-status" role="status">To send this in future, the live website will need a connected email or enquiry service.</p>`;body.querySelector('#draft-text').textContent=summary;dialog.showModal();body.querySelector('#copy-draft').addEventListener('click',()=>{navigator.clipboard?.writeText(summary).then(()=>{body.querySelector('#draft-status').textContent='Copied. This draft has not been sent.'}).catch(()=>{body.querySelector('#draft-status').textContent='Copy is unavailable in this browser. You can select the enquiry text manually.'})});body.querySelector('#download-draft').addEventListener('click',()=>{let blob=new Blob([summary],{type:'text/plain;charset=utf-8'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='KOVA_Enquiry_Draft.txt';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),5000)});});}
 function updateProgress(){let height=document.documentElement.scrollHeight-window.innerHeight;let p=height>0?window.scrollY/height:0;document.getElementById('reading-progress').style.transform=`scaleX(${Math.min(1,Math.max(0,p))})`}
-document.addEventListener('click',event=>{const link=event.target.closest('a[data-route]');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||busy)return;event.preventDefault();const url=new URL(link.href,location.href);if(url.pathname===location.pathname&&url.search===location.search){scrollToTop();closeMenu();return;}history.pushState(null,'',url.pathname+url.search);go();});
+document.addEventListener('click',event=>{const link=event.target.closest('a[data-route]');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();if(busy)return;const url=new URL(link.href,location.href);if(url.pathname===location.pathname&&url.search===location.search){scrollToTop();closeMenu();return;}history.pushState(null,'',url.pathname+url.search);go();});
 menuBtn.addEventListener('click',()=>{
   const isOpen=menuBtn.getAttribute('aria-expanded')==='true';
   if(isOpen){closeMenu();return;}
@@ -530,6 +536,25 @@ menuBtn.addEventListener('click',()=>{
 document.addEventListener('click',ev=>{const inPage=ev.target.closest('a[href^="#"]:not([href^="#/"])');if(inPage){const target=document.getElementById(inPage.getAttribute('href').slice(1));if(target){ev.preventDefault();scrollToTarget(target);document.querySelectorAll('.expertise-index a').forEach(a=>a.classList.toggle('is-active',a===inPage));return;}}const topic=ev.target.closest('[data-topic]');if(topic)selectTopic(topic.dataset.topic,false);const stage=ev.target.closest('[data-stage]');if(stage)selectStage(+stage.dataset.stage);const next=ev.target.closest('[data-stage-next], [data-stage-prev]');if(next)selectStage(+(next.dataset.stageNext ?? next.dataset.stagePrev)); const anatomy=ev.target.closest('[data-anatomy]');if(anatomy)selectAnatomy(+anatomy.dataset.anatomy); const scenario=ev.target.closest('[data-scenario]');if(scenario)selectScenario(scenario.dataset.scenario);const guide=ev.target.closest('[data-guide]');if(guide){history.replaceState(null,'',`insights.html?guide=${guide.dataset.guide}`);showGuide(guide.dataset.guide,true)}if(ev.target.closest('[data-back-guides]'))backToGuides();if(ev.target.closest('[data-close-dialog]'))document.getElementById('enquiry-dialog').close();});
 document.getElementById('enquiry-dialog').addEventListener('click',ev=>{if(ev.target.id==='enquiry-dialog')ev.currentTarget.close()});
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closeMenu()});window.addEventListener('resize',()=>{if(window.innerWidth>860)closeMenu();else if(!mobileMenu.hidden)updateMobileMenuPosition()});window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('popstate',go);
+// Letter-by-letter editorial ripple for desktop nav. Accessible name remains
+// on each link while decorative letters are hidden from screen readers.
+function enhanceNavLetters(){
+  if(reduceMotion)return;
+  const nav=document.querySelector('.desktop-nav');
+  if(!nav)return;
+  nav.querySelectorAll('a[data-route]').forEach(link=>{
+    if(link.querySelector('.nav-word'))return;
+    const label=link.textContent.trim();
+    if(!label)return;
+    const letters=Array.from(label).map((char,i)=>
+      char===' ' ? '<span class="nav-letter nav-space" style="--letter-index:'+i+'">&nbsp;</span>'
+      : '<span class="nav-letter" style="--letter-index:'+i+'">'+char.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+'</span>'
+    ).join('');
+    link.setAttribute('aria-label',label);
+    link.innerHTML='<span class="nav-word" aria-hidden="true">'+letters+'</span>';
+  });
+}
+enhanceNavLetters();
 document.getElementById('year').textContent=new Date().getFullYear();
 const legacyRoute=location.hash.match(/^#\/([a-z]+)(\?.*)?$/);if(legacyRoute && pages.includes(legacyRoute[1]))history.replaceState(null,'',routeFile(legacyRoute[1])+(legacyRoute[2]||''));
 let initial=parseRoute();mount(initial.page,initial.query);
