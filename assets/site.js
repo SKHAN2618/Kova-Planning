@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.4
+/* KOVA PLANNING CO. / WEBSITE V07.5
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -372,7 +372,7 @@ function privacy(){return `<section class="internal-hero privacy-hero">
   <div class="privacy-opening"><h2>YOUR INFORMATION<br><span>MATTERS.</span></h2><p>Planning involves people, places and important decisions. We believe the handling of personal information deserves the same clarity and care. This statement explains our website's current operation and how information may be handled when you correspond with KOVA outside the website.</p></div>
   <div class="privacy-chapters">
    <section class="privacy-chapter" id="privacy-identity"><div class="privacy-chapter-label"><span>01 / WHO WE ARE</span></div><div><h3>KOVA Planning Co.</h3><p>KOVA Planning Co. is a founder-led planning consultancy based in Auckland, New Zealand. This statement covers visits to our website and personal information that may be received when people make enquiries or engage with us through separate communication channels.</p></div></section>
-   <section class="privacy-chapter" id="privacy-visiting"><div class="privacy-chapter-label"><span>02 / VISITING THE WEBSITE</span></div><div><h3>What happens when you browse.</h3><p>Our site is hosted using GitHub Pages. GitHub states that it logs visitors' IP addresses for security purposes. That hosting activity is separate from KOVA collecting a project enquiry. For details of GitHub's practices, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.</p><p>KOVA has not installed a separate website analytics service, advertising trackers or an online marketing signup system. The site loads the Geist font through Google Fonts and an optional smooth-scrolling library through unpkg; your browser may send those providers technical connection information, including your IP address, when requesting these files. The local enquiry draft is not transmitted to either provider. We will update this statement if our services change.</p></div></section>
+   <section class="privacy-chapter" id="privacy-visiting"><div class="privacy-chapter-label"><span>02 / VISITING THE WEBSITE</span></div><div><h3>What happens when you browse.</h3><p>Our site is hosted using GitHub Pages. GitHub states that it logs visitors' IP addresses for security purposes. That hosting activity is separate from KOVA collecting a project enquiry. For details of GitHub's practices, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.</p><p>KOVA has not installed a separate website analytics service, advertising trackers or an online marketing signup system. The site serves its Space Grotesk and Instrument Sans typefaces directly from KOVA's GitHub Pages host. No separate Google Fonts connection is required. An optional smooth-scrolling library is loaded through unpkg; your browser may send that provider technical connection information, including your IP address, when requesting its script. The local enquiry draft is not transmitted to either provider. We will update this statement if our services change.</p></div></section>
    <section class="privacy-chapter" id="privacy-enquiries"><div class="privacy-chapter-label"><span>03 / PROJECT ENQUIRIES</span></div><div><h3>Drafted here. Not automatically sent.</h3><p>The current project enquiry form asks for your name, email address, optional telephone number, site location, service and project details. It prepares a draft locally in your browser that you can copy or download. Submitting this form does <strong>not</strong> transmit an enquiry to KOVA, a mailing list or a website database.</p><p>Any copy or downloaded file is controlled by you and your device. If you choose to share that draft through a separate email or messaging service, the privacy terms of that service may also apply.</p></div></section>
    <section class="privacy-chapter" id="privacy-contact"><div class="privacy-chapter-label"><span>04 / DIRECT CORRESPONDENCE</span></div><div><h3>When you contact KOVA directly.</h3><p>If you communicate with KOVA outside this website, we may receive contact details and the project information you choose to provide. That information may be used to understand your enquiry, assess the requested services, communicate about a project, coordinate appropriate specialist inputs and maintain necessary business records.</p><p>Providing information for an initial enquiry is generally voluntary, but without enough detail we may not be able to assess or respond meaningfully to the request.</p></div></section>
    <section class="privacy-chapter" id="privacy-sharing"><div class="privacy-chapter-label"><span>05 / SHARING &amp; SECURITY</span></div><div><h3>Only where there is a reason.</h3><p>Planning work can involve architectural designers, surveyors, engineers, councils and other specialists. Where appropriate for a project, relevant information may need to be shared with those involved, with suitable regard to the purpose of the work, confidentiality and applicable law.</p><p>We aim to limit access to information to those who need it, take reasonable steps to protect it, and retain it no longer than needed for legitimate purposes and legal obligations. No online method of communication is entirely risk-free; avoid sending sensitive documents unless an appropriate channel has been agreed.</p></div></section>
@@ -633,6 +633,22 @@ function enhanceNavLetters(){
   });
 }
 enhanceNavLetters();
+
+/* Audit the actual loaded faces, not only CSS font-family names. This does
+   not block navigation or conceal text when an offline/system fallback is used. */
+function checkKovaFonts(){
+  const fonts=document.fonts;
+  const root=document.documentElement;
+  if(!fonts?.load||!root?.dataset)return;
+  root.dataset.kovaFonts='loading';
+  Promise.all([
+    fonts.load('500 32px "Space Grotesk"','SHAPING WHAT COMES NEXT.'),
+    fonts.load('400 16px "Instrument Sans"','Auckland resource consent')
+  ]).then(results=>{
+    root.dataset.kovaFonts=results.every(faces=>faces.length>0)?'ready':'fallback';
+  }).catch(()=>{root.dataset.kovaFonts='fallback'});
+}
+checkKovaFonts();
 document.getElementById('year').textContent=new Date().getFullYear();
 const legacyRoute=location.hash.match(/^#\/([a-z]+)(\?.*)?$/);if(legacyRoute && pages.includes(legacyRoute[1]))history.replaceState(null,'',routeFile(legacyRoute[1])+(legacyRoute[2]||''));
 let initial=parseRoute();mount(initial.page,initial.query);
