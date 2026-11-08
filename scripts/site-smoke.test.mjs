@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=078/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=078/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=079/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=079/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -187,8 +187,8 @@ console.log('PASS: two-stage page lifecycle and accessible navigation ripple.');
 /* v07.3 breathing transitions, panel swaps and scrolling checks */
 assert.match(js,/const panelAnimations=new WeakMap\(\)/,'Rapid panel changes are tracked');
 assert.match(js,/function swapPanel\(/,'Central two-stage panel animator exists');
-assert.match(js,/outgoing\.finished\.then/,'Outgoing panel is allowed to finish before the next mounts');
-assert.match(js,/panelAnimations\.get\(panel\)!==outgoing/,'Superseded panel changes cannot overwrite newer selections');
+assert.match(js,/Promise\.allSettled\(enter\.map\(/,'Incoming panel animations overlap the exit and settle together');
+assert.match(js,/panelAnimations\.get\(panel\)!==state/,'Superseded panel transitions cannot overwrite newer selections');
 assert.match(js,/swapPanel\(vp,guideMarkup\(key\)/,'Guide detail transitions use the shared animation');
 assert.match(js,/showGuide\(key,false,true\)/,'Directly linked guides render without delayed swaps');
 assert.match(js,/selectTopic\(key,true,true\)/,'Directly linked consent topics render without delayed swaps');
@@ -209,8 +209,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=078/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=078/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=079/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=079/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -270,7 +270,7 @@ for(const selector of [
 assert.match(css,/text-transform:uppercase/,'Feature cards have uppercase editorial styling');
 assert.match(typeStudy,/02 \/ EDITORIAL CARD TITLES/,'Font studio demonstrates matching card type');
 assert.match(typeStudy,/ZONING IS ONLY/,'The zoning sample is shown with the correct styling');
-assert.match(js,/WEBSITE V07\.8/,'Site renderer version is current');
+assert.match(js,/WEBSITE V07\.9/,'Site renderer version is current');
 console.log('PASS v07.6 — typography hierarchy, guide titles and responsive readability.');
 
 /* v07.7 — editorial contrast, urban diagrams, readable dark surfaces */
@@ -296,8 +296,8 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=078/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=078/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=079/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=079/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -317,7 +317,7 @@ for(const token of [
 }
 assert.match(css,/--kova-contrast-deep:#[0-9a-fA-F]{6}/,'Previous warm contrast anchors are remapped');
 assert.doesNotMatch(css,/#252925\b|#222522\b|#e6e6e1\b|#fafbf6\b/i,'Warm v07.7 palette tokens no longer remain');
-assert.match(js,/WEBSITE V07\.8/,'Live route renderer is version 07.8');
+assert.match(js,/WEBSITE V07\.9/,'Live route renderer is version 07.8');
 const coolArtwork=['study-aerial.svg','study-contours.svg','study-parcels.svg','study-streetscape.svg'];
 for(const asset of coolArtwork){
   const drawing=readFileSync('assets/'+asset,'utf8');
@@ -329,8 +329,8 @@ assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses 
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=078/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=078/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=079/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=079/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -356,3 +356,20 @@ for(const item of css.matchAll(/rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,
 assert.match(css,/filter:grayscale\(1\) contrast\(1\.05\)/,
   'Raster architectural backgrounds are neutralised');
 console.log('PASS: site-wide hexadecimal, RGB(A), raster and theme colour audit.');
+
+/* v07.9 — native-looking responsive shortcuts and concurrent UI animations */
+const fluidCSS=css.slice(css.lastIndexOf('KOVA v07.9 / APPLE-LEVEL MOTION REFINEMENT'));
+assert.ok(fluidCSS.length>2800,'Fluid motion refinement is included');
+assert.match(fluidCSS,/\.expertise-index-inner\.shell\{/,'The expertise shortcut rail has an explicit mobile gutter');
+assert.match(fluidCSS,/padding-left:max\(22px,var\(--gutter,22px\)\)!important/,'01 shortcut cannot sit flush against the mobile viewport');
+assert.match(fluidCSS,/\.expertise-index-inner>a:first-of-type\{/,'First shortcut has extra comfortable touch padding');
+assert.match(fluidCSS,/\.kova-panel-ghost\{/,'Old panels use a noninteractive overlay for crossfade');
+assert.match(fluidCSS,/overflow-anchor:none/,'Panel replacement suppresses unwanted browser scroll anchoring');
+assert.match(fluidCSS,/@media\(prefers-reduced-motion:reduce\)/,'New motion respects reduced-motion settings');
+assert.match(js,/KOVA 07\.9 \/ Fluid panel transitions/,'Panel motion implementation is current');
+assert.match(js,/ghost\.inert=true/,'Outgoing snapshot is not interactive');
+assert.match(js,/panel\.appendChild\(ghost\)/,'Previous and incoming panels are composited together');
+assert.match(js,/Promise\.allSettled\(enter\.map\(/,'All new panels complete their entrance before cleanup');
+assert.match(js,/if\(panelAnimations\.get\(panel\)!==state\)return/,'Cancelled transitions cannot finish out of order');
+assert.match(js,/const slide=incoming>=previous\?12:-12/,'Page-to-page motion is restrained');
+console.log('PASS: v07.9 mobile shortcut spacing and simultaneous panel motion checks.');
