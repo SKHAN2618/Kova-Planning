@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=077/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=077/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=078/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=078/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -209,8 +209,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=077/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=077/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=078/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=078/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -270,7 +270,7 @@ for(const selector of [
 assert.match(css,/text-transform:uppercase/,'Feature cards have uppercase editorial styling');
 assert.match(typeStudy,/02 \/ EDITORIAL CARD TITLES/,'Font studio demonstrates matching card type');
 assert.match(typeStudy,/ZONING IS ONLY/,'The zoning sample is shown with the correct styling');
-assert.match(js,/WEBSITE V07\.7/,'Site renderer version is current');
+assert.match(js,/WEBSITE V07\.8/,'Site renderer version is current');
 console.log('PASS v07.6 — typography hierarchy, guide titles and responsive readability.');
 
 /* v07.7 — editorial contrast, urban diagrams, readable dark surfaces */
@@ -296,8 +296,41 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=077/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=077/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=078/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=078/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
+
+/* v07.8 / site-wide cool monochrome palette and assets */
+const coolCSS=css.slice(css.lastIndexOf('KOVA v07.8 / FULL COOL MONOCHROME'));
+assert.ok(coolCSS.length>650,'Full cool palette and dark illustration handling is present');
+for(const token of [
+  '--kova-cool-paper:#F5F8FA',
+  '--kova-cool-mist:#E8EDF1',
+  '--kova-cool-concrete:#D0D9E0',
+  '--kova-cool-steel:#93A1AC',
+  '--kova-cool-graphite:#252C33',
+  '--kova-cool-ink:#171D23'
+]){
+  assert.ok(coolCSS.includes(token),'Site-wide palette includes '+token);
+}
+assert.match(css,/--kova-contrast-deep:#[0-9a-fA-F]{6}/,'Previous warm contrast anchors are remapped');
+assert.doesNotMatch(css,/#252925\b|#222522\b|#e6e6e1\b|#fafbf6\b/i,'Warm v07.7 palette tokens no longer remain');
+assert.match(js,/WEBSITE V07\.8/,'Live route renderer is version 07.8');
+const coolArtwork=['study-aerial.svg','study-contours.svg','study-parcels.svg','study-streetscape.svg'];
+for(const asset of coolArtwork){
+  const drawing=readFileSync('assets/'+asset,'utf8');
+  assert.match(drawing,/<svg/,'Original drawing remains valid SVG: '+asset);
+  assert.doesNotMatch(drawing,/#292929\b|#898989\b|#999999\b/i,'Warm neutral strokes replaced in '+asset);
+}
+const studioCool=readFileSync('type-study.html','utf8');
+assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses the cool palette');
+assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.match(html,/assets\/site\.css\?v=078/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=078/,'Current runtime linked on '+page);
+  assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
+}
+console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
