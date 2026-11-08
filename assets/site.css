@@ -2,7 +2,7 @@
    Visual language and supplied vector marks preserved from approved brand pack.
    Type: Helvetica Neue / Neue Haas Grotesk style with system fallback. No font files.
 */
-:root{--ink:#151515;--charcoal:#1c1c1c;--black:#111111;--paper:#f5f5f5;--white:#fff;--cloud:#ededed;--mist:#e6e6e6;--steel:#bcbcbc;--line:#d7d7d7;--muted:#717171;--gutter:clamp(24px,4.55vw,88px);--font:'Helvetica Neue','Neue Haas Grotesk Text Pro','Inter',Arial,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
+:root{--ink:#151515;--charcoal:#1c1c1c;--black:#111111;--paper:#f5f5f5;--white:#fff;--cloud:#ededed;--mist:#e6e6e6;--steel:#bcbcbc;--line:#d7d7d7;--muted:#717171;--gutter:clamp(24px,4.55vw,88px);--font:'Instrument Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:110px}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:15px;-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}h1,h2,h3,h4,p{margin:0}h1,h2,h3{font-weight:480}a{color:inherit;text-decoration:none}button,textarea,input,select{font:inherit}button{cursor:pointer}img{display:block;max-width:100%}a:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #888888;outline-offset:4px}::selection{background:#393939;color:white}.shell{max-width:1640px;margin:auto;padding:0 var(--gutter)}.shell-fluid{width:100%;padding-left:var(--gutter)}.fine-print{font-size:12px;line-height:1.75;color:#888888}.skip{position:absolute;top:-100px;left:16px;background:white;padding:12px;z-index:999}.skip:focus{top:10px}.reading-progress{height:2px;position:fixed;left:0;right:0;top:0;background:#151515;z-index:110;transform:scaleX(0);transform-origin:left;pointer-events:none}
 /* masthead */
 .utility-bar{height:31px;background:#e9e9e9;border-bottom:1px solid #dcdcdc;color:#797979;font-size:9px;letter-spacing:.16em;font-weight:640}.utility-inner{height:100%;display:flex;align-items:center;justify-content:space-between}.utility-location{margin-left:auto;margin-right:26px}.header{height:93px;background:rgba(245,245,242,.96);position:sticky;top:0;z-index:80;backdrop-filter:blur(20px);border-bottom:1px solid #d8d8d8}.header-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:25px}.wordmark{width:clamp(193px,16.5vw,270px);flex:0 0 auto}.wordmark img{width:100%;height:auto}.desktop-nav{display:flex;align-items:center;gap:clamp(19px,2.7vw,49px);font-size:13px;font-weight:530;margin-left:auto}.desktop-nav a{color:#505050;position:relative;padding:12px 0;transition:color .2s}.desktop-nav a:after{content:'';position:absolute;bottom:5px;left:0;width:100%;height:1px;background:#191919;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}.desktop-nav a:hover,.desktop-nav a.is-current{color:#151515}.desktop-nav a:hover:after,.desktop-nav a.is-current:after{transform:scaleX(1)}.header-cta{font-size:12px;font-weight:570;min-height:43px;display:flex;align-items:center;justify-content:space-between;gap:24px;border:1px solid #202020;padding:0 17px;transition:background .25s,color .25s}.header-cta span{font-size:20px;font-weight:300}.header-cta:hover,.header-cta.is-current{background:#181818;color:white}.mobile-menu-toggle,.mobile-drawer{display:none}
@@ -15,7 +15,7 @@
 /* expertise list home */
 .white-panel{background:#f7f7f7}.expertise-list{border-top:1px solid #d4d4d4}.expertise-row{display:grid;grid-template-columns:90px 1fr 38px;gap:18px;align-items:start;padding:35px 0 39px;border-bottom:1px solid #d4d4d4;transition:padding .35s var(--ease),background .25s}.expertise-row:hover{padding-left:20px;background:#ebebeb}.expertise-row>span{font-size:12px;color:#858585;padding-top:12px}.expertise-row h3{font-size:clamp(28px,3.3vw,52px);letter-spacing:-.063em;line-height:1.08}.expertise-row p{font-size:14px;line-height:1.7;color:#888888;max-width:650px;margin-top:12px}.expertise-row b{font-size:29px;font-weight:350}
 .home-divider-panel{background:#e7e7e7;padding:90px 0 100px;position:relative}.home-divider-panel:before{position:absolute;inset:0;content:'';opacity:.28;background-image:linear-gradient(90deg,#c1c1c1 1px,transparent 1px),linear-gradient(#c1c1c1 1px,transparent 1px);background-size:75px 75px;pointer-events:none}.divider-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(50px,7vw,140px)}.divider-grid .section-label{padding-top:0}.divider-grid h2{font-size:clamp(51px,6vw,105px);letter-spacing:-.075em;line-height:1.06;margin-top:85px}.divider-grid h2 span{color:#a1a1a1}.divider-compare{padding-top:42px}.divider-compare>div{border-bottom:1px solid #c3c3c3;padding:25px 0 30px}.divider-compare>div>span{font-size:11px;letter-spacing:.14em;font-weight:640}.divider-compare>div>p{font-size:18px;line-height:1.65;max-width:485px;color:#5a5a5a;margin-top:20px}.divider-compare>.fine-print{margin:28px 0 27px;max-width:440px}
-.approach-preview{background:#f6f6f6}.three-steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #d7d7d7;border-left:1px solid #d7d7d7}.step-card{min-height:370px;display:flex;flex-direction:column;border-right:1px solid #d7d7d7;border-bottom:1px solid #d7d7d7;padding:28px 28px 32px;transition:background .3s}.step-card:hover{background:#ebebeb}.step-card small{font-size:10px;letter-spacing:.12em;color:#868686}.step-symbol{font-family:Arial,sans-serif;font-size:63px;font-weight:200;line-height:1.5;margin:24px 0 10px;color:#555555}.step-card h3{font-size:34px;letter-spacing:-.052em}.step-card p{font-size:14px;line-height:1.7;color:#7c7c7c;max-width:290px;margin-top:14px}
+.approach-preview{background:#f6f6f6}.three-steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #d7d7d7;border-left:1px solid #d7d7d7}.step-card{min-height:370px;display:flex;flex-direction:column;border-right:1px solid #d7d7d7;border-bottom:1px solid #d7d7d7;padding:28px 28px 32px;transition:background .3s}.step-card:hover{background:#ebebeb}.step-card small{font-size:10px;letter-spacing:.12em;color:#868686}.step-symbol{font-family:var(--font-display);font-size:63px;font-weight:200;line-height:1.5;margin:24px 0 10px;color:#555555}.step-card h3{font-size:34px;letter-spacing:-.052em}.step-card p{font-size:14px;line-height:1.7;color:#7c7c7c;max-width:290px;margin-top:14px}
 .brand-interlude{position:relative;background:#181818;color:white;overflow:hidden}.brand-interlude:before{position:absolute;inset:0;content:'';opacity:.1;background-image:linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px);background-size:80px 80px}.brand-inner{position:relative;min-height:590px;padding-top:49px;padding-bottom:45px;display:flex;flex-direction:column;justify-content:space-between}.brand-inner .eyebrow-row{color:#afafaf}.brand-inner>div:nth-child(2){display:flex;align-items:center;justify-content:space-between;gap:40px}.brand-inner h2{font-size:clamp(56px,7.3vw,127px);line-height:1.01;letter-spacing:-.075em}.brand-inner h2 em{font-style:normal;color:#a5a5a5}.brand-inner img{width:clamp(190px,26vw,395px);height:auto;opacity:.8}.brand-inner>span{font-size:10px;letter-spacing:.15em;color:#959595}
 .insights-preview{background:#f7f7f7}.insight-teasers{display:grid;grid-template-columns:1fr 1fr;gap:18px}.insight-teasers a{background:#e8e8e8;padding:33px;min-height:310px;display:flex;flex-direction:column;transition:background .3s}.insight-teasers a:hover{background:#dcdcdc}.insight-teasers a:nth-child(2){background:#282828;color:#f6f6f6}.insight-teasers a:nth-child(2):hover{background:#3e3e3e}.insight-teasers small{font-size:10px;letter-spacing:.13em}.insight-teasers h3{font-size:clamp(30px,3.4vw,54px);letter-spacing:-.06em;line-height:1.08;max-width:470px;margin-top:60px}.insight-teasers a>span{font-size:12px;margin-top:auto;padding-top:35px;letter-spacing:.04em}
 /* universal contact band */
@@ -241,7 +241,7 @@
 .footer-prelude{margin-top:110px;font-size:12px;letter-spacing:.16em;color:#a9a9a9;font-weight:570}
 .footer-question{display:flex;gap:28px;align-items:center;justify-content:space-between;margin-top:26px;border-bottom:1px solid #646464;padding-bottom:50px;position:relative}
 .footer-question span{font-size:clamp(79px,11.3vw,206px);font-weight:440;letter-spacing:-.094em;line-height:.95;transition:transform .75s var(--ease)}
-.footer-question b{font-size:clamp(62px,7vw,135px);line-height:.8;font-weight:200;align-self:flex-end;transition:transform .65s var(--ease);font-family:Arial,sans-serif}
+.footer-question b{font-size:clamp(62px,7vw,135px);line-height:.8;font-weight:200;align-self:flex-end;transition:transform .65s var(--ease);font-family:var(--font-display)}
 .footer-question:hover span{transform:translateX(9px)}.footer-question:hover b{transform:translate(13px,-13px)}
 .footer-invitation-bottom{display:flex;justify-content:space-between;gap:26px;align-items:center;margin-top:25px;font-size:11px;letter-spacing:.09em}
 .footer-invitation-bottom a{color:#fafafa;font-weight:600;position:relative}
@@ -827,7 +827,7 @@ main.page-arriving>section:first-child{animation:kova-page-enter .65s var(--moti
 
 
 /* KOVA v07.2 / SILK: typographic consistency, fluid motion, no blackout. */
-:root{--font:'Geist','Helvetica Neue',Arial,sans-serif;--silk-ease:cubic-bezier(.19,1,.22,1)}
+:root{--font:'Instrument Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--silk-ease:cubic-bezier(.19,1,.22,1)}
 body,button,textarea,input,select{font-family:var(--font)}
 /* The KOVA wordmark remains the supplied SVG, never typeset in the UI font. */
 .hero-left h1,.internal-headline h1{letter-spacing:-.073em}
@@ -941,8 +941,8 @@ a:hover .kova-line-arrow,button:hover .kova-line-arrow{transform:translate3d(3px
 
 /* KOVA v07.3 / BREATH — expressive editorial type and buttery transitions */
 :root{
-  --font:'Instrument Sans','Helvetica Neue',Arial,sans-serif;
-  --font-display:'Space Grotesk','Instrument Sans',Arial,sans-serif;
+  --font:'Instrument Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-display:'Space Grotesk','Instrument Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --kova-breathe-ease:cubic-bezier(.16,1,.3,1);
   --kova-route-x:23px;
 }
@@ -1037,3 +1037,7 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
   #main{will-change:auto!important}
   .stage-tab::after,.topic-tab::after,.anatomy-part::after,.scenario-option::after{transition:none!important}
 }
+
+/* KOVA v07.5 — no on-page text or glyph is assigned Arial. Approved font
+   roles are provided by assets/font-families.css and this shared cascade.
+   Network failures fall back to the device's native system UI typeface. */
