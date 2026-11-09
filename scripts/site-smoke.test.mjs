@@ -270,7 +270,7 @@ for(const selector of [
 assert.match(css,/text-transform:uppercase/,'Feature cards have uppercase editorial styling');
 assert.match(typeStudy,/02 \/ EDITORIAL CARD TITLES/,'Font studio demonstrates matching card type');
 assert.match(typeStudy,/ZONING IS ONLY/,'The zoning sample is shown with the correct styling');
-assert.match(js,/WEBSITE V07\.9/,'Site renderer version is current');
+assert.match(js,/WEBSITE V08\.0/,'Site renderer version is current');
 console.log('PASS v07.6 — typography hierarchy, guide titles and responsive readability.');
 
 /* v07.7 — editorial contrast, urban diagrams, readable dark surfaces */
@@ -317,7 +317,7 @@ for(const token of [
 }
 assert.match(css,/--kova-contrast-deep:#[0-9a-fA-F]{6}/,'Previous warm contrast anchors are remapped');
 assert.doesNotMatch(css,/#252925\b|#222522\b|#e6e6e1\b|#fafbf6\b/i,'Warm v07.7 palette tokens no longer remain');
-assert.match(js,/WEBSITE V07\.9/,'Live route renderer is version 07.8');
+assert.match(js,/WEBSITE V08\.0/,'Live route renderer is version 07.8');
 const coolArtwork=['study-aerial.svg','study-contours.svg','study-parcels.svg','study-streetscape.svg'];
 for(const asset of coolArtwork){
   const drawing=readFileSync('assets/'+asset,'utf8');
