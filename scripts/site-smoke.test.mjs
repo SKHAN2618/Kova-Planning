@@ -86,8 +86,8 @@ assert.equal((insights.match(/data-guide="/g)||[]).length,10,'Static HTML contai
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=079/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=079/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=080/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=080/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -209,8 +209,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=079/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=079/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=080/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=080/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -296,8 +296,8 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=079/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=079/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=080/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=080/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -329,8 +329,8 @@ assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses 
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=079/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=079/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=080/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=080/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -357,76 +357,88 @@ assert.match(css,/filter:grayscale\(1\) contrast\(1\.05\)/,
   'Raster architectural backgrounds are neutralised');
 console.log('PASS: site-wide hexadecimal, RGB(A), raster and theme colour audit.');
 
-/* v07.9 — native-looking responsive shortcuts and concurrent UI animations */
+
+/* v08.0 — mobile gutter retained; overlaid text is forbidden. */
 const fluidCSS=css.slice(css.lastIndexOf('KOVA v07.9 / APPLE-LEVEL MOTION REFINEMENT'));
-assert.ok(fluidCSS.length>2800,'Fluid motion refinement is included');
-assert.match(fluidCSS,/\.expertise-index-inner\.shell\{/,'The expertise shortcut rail has an explicit mobile gutter');
-assert.match(fluidCSS,/padding-left:max\(22px,var\(--gutter,22px\)\)!important/,'01 shortcut cannot sit flush against the mobile viewport');
-assert.match(fluidCSS,/\.expertise-index-inner>a:first-of-type\{/,'First shortcut has extra comfortable touch padding');
-assert.match(fluidCSS,/\.kova-panel-ghost\{/,'Old panels use a noninteractive overlay for crossfade');
-assert.match(fluidCSS,/overflow-anchor:none/,'Panel replacement suppresses unwanted browser scroll anchoring');
-assert.match(fluidCSS,/@media\(prefers-reduced-motion:reduce\)/,'New motion respects reduced-motion settings');
-assert.match(js,/KOVA 07\.9 \/ Fluid panel transitions/,'Panel motion implementation is current');
-assert.match(js,/ghost\.inert=true/,'Outgoing snapshot is not interactive');
-assert.match(js,/panel\.appendChild\(ghost\)/,'Previous and incoming panels are composited together');
-assert.match(js,/Promise\.allSettled\(enter\.map\(/,'All new panels complete their entrance before cleanup');
-assert.match(js,/if\(panelAnimations\.get\(panel\)!==state\)return/,'Cancelled transitions cannot finish out of order');
-assert.match(js,/const slide=incoming>=previous\?12:-12/,'Page-to-page motion is restrained');
-console.log('PASS: v07.9 mobile shortcut spacing and simultaneous panel motion checks.');
+const slowCSS=css.slice(css.lastIndexOf('KOVA v08.0 / SLOW, SINGLE-PANEL TRANSITIONS'));
+assert.match(fluidCSS,/\.expertise-index-inner\.shell\{/,'01 shortcut still has proper mobile gutter');
+assert.match(fluidCSS,/padding-left:max\(22px,var\(--gutter,22px\)\)!important/,'Mobile shortcut retains its edge padding');
+assert.match(slowCSS,/#topic-viewport,#stage-viewport/,'Single-panel styling applies to dynamic content');
+assert.doesNotMatch(css,/\.kova-panel-ghost\s*\{/,'Overlay styling is removed');
+assert.doesNotMatch(js,/ghost\.innerHTML|appendChild\(ghost\)/,'JS never duplicates outgoing paragraphs');
+assert.match(js,/ONE PANEL AT A TIME/,'Single-panel motion replaces concurrent ghost snapshots');
+assert.match(js,/const slide=incoming>=previous\?12:-12/,'Subtle route transitions remain');
+console.log('PASS: no overlapping content, correct iPhone gutter and single-panel animation styles.');
 
-
-/* v07.9 — exercise the overlapping ghost animation, fast double taps and cleanup */
+/* v08.0 — exercise actual fade-out -> replace -> slow fade-in and height tween. */
 {
   const begin=js.indexOf('const panelAnimations=new WeakMap();');
   const finish=js.indexOf('const sourceLinks = {',begin);
-  assert.ok(begin>=0&&finish>begin,'Panel animator can be isolated for interaction tests');
+  assert.ok(begin>=0&&finish>begin,'Panel motion source is extractable');
   const motionSource=js.slice(begin,finish);
-  const activeAnimations=[];
-  const makeNode=(label)=>{
-    let html='';
-    const node={
-      label,children:[],parent:null,style:{},inert:false,
-      setAttribute(){},removeAttribute(){},querySelectorAll(){return []},
-      getBoundingClientRect(){return {height:360}},
-      appendChild(child){this.children.push(child);child.parent=this;return child},
-      remove(){if(this.parent){this.parent.children=this.parent.children.filter(n=>n!==this);this.parent=null}},
-      animate(frames,options){
-        let resolve,reject;
-        const finished=new Promise((yes,no)=>{resolve=yes;reject=no});
-        const animation={label:this.label,options,frames,finished,cancelled:false,
-          resolve(){resolve()},cancel(){if(!this.cancelled){this.cancelled=true;reject(new Error('cancelled'))}}
-        };
-        activeAnimations.push(animation);
-        return animation;
-      }
-    };
-    Object.defineProperty(node,'innerHTML',{
-      get(){return html},
-      set(value){html=value;node.children=value?[makeNode('content:'+value.slice(0,12))]:[]}
-    });
-    return node;
+  const animations=[];
+  let refreshes=0;
+  let naturalHeight=320;
+  let writes=0;
+  const panel={
+    style:{opacity:'',height:'',overflow:''},
+    querySelector(){return null},
+    getBoundingClientRect(){
+      const explicit=this.style.height;
+      return {height:explicit&&explicit!=='auto'?Number.parseFloat(explicit):naturalHeight};
+    },
+    animate(frames,options){
+      let resolve,reject;
+      const finished=new Promise((yes,no)=>{resolve=yes;reject=no});
+      const animation={
+        frames,options,finished,cancelled:false,
+        resolve(){resolve()},
+        cancel(){if(!this.cancelled){this.cancelled=true;reject(new Error('cancelled'))}}
+      };
+      animations.push(animation);
+      return animation;
+    }
   };
-  const testDocument={createElement:()=>makeNode('ghost')};
-  const swap=new Function('document','reduceMotion','smoothScroll',
-    motionSource+'return swapPanel;')(testDocument,false,null);
-  const panel=makeNode('tabpanel');panel.innerHTML='<article>FIRST</article>';
-  let oldCallbacks=0,newCallbacks=0;
-  swap(panel,'<article>SECOND</article>',()=>oldCallbacks++);
-  assert.equal(panel.innerHTML,'<article>SECOND</article>','New topic responds immediately');
-  assert.equal(activeAnimations.length,2,'Old and new panels animate concurrently');
-  assert.equal(panel.children.length,2,'Outgoing inert ghost overlaps the new panel');
-  assert.equal(panel.children[1].inert,true,'Outgoing content is not keyboard interactive');
-  swap(panel,'<article>THIRD</article>',()=>newCallbacks++);
-  assert.equal(activeAnimations[0].cancelled,true,'Rapid taps cancel first incoming animation');
-  assert.equal(activeAnimations[1].cancelled,true,'Rapid taps cancel first outgoing animation');
-  assert.equal(panel.children.length,2,'Superseded ghost is removed');
-  activeAnimations[2].resolve();
-  await Promise.resolve();await Promise.resolve();await Promise.resolve();
-  assert.equal(panel.children.length,1,'Ghost cleans up after entrance completes');
-  assert.equal(newCallbacks,1,'Only latest callback fires');
-  assert.equal(oldCallbacks,0,'Superseded callback is never called');
-  assert.equal(panel.innerHTML,'<article>THIRD</article>','Latest content wins rapid selection');
+  let html='<article>FIRST</article>';
+  Object.defineProperty(panel,'innerHTML',{
+    get(){return html},
+    set(value){html=value;writes++;naturalHeight=value.includes('LONG')?510:260}
+  });
+  const swap=new Function('window','reduceMotion','smoothScroll',motionSource+'return swapPanel;')(
+    {getComputedStyle(){return {opacity:'.6'}}},false,{resize(){refreshes++}}
+  );
+  let firstCallbacks=0,lastCallbacks=0;
+  swap(panel,'<article>LONG SECOND</article>',()=>firstCallbacks++);
+  assert.equal(panel.innerHTML,'<article>FIRST</article>','Old panel remains until exit finishes');
+  assert.equal(animations.length,1,'Only outgoing content animates initially');
+  assert.equal(animations[0].options.duration,325,'Outgoing content eases out without a ghost');
+  assert.equal(writes,0,'No DOM replacement during fade-out');
+  animations[0].resolve();
+  await Promise.resolve();await Promise.resolve();
+  assert.equal(panel.innerHTML,'<article>LONG SECOND</article>','New content appears after old is gone');
+  assert.equal(animations.length,3,'Incoming fade and height easing run together, after exit');
+  assert.equal(animations[1].options.duration,735,'Long new fade-in is slow and deliberate');
+  assert.equal(animations[2].frames[1].height,'510px','Panel grows to measured natural height');
+  assert.equal(firstCallbacks,0,'Callback waits for complete arrival');
+  // A rapid tap during entrance cancels both current animations before
+  // initiating a new, serial transition.
+  swap(panel,'<article>THIRD</article>',()=>lastCallbacks++);
+  assert.equal(animations[1].cancelled,true,'Rapid tap cancels in-progress fade-in');
+  assert.equal(animations[2].cancelled,true,'Rapid tap cancels in-progress height tween');
+  assert.equal(panel.innerHTML,'<article>LONG SECOND</article>','New selection still waits for exit');
+  animations[3].resolve();
+  await Promise.resolve();await Promise.resolve();
+  assert.equal(panel.innerHTML,'<article>THIRD</article>','Only latest selection is installed');
+  assert.equal(animations.length,6,'New arrival includes a fresh measured height transition');
+  assert.equal(animations[5].frames[1].height,'260px','Shorter panels shrink smoothly too');
+  animations[4].resolve();animations[5].resolve();
+  await Promise.resolve();await Promise.resolve();await Promise.resolve();await Promise.resolve();
+  assert.equal(firstCallbacks,0,'Superseded callback is never invoked');
+  assert.equal(lastCallbacks,1,'Latest arrival callback fires once');
+  assert.equal(panel.style.opacity,'','Visibility style is cleaned up');
+  assert.equal(panel.style.height,'','Height is released after the transition');
+  assert.equal(refreshes,1,'Scroll geometry refreshes once after the final animation');
   swap(panel,'<article>FOURTH</article>',null,true);
-  assert.equal(panel.innerHTML,'<article>FOURTH</article>','Instant deep-link updates still work');
-  console.log('PASS: v07.9 simultaneous content crossfade, rapid taps, inert snapshots and cleanup.');
+  assert.equal(panel.innerHTML,'<article>FOURTH</article>','Direct links and reduced-motion remain immediate');
+  console.log('PASS: slow serial fade, no text overlap, smooth growth/shrink, rapid taps and cleanup.');
 }
