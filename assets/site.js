@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V07.9
+/* KOVA PLANNING CO. / WEBSITE V08.0
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -35,17 +35,23 @@ const scrollToTop = (immediate = false) => {
 };
 
 
-/* KOVA 07.9 / Fluid panel transitions.
-   Previous panels did a full exit followed by a separate entrance: an
-   unnecessary 870 ms dead period. Keep the old content as a noninteractive
-   visual snapshot while the new content enters *concurrently*. The live DOM
-   and panel height update immediately, so tab selection stays responsive.
-   Cancel and clean up any superseded motion on rapid successive clicks. */
+/* KOVA v08.0 / ONE PANEL AT A TIME.
+   Never composite two different paragraphs or headings over each other.
+   Fade the current panel down, swap its content invisibly, and then ease the
+   single new panel in. A measured height tween prevents a sudden layout jump.
+   Rapid taps abort the old sequence and always select the latest request. */
 const panelAnimations=new WeakMap();
 function swapPanel(panel,markup,afterSwap,instant=false){
   if(!panel)return;
   const previous=panelAnimations.get(panel);
+  let fromOpacity=1;
   if(previous){
+    // Preserve the current visual opacity if a second selection arrives
+    // during a transition, rather than flashing the old panel to 100%.
+    try{
+      const current=parseFloat(window.getComputedStyle?.(panel)?.opacity);
+      if(Number.isFinite(current))fromOpacity=Math.max(.04,Math.min(1,current));
+    }catch(error){}
     previous.cancel();
     panelAnimations.delete(panel);
   }
@@ -58,66 +64,81 @@ function swapPanel(panel,markup,afterSwap,instant=false){
   if(instant||reduceMotion||typeof panel.animate!=='function'){
     apply();after();return;
   }
-  // A small opacity-only fallback for synthetic DOMs and older browsers.
-  if(typeof document.createElement!=='function'||typeof panel.appendChild!=='function'){
-    apply();
-    try{
-      const fade=panel.animate([{opacity:.65},{opacity:1}],
-        {duration:420,easing:'cubic-bezier(.22,1,.36,1)'});
-      fade.finished.then(after,after);
-    }catch(error){after();}
-    return;
-  }
-  let state=null;
-  try{
-    const priorMarkup=panel.innerHTML;
-    const oldHeight=panel.getBoundingClientRect?.().height||0;
-    const ghost=document.createElement('div');
-    ghost.className='kova-panel-ghost';
-    ghost.setAttribute('aria-hidden','true');
-    ghost.inert=true;
-    ghost.innerHTML=priorMarkup;
-    ghost.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
-    // Ghost links and form fields must not enter the keyboard focus order.
-    ghost.querySelectorAll('a,button,input,textarea,select,[tabindex]').forEach(node=>node.setAttribute('tabindex','-1'));
-    apply();
-    const incoming=Array.from(panel.children);
-    if(!incoming.length){
-      after();return;
-    }
-    if(oldHeight>0)ghost.style.height=oldHeight+'px';
-    panel.appendChild(ghost);
-    const enter=incoming.map(node=>node.animate([
-      {opacity:.22,transform:'translate3d(0,11px,0)'},
-      {opacity:1,transform:'translate3d(0,0,0)'}
-    ],{duration:560,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));
-    const exit=ghost.animate([
-      {opacity:1,transform:'translate3d(0,0,0)'},
-      {opacity:0,transform:'translate3d(0,-7px,0)'}
-    ],{duration:360,easing:'cubic-bezier(.32,0,.65,1)',fill:'both'});
-    // Cancelling a superseded ghost rejects finished; consume it safely.
-    exit.finished.catch(()=>{});
-    state={
-      cancel(){
-        for(const effect of [...enter,exit]){
-          try{effect.cancel()}catch(error){}
-        }
-        ghost.remove();
+  const state={
+    effects:[],
+    cancel(){
+      for(const effect of this.effects){
+        try{effect.cancel()}catch(error){}
       }
-    };
-    panelAnimations.set(panel,state);
-    Promise.allSettled(enter.map(animation=>animation.finished)).then(()=>{
-      if(panelAnimations.get(panel)!==state)return;
-      state.cancel();
-      panelAnimations.delete(panel);
-      after();
-    });
-  }catch(error){
-    if(state){state.cancel();panelAnimations.delete(panel);}
-    else{
-      const lingering=panel.querySelector?.('.kova-panel-ghost');
-      lingering?.remove();
+      this.effects.length=0;
+      panel.style.opacity='';
+      panel.style.height='';
+      panel.style.overflow='';
     }
+  };
+  panelAnimations.set(panel,state);
+  try{
+    // Exit is deliberately not sliding the whole panel; transforming
+    // large columns produces blurred lettering on mobile Safari.
+    const leaving=panel.animate([
+      {opacity:fromOpacity},
+      {opacity:0}
+    ],{duration:325,easing:'cubic-bezier(.42,0,.7,.28)',fill:'both'});
+    state.effects.push(leaving);
+    leaving.finished.then(()=>{
+      if(panelAnimations.get(panel)!==state)return;
+      panel.style.opacity='0';
+      const oldHeight=panel.getBoundingClientRect?.().height||0;
+      leaving.cancel();
+      state.effects.length=0;
+      if(oldHeight>0){
+        panel.style.height=oldHeight+'px';
+        panel.style.overflow='hidden';
+      }
+      apply();
+      // Read scrollHeight after new markup is installed. The panel is
+      // temporarily fixed at its previous height, but scrollHeight
+      // exposes the new content's natural height.
+      const newHeight=oldHeight>0?(panel.scrollHeight||oldHeight):0;
+      const effects=[];
+      const arriving=panel.animate([
+        {opacity:0},
+        {opacity:1}
+      ],{duration:735,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'});
+      effects.push(arriving);
+      state.effects.push(arriving);
+      if(oldHeight>0&&newHeight>0&&Math.abs(newHeight-oldHeight)>3){
+        const heightTween=panel.animate([
+          {height:oldHeight+'px'},
+          {height:newHeight+'px'}
+        ],{duration:735,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'});
+        effects.push(heightTween);
+        state.effects.push(heightTween);
+      }
+      // The heading can settle gently, but old and new text never overlap.
+      const title=panel.querySelector?.('.topic-hero h3,.stage-main h3,.scenario-title h3,.anatomy-detail h3,.explainer-detail h2');
+      if(title&&typeof title.animate==='function'){
+        const titleTween=title.animate([
+          {opacity:.72,transform:'translate3d(0,6px,0)'},
+          {opacity:1,transform:'translate3d(0,0,0)'}
+        ],{duration:770,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'});
+        effects.push(titleTween);
+        state.effects.push(titleTween);
+      }
+      // The arriving animation owns visibility until the final cleanup.
+      panel.style.opacity='';
+      Promise.allSettled(effects.map(effect=>effect.finished)).then(()=>{
+        if(panelAnimations.get(panel)!==state)return;
+        state.cancel();
+        panelAnimations.delete(panel);
+        smoothScroll?.resize();
+        after();
+      });
+    },()=>{});
+    leaving.finished.catch(()=>{});
+  }catch(error){
+    if(panelAnimations.get(panel)===state)panelAnimations.delete(panel);
+    state.cancel();
     apply();after();
   }
 }
