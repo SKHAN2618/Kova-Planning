@@ -55,11 +55,8 @@ function swapPanel(panel,markup,afterSwap,instant=false){
     previous.cancel();
     panelAnimations.delete(panel);
   }
-  const after=()=>{if(afterSwap)afterSwap()};
-  const apply=()=>{
-    panel.innerHTML=markup;
-    smoothScroll?.resize();
-  };
+  const after=()=>{smoothScroll?.resize();if(afterSwap)afterSwap()};
+  const apply=()=>{panel.innerHTML=markup;};
   if(markup===panel.innerHTML){after();return;}
   if(instant||reduceMotion||typeof panel.animate!=='function'){
     apply();after();return;
@@ -91,15 +88,17 @@ function swapPanel(panel,markup,afterSwap,instant=false){
       const oldHeight=panel.getBoundingClientRect?.().height||0;
       leaving.cancel();
       state.effects.length=0;
+      // Keep the old panel invisible while replacing and measuring content.
+      // Briefly use auto height to measure *shorter* new panels accurately too;
+      // otherwise scrollHeight is pinned to the old height and snaps at end.
+      panel.style.height='auto';
+      panel.style.overflow='visible';
+      apply();
+      const newHeight=oldHeight>0?(panel.getBoundingClientRect?.().height||oldHeight):0;
       if(oldHeight>0){
         panel.style.height=oldHeight+'px';
         panel.style.overflow='hidden';
       }
-      apply();
-      // Read scrollHeight after new markup is installed. The panel is
-      // temporarily fixed at its previous height, but scrollHeight
-      // exposes the new content's natural height.
-      const newHeight=oldHeight>0?(panel.scrollHeight||oldHeight):0;
       const effects=[];
       const arriving=panel.animate([
         {opacity:0},
@@ -131,7 +130,6 @@ function swapPanel(panel,markup,afterSwap,instant=false){
         if(panelAnimations.get(panel)!==state)return;
         state.cancel();
         panelAnimations.delete(panel);
-        smoothScroll?.resize();
         after();
       });
     },()=>{});
