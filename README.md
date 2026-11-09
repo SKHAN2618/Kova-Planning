@@ -1,4 +1,4 @@
-# KOVA Planning Co. | Website v07.9
+# KOVA Planning Co. | Website v08.0
 
 Six-page static website for a founder-led Auckland planning consultancy.
 
@@ -144,3 +144,11 @@ Rendering checks: 6 pages × 4 viewport widths. Draft-only enquiry form preserve
 - Refined page navigation to a shorter, subtler fade-and-slide sequence, maintaining the existing fade-out before the scroll-to-top reset.
 - Unified timing/easing for site-wide buttons, links, active tab indicators and scroll reveals without introducing constant parallax or heavy scroll effects on mobile.
 - Updated all seven page asset references and smoke tests. The approved cool palette, locally hosted fonts, six-page architecture and content remain intact.
+
+## v08.0 — A single, slow, elegant planning-panel transition
+- Replaced the v07.9 concurrent ghost/crossfade mechanism after the mobile review found overlapping duplicate text distracting. There is now **one real panel at a time**; the existing content fades completely before any new text is mounted.
+- The outgoing panel takes 325 ms to ease out. The new panel takes 735 ms to fade in with a restrained heading settle, for a measured ~1.06 s total instead of a visually overlapping composite.
+- The live panel measures its natural new height before the new content animates and eases height over the same 735 ms. This avoids sudden jumps when switching between longer and shorter planning topics on mobile.
+- Rapid taps cancel in-progress effects and only the latest chosen content is presented. No extra interactive or accessible ghost markup remains.
+- Retains the v07.9 mobile Expertise shortcut-bar gutter, cool architectural palette, self-hosted Space Grotesk / Instrument Sans typography, scroll behaviour, page navigation and reduced-motion settings.
+- Added runtime regression tests for exit-before-swap order, growth/shrink height easing, rapid taps, callbacks and clean style restoration.
