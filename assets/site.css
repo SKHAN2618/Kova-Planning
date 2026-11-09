@@ -1654,18 +1654,7 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
   overflow-anchor:none;
   transform:none;
 }
-.kova-panel-ghost{
-  position:absolute;
-  z-index:2;
-  inset:0 0 auto 0;
-  width:100%;
-  margin:0;
-  overflow:hidden;
-  pointer-events:none;
-  user-select:none;
-  contain:paint;
-}
-/* Keep the selected tab in sync with the simultaneous content crossfade. */
+/* Keep the selected tab responsive while the single content panel fades. */
 .topic-tab,.stage-tab,.scenario-option,.anatomy-part{
   transition:
     background-color var(--kova-motion-quick) var(--kova-motion-fluid),
@@ -1704,13 +1693,28 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
 }
 @media(max-width:760px){
   .reveal{transition-duration:570ms,660ms!important}
-  .kova-panel-ghost{will-change:opacity}
 }
 @media(prefers-reduced-motion:reduce){
-  .kova-panel-ghost{display:none!important}
   .topic-tab,.stage-tab,.scenario-option,.anatomy-part,
   .topic-tab::after,.stage-tab::after,.scenario-option::after,
   .anatomy-part::after,.reveal{
+    transition:none!important;
+    animation:none!important;
+  }
+}
+
+/* KOVA v08.0 / SLOW, SINGLE-PANEL TRANSITIONS
+   The old ghost overlay is removed. A single panel gently disappears,
+   updates invisibly, then returns. Its measured height eases with the copy.
+   This prevents two sets of text appearing on top of one another. */
+#topic-viewport,#stage-viewport,#scenario-viewport,#anatomy-detail,#insights-viewport{
+  overflow-anchor:none;
+  transform-origin:top center;
+  backface-visibility:visible;
+}
+@media(prefers-reduced-motion:reduce){
+  #topic-viewport,#stage-viewport,#scenario-viewport,
+  #anatomy-detail,#insights-viewport{
     transition:none!important;
     animation:none!important;
   }
