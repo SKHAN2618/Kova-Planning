@@ -187,7 +187,7 @@ console.log('PASS: two-stage page lifecycle and accessible navigation ripple.');
 /* v07.3 breathing transitions, panel swaps and scrolling checks */
 assert.match(js,/const panelAnimations=new WeakMap\(\)/,'Rapid panel changes are tracked');
 assert.match(js,/function swapPanel\(/,'Central two-stage panel animator exists');
-assert.match(js,/Promise\.allSettled\(enter\.map\(/,'Incoming panel animations overlap the exit and settle together');
+assert.match(js,/Promise\.allSettled\(effects\.map\(/,'Incoming animation and height easing settle together after the old panel exits');
 assert.match(js,/panelAnimations\.get\(panel\)!==state/,'Superseded panel transitions cannot overwrite newer selections');
 assert.match(js,/swapPanel\(vp,guideMarkup\(key\)/,'Guide detail transitions use the shared animation');
 assert.match(js,/showGuide\(key,false,true\)/,'Directly linked guides render without delayed swaps');
