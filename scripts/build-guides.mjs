@@ -1,0 +1,86 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import vm from 'node:vm';
+
+const base = 'https://skhan2618.github.io/Kova-Planning/';
+const js = readFileSync('assets/site.js','utf8');
+const definitions = (start,end) => js.slice(js.indexOf(start),js.indexOf(end));
+const {guides,guideSlugs,guideSources,guideReviewed} = vm.runInNewContext(
+  definitions('const sourceLinks =','const A =') +
+  definitions('const guides =','function insightListing()') +
+  definitions('const guideSources =','function officialGuideLinks(') +
+  '({guides,guideSlugs,guideSources,guideReviewed})'
+);
+const entries=Object.entries(guides);
+const escape = text=>String(text).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const date = new Intl.DateTimeFormat('en-NZ',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(guideReviewed));
+const linkList = [
+  ['index.html','Home'],['expertise.html','Expertise'],['approach.html','Our Approach'],
+  ['insights.html','Planning Explained'],['about.html','About']
+].map(([href,label])=>`<a href="../${href}">${label}</a>`).join('');
+const cssVersion = readFileSync('index.html','utf8').match(/assets\/site\.css\?v=(\d+)/)[1];
+
+mkdirSync('guides',{recursive:true});
+for(const [key,g] of entries){
+  const path = `guides/${guideSlugs[key]}.html`;
+  const title = escape(g.title);
+  const description = escape(g.sub);
+  const [service,serviceLabel]=g.next;
+  const serviceHref=service.replace(/^(\w+)(\?|$)/,(_,name,query)=>name+'.html'+query);
+  const serviceHash=service.match(/\?focus=([a-z]+)/)?.[1];
+  const serviceUrl=serviceHref+(serviceHash?'#service-'+serviceHash:'');
+  writeFileSync(path,`<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F5F8FA">
+  <title>${title} | KOVA Planning Co.</title>
+  <meta name="description" content="${description}">
+  <link rel="canonical" href="${base+path}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${title} | KOVA Planning Co.">
+  <meta property="og:description" content="${description}">
+  <meta property="og:url" content="${base+path}">
+  <meta property="og:image" content="${base}assets/social-share.png">
+  <link rel="icon" href="../assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="../assets/font-families.css?v=076">
+  <link rel="stylesheet" href="../assets/site.css?v=${cssVersion}">
+</head>
+<body class="standalone-guide">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="utility-bar"><div class="shell utility-inner"><span>KOVA / PLANNING CO.</span><span class="utility-location">TĀMAKI MAKAURAU · AOTEAROA NZ</span><span>04 / PLANNING EXPLAINED</span></div></div>
+  <header class="header"><div class="shell header-inner">
+    <a class="wordmark" href="../index.html" aria-label="KOVA Planning Co. home"><img src="../assets/kova-primary-black.svg" alt="KOVA Planning Co."></a>
+    <nav class="desktop-nav" aria-label="Main navigation">${linkList}</nav>
+    <a class="header-cta" href="../contact.html">Discuss a project</a>
+    <details class="guide-mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation">${linkList}<a href="../contact.html">Discuss a project</a></nav></details>
+  </div></header>
+  <main id="main" tabindex="-1" class="page-section guide-page-section">
+    <div class="shell"><article class="full-article explainer-detail">
+      <a class="article-back" href="../insights.html">← Back to Planning Explained</a>
+      <header><span>PLANNING EXPLAINED / ${escape(g.kind)}</span><h1>${title}</h1><p>${description}</p><p class="guide-reviewed">Reviewed <time datetime="${guideReviewed}">${date}</time></p></header>
+      <div class="article-body">
+        <div><span>THE QUESTION</span><p>${escape(g.intro)}</p></div>
+        <div>
+          ${g.blocks.map(([heading,body])=>`<section><h2>${escape(heading)}</h2><p>${escape(body)}</p></section>`).join('\n          ')}
+          <section class="explainer-sources"><h2>Official sources</h2><ul>${guideSources[key].map(([url,label])=>`<li><a href="${escape(url)}">${escape(label)}</a></li>`).join('')}</ul></section>
+          <section class="explainer-next" aria-label="Related planning service"><a class="text-link" href="../${escape(serviceUrl)}">${escape(serviceLabel)} <span aria-hidden="true">↗</span></a></section>
+        </div>
+      </div>
+    </article></div>
+  </main>
+  <footer class="site-footer"><div class="shell footer-bottom"><span>© 2026 KOVA PLANNING CO. · AUCKLAND</span><a href="../insights.html">Planning Explained</a><a href="../privacy.html">Privacy</a></div></footer>
+</body>
+</html>
+`);
+}
+
+const core=[
+  ['',guideReviewed],['expertise.html',guideReviewed],['approach.html','2026-11-05'],
+  ['insights.html',guideReviewed],['about.html','2026-11-05'],['contact.html','2026-11-05'],
+  ['privacy.html','2026-11-05']
+];
+writeFileSync('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`+
+  [...core,...entries.map(([key])=>[`guides/${guideSlugs[key]}.html`,guideReviewed])]
+    .map(([path,lastmod])=>`  <url><loc>${base+path}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n')+
+  '\n</urlset>\n');

@@ -1,4 +1,4 @@
-/* KOVA PLANNING CO. / WEBSITE V08.0
+/* KOVA PLANNING CO. / WEBSITE V08.1
  * Brand assets: supplied official KOVA vector artwork, unmodified.
  * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
@@ -9,7 +9,7 @@ const mobileMenu = document.getElementById('mobile-drawer');
 const lineArrow = '<svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg>';
 const pages = ['home','expertise','approach','insights','about','contact','privacy'];
 const routeFile = name => name==='home' ? 'index.html' : `${name}.html`;
-const routeHref = input => {let [name,query=''] = input.split('?');return routeFile(name)+(query?'?'+query:'')};
+const routeHref = input => {let [name,query=''] = input.split('?');const focus=new URLSearchParams(query).get('focus');return routeFile(name)+(query?'?'+query:'')+(name==='expertise'&&focus?'#service-'+focus:'')};
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let currentPage = '', busy = false, guideOpen = null;
 
@@ -182,7 +182,7 @@ function home(){return `
   <div class="hero-split shell-fluid">
     <div class="hero-left"><div class="hero-kicker"><span class="line-short"></span> AUCKLAND / INDEPENDENT PLANNING CONSULTANCY</div>
       <h1>SHAPING<br>WHAT COMES<br><em>NEXT.</em></h1>
-      <div class="hero-bottom"><p>Thoughtful planning begins by seeing a site's possibilities clearly. KOVA provides Auckland-based feasibility advice, resource consent and AEE support, while helping connect projects with the right design and technical specialists.</p>${A('expertise','Explore our expertise','btn btn-dark')}</div>
+      <div class="hero-bottom"><p>Auckland planning advice for site feasibility, resource consent and building consent coordination. Know what your site can support and what to check before you commit.</p>${A('contact','Discuss a project','btn btn-dark')}</div>
       <div class="hero-foot"><span>URBAN PLANNING / RESOURCE MANAGEMENT</span><span>01 — 06</span></div>
     </div>
     <div class="urban-panel"><div class="urban-title"><span>FIG. 01 / LAND & POSSIBILITY</span><span>LINE STUDY</span></div><img class="urban-site-study" src="assets/study-aerial.svg" alt="A conceptual aerial street and housing study drawn entirely in fine architectural lines"><div class="urban-bottom"><span>PLACE / POTENTIAL / CONTEXT</span><span>01</span></div></div>
@@ -190,7 +190,7 @@ function home(){return `
 </section>
 <section class="manifesto-section overlap-up">
   <div class="shell manifesto-top">${sectionHead('01','OUR PERSPECTIVE','THE THINKING BEHIND KOVA')}
-    <div class="manifesto-grid"><h2>GOOD PLANNING<br>IS MORE THAN<br><span>PERMISSION.</span></h2><div><p class="lead">The decisions that shape a place begin long before construction.</p><p>Behind every proposal is a relationship between land, people and possibility. Understanding the rules, the environment and the realities of delivery helps turn an idea into an informed direction.</p>${A('approach','How we think','text-link')}</div></div>
+    <div class="manifesto-grid"><h2>GOOD PLANNING<br>IS MORE THAN<br><span>PERMISSION.</span></h2><div><p class="lead">The decisions that shape a place begin long before construction.</p><p>We check the planning rules, site constraints and approvals that can change your project before you commit to a design.</p>${A('approach','How we think','text-link')}</div></div>
   </div>
   <div class="manifesto-bottom shell"><span>DEFINED BY CLARITY.</span><span>SHAPED BY CONTEXT.</span><span>GUIDED BY PURPOSE.</span></div>
 </section>
@@ -198,12 +198,12 @@ function home(){return `
   <div class="shell">${sectionHead('02','EXPERTISE','A CONSIDERED SET OF SERVICES')}
     <div class="section-intro"><h2>FROM FIRST IDEA<br>TO <span>INFORMED ACTION.</span></h2><p>Every site holds different opportunities and constraints. Good advice starts by understanding both.</p></div>
     <div class="expertise-list">
-      ${[['01','Resource consents','Clarifying the planning pathway for land use, subdivision and development.','expertise?focus=resource'],['02','Building consent coordination','Connecting the building approval pathway with the drawings and specialist inputs it requires.','expertise?focus=building'],['03','Environmental assessments','Understanding how a proposal may affect its surroundings, with an assessment shaped by the site and its scale.','expertise?focus=aee'],['04','Site feasibility','Recognising the potential and limitations of a site before committing to a direction.','expertise?focus=feasibility']].map(e=>`<a href="${routeHref(e[3])}" data-route="expertise" class="expertise-row"><span>${e[0]}</span><div><h3>${e[1]}</h3><p>${e[2]}</p></div><b><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></b></a>`).join('')}
+      ${[['01','Resource consents','Identify which rules trigger consent, prepare the planning assessment and coordinate lodgement where agreed.','expertise?focus=resource'],['02','Building consent coordination','Coordinate the drawings, technical reports and planning conditions needed for the building consent process.','expertise?focus=building'],['03','Environmental assessments','Prepare an Assessment of Environmental Effects (AEE) that explains the proposal, its effects and how they are addressed.','expertise?focus=aee'],['04','Site feasibility','Get a desktop assessment of zoning, site risks, consent pathways and what to check next.','expertise?focus=feasibility']].map(e=>`<a href="${routeHref(e[3])}" data-route="expertise" class="expertise-row"><span>${e[0]}</span><div><h3>${e[1]}</h3><p>${e[2]}</p></div><b><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></b></a>`).join('')}
     </div>
   </div>
 </section>
 <section class="founder-teaser"><div class="shell founder-teaser-inner"><div class="founder-teaser-left"><span>03 / THE THINKING BEHIND KOVA</span><h2>CITIES ARE<br><em>NEVER FINISHED.</em></h2></div><div class="founder-teaser-right"><span>FOUNDER-LED / BUILT ON CURIOSITY</span><p>Places evolve through the choices made for them. KOVA began with a curiosity about those choices and the opportunities they create for people and communities.</p>${A('about','Discover why KOVA began','text-link')}</div></div></section>
-<section class="insights-preview page-section"><div class="shell">${sectionHead('04','PLANNING EXPLAINED','FIELD NOTES / KOVA')}<div class="section-intro"><h2>ASK BETTER<br><span>QUESTIONS.</span></h2><p>Practical ideas, clearly explained. Explore the questions that shape a site's possibilities, and where to look next.</p></div><div class="insight-teasers"><a href="insights.html?guide=zoning" data-route="insights"><small>EXPLAINER / 01</small><h3>Zoning is only the beginning.</h3><span>What your site rules really tell you ${lineArrow}</span></a><a href="insights.html?guide=constraints" data-route="insights"><small>EXPLAINER / 02</small><h3>Why some sites are harder to develop.</h3><span>Explore the hidden considerations ${lineArrow}</span></a></div><div class="insights-preview-more">${A('insights','Explore all our planning explainers','text-link')}</div></div></section>
+<section class="insights-preview page-section"><div class="shell">${sectionHead('04','PLANNING EXPLAINED','FIELD NOTES / KOVA')}<div class="section-intro"><h2>ASK BETTER<br><span>QUESTIONS.</span></h2><p>Practical ideas, clearly explained. Explore the questions that shape a site's possibilities, and where to look next.</p></div><div class="insight-teasers"><a href="guides/zoning.html"><small>EXPLAINER / 01</small><h3>Zoning is only the beginning.</h3><span>What your site rules really tell you ${lineArrow}</span></a><a href="guides/site-constraints.html"><small>EXPLAINER / 02</small><h3>Why some sites are harder to develop.</h3><span>Explore the hidden considerations ${lineArrow}</span></a></div><div class="insights-preview-more">${A('insights','Explore all our planning explainers','text-link')}</div></div></section>
 `;}
 
 const topicContent = {
@@ -277,14 +277,15 @@ function anatomySvg(){return `<svg class="anatomy-svg kova-ink-drawing" viewBox=
 function anatomyPanel(i){const n=anatomyNodes[i];return `<div class="anatomy-detail-inner"><span>${n.n} / ASSESSMENT COMPONENT</span><h3>${n.title}</h3><p class="anatomy-lead">${n.lead}</p><p>${n.why}</p><div class="anatomy-list-label">TYPICAL QUESTIONS & INFORMATION</div><ul>${n.items.map(x=>`<li>${x}</li>`).join('')}</ul><div class="anatomy-caution"><span>THE IMPORTANT DISTINCTION</span><p>${n.caution}</p></div></div>`;}
 function selectAnatomy(i){if(!anatomyNodes[i])return;document.querySelectorAll('[data-anatomy]').forEach(b=>{let on=+b.dataset.anatomy===i;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});swapPanel(document.getElementById('anatomy-detail'),anatomyPanel(i))}
 
-function expertise(){return `<section class="internal-hero expertise-internal"><div class="shell">${eyebrow('02','EXPERTISE','PLANNING & DEVELOPMENT')}<div class="internal-headline"><h1>UNDERSTAND<br>THE RULES.<br><em>SEE THE POTENTIAL.</em></h1><p>Every site has a context, a set of constraints and a range of possibilities. Planning brings these into focus.</p></div><div class="internal-hero-footer"><span>RESOURCE CONSENTS / BUILDING CONSENTS / AEE / FEASIBILITY</span><span>SCROLL TO EXPLORE ↓</span></div></div></section>
-<section class="services-overview" id="planning-services"><div class="shell">${sectionHead('01','WHAT WE CAN HELP WITH','PRACTICAL PLANNING SUPPORT')}<div class="services-overview-head"><h2>CLARITY BEFORE<br><em>COMMITMENT.</em></h2><p>Before plans become commitments, we look closely at the land, the rules and the decisions ahead.</p></div><div class="service-overview-grid">
- <a href="#consent-explorer" class="service-overview-card"><span>01 / LAND USE & SUBDIVISION</span><h3>Resource consent advice.</h3><p>Establish what the planning framework allows, where consent may be required and what an application needs.</p><b aria-hidden="true">${lineArrow}</b></a>
- <a href="#anatomy-of-consent" class="service-overview-card"><span>02 / ASSESSMENT & EVIDENCE</span><h3>AEEs & planning reports.</h3><p>Build a clear assessment of the proposal, its effects and the evidence needed to support it.</p><b aria-hidden="true">${lineArrow}</b></a>
- <a href="expertise.html?focus=building" data-route="expertise" class="service-overview-card"><span>03 / RELATED APPROVALS</span><h3>Building consent coordination.</h3><p>Bring the right designers and technical specialists into the approval process at the right time.</p><b aria-hidden="true">${lineArrow}</b></a>
- <a href="expertise.html?focus=feasibility" data-route="expertise" class="service-overview-card"><span>04 / EARLY DEVELOPMENT THINKING</span><h3>Site feasibility & planning advice.</h3><p>Understand a site's potential, the obstacles worth resolving and the investigations that matter first.</p><b aria-hidden="true">${lineArrow}</b></a>
+function expertise(){return `<section class="internal-hero expertise-internal"><div class="shell">${eyebrow('02','EXPERTISE','PLANNING & DEVELOPMENT')}<div class="internal-headline"><h1>UNDERSTAND<br>THE RULES.<br><em>SEE THE POTENTIAL.</em></h1><p>We assess Auckland sites, prepare resource consent applications and AEEs, and coordinate the specialist inputs needed for building consent.</p></div><div class="internal-hero-footer"><span>RESOURCE CONSENTS / BUILDING CONSENTS / AEE / FEASIBILITY</span><span>SCROLL TO EXPLORE ↓</span></div></div></section>
+<section class="services-overview" id="planning-services"><div class="shell">${sectionHead('01','WHAT WE CAN HELP WITH','PRACTICAL PLANNING SUPPORT')}<div class="services-overview-head"><h2>CLARITY BEFORE<br><em>COMMITMENT.</em></h2><p>See what each service covers, what you need to provide and where independent specialist input may be needed.</p></div><div class="service-overview-grid">
+ <a href="expertise.html?focus=resource#service-resource" data-route="expertise" class="service-overview-card"><span>01 / LAND USE & SUBDIVISION</span><h3>Resource consent advice.</h3><p>Identify the consent pathway, prepare the planning documents and coordinate lodgement where agreed.</p><b aria-hidden="true">${lineArrow}</b></a>
+ <a href="expertise.html?focus=aee#service-aee" data-route="expertise" class="service-overview-card"><span>02 / ASSESSMENT & EVIDENCE</span><h3>AEEs & planning reports.</h3><p>Get a written assessment of the proposal, relevant effects and the evidence supporting any mitigation.</p><b aria-hidden="true">${lineArrow}</b></a>
+ <a href="expertise.html?focus=building#service-building" data-route="expertise" class="service-overview-card"><span>03 / RELATED APPROVALS</span><h3>Building consent coordination.</h3><p>Set the documentation scope and coordinate inputs from the designers and technical specialists.</p><b aria-hidden="true">${lineArrow}</b></a>
+ <a href="expertise.html?focus=feasibility#service-feasibility" data-route="expertise" class="service-overview-card"><span>04 / EARLY DEVELOPMENT THINKING</span><h3>Site feasibility & planning advice.</h3><p>Get a Desktop Planning Assessment before buying, selling or committing to design.</p><b aria-hidden="true">${lineArrow}</b></a>
  </div><p class="services-overview-note">When a proposal needs architectural drawings or specialist input, <a href="#project-coordination" class="inline-coordination-link">explore how we coordinate the right team ${lineArrow}</a>.</p></div></section>
-<section class="team-coordination" id="project-coordination"><div class="shell team-coordination-inner"><div><span>PLANNING-LED / COLLABORATIVE DELIVERY</span><h2>ONE PROJECT.<br><em>THE RIGHT EXPERTISE.</em></h2><img class="kova-drawing-img" src="assets/study-parcels.svg" loading="lazy" alt="Conceptual land-parcel study in fine linework"></div><div><p>Considered development is collaborative. KOVA can help identify and coordinate the architectural, surveying and engineering expertise a project needs, keeping design decisions connected to the planning pathway.</p><p>From the first brief through drawings, assessments and council submissions, our role is to keep the relevant questions and inputs aligned.</p>${A('approach','See how the process works','text-link')}</div></div></section>
+<section class="page-section service-scopes" id="service-scope"><div class="shell"><div class="section-label"><span>SERVICE SCOPE</span><span>DELIVERABLES / INPUTS / LIMITS</span></div><div class="section-intro"><h2>WHAT YOU<br><span>RECEIVE.</span></h2><p>Start with the service that matches the decision you need to make.</p></div><div class="scope-grid"><article id="service-feasibility" class="scope-card" tabindex="-1"><span class="scope-number">01 / BEFORE YOU COMMIT</span><h3>Site feasibility</h3><dl><dt>What you receive</dt><dd><strong>Desktop Planning Assessment.</strong> A written review of applicable zoning and planning provisions, mapped hazards and overlays, likely approval pathways, practical constraints and the checks to prioritise next. Where relevant, we distinguish current rules from proposed changes.</dd><dt>What we need from you</dt><dd>The site address, the decision you need to make, and any plans, title records or reports you already have.</dd><dt>What sits outside scope</dt><dd>No survey, title or legal opinion, confirmed servicing capacity, tested development yield, engineering design or financial appraisal. Those can be scoped separately with the right specialists.</dd></dl></article><article id="service-resource" class="scope-card" tabindex="-1"><span class="scope-number">02 / LAND USE &amp; SUBDIVISION</span><h3>Resource consent</h3><dl><dt>What you receive</dt><dd><strong>Application and planning assessment.</strong> A review of relevant rules and consent triggers, a planning assessment and AEE as applicable, and an application package. Where agreed, KOVA coordinates lodgement and responses to council requests.</dd><dt>What we need from you</dt><dd>The site address, a description of the proposal, and any concept plans, prior consents or council correspondence.</dd><dt>What sits outside scope</dt><dd>Technical reports, redesign and council charges are separate unless included in the agreed scope. Council decides whether to grant consent and what conditions apply.</dd></dl></article><article id="service-aee" class="scope-card" tabindex="-1"><span class="scope-number">03 / PLANNING EVIDENCE</span><h3>Assessment of Environmental Effects</h3><dl><dt>What you receive</dt><dd><strong>Written assessment for lodgement.</strong> A clear account of the proposal, its relevant effects and any proposed mitigation. We identify where more evidence is needed and incorporate specialist findings into the planning assessment.</dd><dt>What we need from you</dt><dd>Current drawings, site information, the proposed works and any existing technical reports.</dd><dt>What sits outside scope</dt><dd>KOVA prepares the planning assessment. Engineers, ecologists and other specialists prepare their own technical assessments where needed.</dd></dl></article><article id="service-building" class="scope-card" tabindex="-1"><span class="scope-number">04 / RELATED APPROVALS</span><h3>Building consent coordination</h3><dl><dt>What you receive</dt><dd><strong>Documentation and specialist coordination.</strong> An agreed list of drawings and reports, coordination with relevant specialists, and checks that the building consent package aligns with the planning approvals and consent conditions where relevant.</dd><dt>What we need from you</dt><dd>The site address, proposed building work, current drawings, and any existing resource consent or other approval documents.</dd><dt>What sits outside scope</dt><dd>Building design, Building Code compliance evidence and certification stay with the relevant independent practitioners. The building consent authority assesses and decides the application.</dd></dl></article></div></div></section>
+<section class="team-coordination" id="project-coordination"><div class="shell team-coordination-inner"><div><span>PLANNING-LED / COLLABORATIVE DELIVERY</span><h2>ONE PROJECT.<br><em>THE RIGHT EXPERTISE.</em></h2><img class="kova-drawing-img" src="assets/study-parcels.svg" loading="lazy" alt="Conceptual land-parcel study in fine linework"></div><div><p>KOVA provides one point of contact for planning and specialist coordination. We identify the inputs needed, coordinate them within the agreed scope and check that the planning documents and specialist information describe the same proposal.</p><p>Independent architects and building designers prepare drawings. Surveyors and engineers provide technical advice, reports and certification within their own scope. Council makes the consent decision.</p>${A('approach','See how the process works','text-link')}</div></div></section>
 <section class="tools-intro"><div class="shell"><span>EXPLORE / THE PLANNING LANDSCAPE</span><h2>THE DETAIL<br><em>BEHIND THE DECISION.</em></h2><p>Move from broad planning questions to the details that can shape an application.</p></div></section>
 <section class="expertise-index" aria-label="Explore expertise sections"><div class="shell expertise-index-inner"><span>EXPLORE THIS PAGE</span><a href="#consent-explorer">01 / Consent explorer <svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></a><a href="#anatomy-of-consent">02 / Anatomy <svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></a></div></section>
 <section class="knowledge-section" id="consent-explorer"><div class="shell">${sectionHead('03','CONSENT EXPLORER','INTERACTIVE / SELECT A TOPIC')}<div class="section-intro knowledge-intro"><h2>LEARN THE<br><span>LANDSCAPE.</span></h2><p>Understand how different approvals work and what they may mean for a proposal.</p></div>
@@ -331,13 +332,13 @@ const guides = {
   ['02 / BUILDING CONSENT','A building consent relates to the construction work and whether submitted plans and specifications meet Building Code requirements. Some work may be exempt from a building consent, but Building Code obligations can still apply.'],
   ['03 / BOTH, ONE OR NEITHER','A proposal may need both approvals, just one, or neither. Permitted development under planning controls is not automatically exempt from building consent, and a resource consent does not replace technical building approval.'],
   ['04 / THE PRACTICAL QUESTION','Identify the proposed activity, its location, the applicable rules and the building work involved before settling your documentation pathway. Planning and building professionals have distinct roles.']
- ],sources:[[sourceLinks.resources,'Ministry for the Environment — Resource consent guide'],[sourceLinks.building,'MBIE — Building consent guidance']],next:['expertise?focus=building','Explore the two approval pathways']},
+ ],sources:[[sourceLinks.resources,'Ministry for the Environment — Resource consent guide'],[sourceLinks.building,'MBIE — Building consent guidance']],next:['expertise?focus=building','See what building consent coordination covers']},
  aee:{n:'04',kind:'ENVIRONMENTAL EFFECTS',title:'What does an AEE actually explain?',sub:'A clear account of a proposal and the effects it may create.',intro:'An Assessment of Environmental Effects (AEE) is not simply a formality. It helps explain a proposed activity, what it might change, and how relevant adverse effects will be addressed.',blocks:[
   ['01 / THE PROPOSAL AND ITS CONTEXT','An AEE starts with a clear description of what is proposed and the environment where it would occur. The questions depend on the activity, site conditions and applicable planning framework.'],
   ['02 / THE EFFECTS','Relevant effects might involve neighbouring amenity, traffic, earthworks, stormwater, landscape, ecological or other matters. The effects considered must be appropriate to the proposal and current statutory requirements.'],
   ['03 / THE RESPONSE','An assessment identifies appropriate measures to avoid, remedy or mitigate adverse effects and refers to relevant plans and policies. Technical evidence may be needed from engineers or other specialists.'],
   ['04 / THE RIGHT LEVEL OF DETAIL','The extent of assessment should reflect the proposal and applicable requirements. A short, straightforward proposal does not call for the same evidence as a complex development.']
- ],sources:[[sourceLinks.resources,'Ministry for the Environment — Application and AEE guidance'],[sourceLinks.aucklandChecklist,'Auckland Council — Application checklist']],next:['expertise?view=anatomy','Explore the anatomy of a consent']},
+ ],sources:[[sourceLinks.resources,'Ministry for the Environment — Application and AEE guidance'],[sourceLinks.aucklandChecklist,'Auckland Council — Application checklist']],next:['expertise?focus=aee','See what KOVA includes in an AEE']},
  needconsent:{n:'05',kind:'PLANNING PERMISSION',title:'Do I actually need resource consent?',sub:'How to distinguish a permitted activity from one requiring approval.',intro:'Not every change to a property needs resource consent. The question is whether the entire proposal meets the relevant rules and any applicable national direction, not whether similar work has happened next door.',blocks:[
   ['01 / DEFINE THE ACTIVITY','Describe exactly what you want to do: a new building, a changed use, extra earthworks, a second dwelling or something else. Different parts of one proposal can trigger different planning rules.'],
   ['02 / TEST THE FULL RULE SET','Check the applicable zone, activity classification and development standards, together with overlays, precincts, regional rules and relevant national environmental standards. A permitted activity must meet all applicable conditions for that pathway.'],
@@ -352,7 +353,7 @@ const guides = {
  ],sources:[['https://www.linz.govt.nz/guidance/land-registration/land-registration-guide/subdivisions/subdivision-registration-requirements','LINZ — Subdivision registration requirements'],['https://www.codc.govt.nz/services/planning/subdivision-consent','Council example — Subdivision consent stages']],next:['expertise?focus=feasibility','Explore early subdivision feasibility']},
  granny:{n:'07',kind:'SMALL DWELLINGS',title:'Can I add a second dwelling?',sub:'Understanding the rules for minor dwellings and granny flats.',intro:'A second dwelling can create options for family or investment, but the applicable rules depend on the design, site and intended use. New small-dwelling exemptions have specific conditions; they are not automatic permission to build anywhere.',blocks:[
   ['01 / CHECK WHAT IS PROPOSED','A small detached standalone dwelling is not necessarily treated the same way as a house extension, a converted garage or an additional full-sized home. Start with the floor area, height, site position, services and how the dwelling will be used.'],
-  ['02 / SEPARATE THE TWO EXEMPTION TESTS','The 2026 building consent exemption can apply to qualifying new standalone, single-storey dwellings up to 70 m². The national environmental standard for detached minor residential units provides a separate resource-consent permitted pathway where its conditions are met. One exemption does not establish the other.'],
+  ['02 / SEPARATE THE TWO EXEMPTION TESTS','A qualifying new standalone, single storey dwelling of up to 70 m² may meet the building consent exemption. The national environmental standard provides a separate permitted activity pathway for qualifying detached minor residential units. Passing one set of checks does not mean the other is met.'],
   ['03 / DESIGN, SERVICES AND NOTICES STILL MATTER','Even exempt building work must comply with the Building Code and relevant conditions. The granny-flat pathway involves licensed professionals, a project information memorandum before work and completion documentation; infrastructure and development contributions may also arise.'],
   ['04 / CHECK THE SITE BEFORE CHOOSING A PATH','Access, hazards, stormwater, wastewater, service capacity, title constraints and other planning provisions can change what is feasible. Confirm the specific pathway before commissioning final drawings or construction.']
  ],sources:[['https://www.building.govt.nz/projects-and-consents/planning-a-successful-build/scope-and-design/building-a-granny-flat-resources/homeowners','MBIE — Granny flat guidance updated October 2026'],['https://www.planning.govt.nz/implementation-and-guidance/transitional-consenting/national-direction-changes-that-affect-consenting/','Planning.govt.nz — Detached minor residential unit standards']],next:['expertise?focus=feasibility','Explore the site feasibility questions']},
@@ -361,7 +362,7 @@ const guides = {
   ['02 / SHOW WHAT WILL CHANGE','Site and floor plans, elevations, earthworks details, servicing layouts or subdivision drawings may be needed. Appropriate design or drafting professionals prepare the drawings; the required level of detail is driven by the proposal and the consent pathway.'],
   ['03 / EXPLAIN THE PLANNING CASE','Applications under the RMA commonly include an Assessment of Environmental Effects and a planning assessment against relevant provisions. The scope should address matters the law permits the decision-maker to consider and be proportionate to the proposal.'],
   ['04 / BRING IN SPECIALISTS WHERE THEY ADD VALUE','An engineer, surveyor, transport adviser, arborist, ecologist or other expert may need to provide evidence. The goal is not to commission every report, but to identify which inputs genuinely support informed decisions and a complete application.']
- ],sources:[['https://environment.govt.nz/publications/applying-for-a-resource-consent/consent-process/','Ministry for the Environment — Preparing an application'],['https://environment.govt.nz/guides/making-an-application-for-resource-consent/','Ministry for the Environment — Application guidance']],next:['expertise?view=coordination','How KOVA coordinates the right project inputs']},
+ ],sources:[['https://environment.govt.nz/publications/applying-for-a-resource-consent/consent-process/','Ministry for the Environment — Preparing an application'],['https://environment.govt.nz/guides/making-an-application-for-resource-consent/','Ministry for the Environment — Application guidance']],next:['expertise?focus=resource','See what a resource consent application includes']},
  neighbours:{n:'09',kind:'PEOPLE & EFFECTS',title:'Will my neighbours need to approve?',sub:'Affected persons, written approvals and notification explained.',intro:'Neighbours are an important part of a place, but not every consent application requires their signature. Whether written approval or notification is relevant depends on the proposal, the current legal tests and how the council assesses effects.',blocks:[
   ['01 / APPROVAL IS NOT AUTOMATIC','A neighbour being nearby does not itself mean written approval is legally necessary. The council determines who may be affected and whether notification is required under the applicable statutory framework.'],
   ['02 / THE THREE NOTIFICATION PATHS','An application may be non-notified, limited notified to affected parties, or publicly notified. The tests depend on planning rules, national direction, adverse effects that may lawfully be considered and relevant notification provisions.'],
@@ -371,14 +372,115 @@ const guides = {
  timecost:{n:'10',kind:'PROJECT REALITIES',title:'How long will consent take, and what will it cost?',sub:'What affects council processing, fees and project programmes.',intro:'Time and cost depend on far more than the application form. A clear early brief can help identify the investigations, design work and council steps likely to shape the programme.',blocks:[
   ['01 / SEPARATE PREPARATION FROM PROCESSING','Before lodgement there may be planning reviews, drawings, specialist reports and consultations. Council statutory processing periods are not the whole project programme and should not be presented as a guaranteed completion date.'],
   ['02 / KNOW WHAT CAN PAUSE THE CLOCK','Under the current transitional RMA pathway, a standard non-notified consent commonly has a statutory 20-working-day processing timeframe, but information requests, extensions and notification can alter the elapsed time. More complex or notified proposals can take considerably longer.'],
-  ['03 / BUDGET FOR DIFFERENT COST TYPES','A project can involve consultant fees, council deposits and processing charges, technical reports, application revisions and potential development contributions or engineering works. Auckland Council generally charges actual processing time against deposits rather than offering one fixed price for all applications.'],
+  ['03 / BUDGET FOR DIFFERENT COST TYPES','A project can involve consultant fees, council deposits and processing charges, technical reports, application revisions and potential development contributions or engineering works. Check the current council fee schedule and ask which charges are fixed, are deposits, or depend on the actual processing work.'],
   ['04 / REDUCE AVOIDABLE UNCERTAINTY','Check the site early, settle the project scope, identify necessary specialists and lodge an adequately supported application. Even careful preparation cannot guarantee council timing or approval, but it can make the next decisions less speculative.']
- ],sources:[['https://environment.govt.nz/publications/applying-for-a-resource-consent/timeframes/','Ministry for the Environment — Statutory processing timeframes'],['https://www.aucklandcouncil.govt.nz/en/building-and-consents/resource-consents/resource-consent-fees-deposits.html','Auckland Council — Resource consent fees and deposits']],next:['approach','Explore how the KOVA planning process works']}
+ ],sources:[['https://environment.govt.nz/publications/applying-for-a-resource-consent/timeframes/','Ministry for the Environment — Statutory processing timeframes'],['https://www.aucklandcouncil.govt.nz/en/building-and-consents/resource-consents/resource-consent-fees-deposits.html','Auckland Council — Resource consent fees and deposits']],next:['expertise?focus=resource','See what KOVA can scope for a resource consent']}
 
 };
-function insightListing(){return `<div class="explainers-intro"><span>FIELD NOTES / 01—10</span><p>Start with the question in front of you. Each guide offers a clear foundation and a considered next step.</p></div><div class="insights-grid explainer-grid">${Object.entries(guides).map(([key,g])=>`<button class="insight-card" type="button" data-guide="${key}" aria-label="Read ${g.title}"><small>${g.n} / ${g.kind}</small><h3>${g.title}</h3><p>${g.sub}</p><span>READ EXPLAINER ${lineArrow}</span></button>`).join('')}</div>`;}
-function guideMarkup(key){const g=guides[key];return `<article class="full-article explainer-detail"><button type="button" class="article-back" data-back-guides>← BACK TO ALL EXPLAINERS</button><header><span>PLANNING EXPLAINED / ${g.kind}</span><h2>${g.title}</h2><p>${g.sub}</p></header><div class="article-body"><div><span>THE QUESTION</span><p>${g.intro}</p></div><div>${g.blocks.map(b=>`<section><h3>${b[0]}</h3><p>${b[1]}</p></section>`).join('')}<section class="explainer-next" aria-label="Related planning service">${A(g.next[0],g.next[1],'text-link')}</section></div></div></article>`;}
-function insights(){return `<section class="internal-hero insights-hero"><div class="shell">${eyebrow('04','INSIGHTS','PLANNING EXPLAINED')}<div class="internal-headline"><h1>PLANNING,<br><em>EXPLAINED.</em></h1><p>Practical explanations for the questions that shape land, development and what comes next.</p></div><div class="internal-hero-footer"><span>FIELD NOTES / CLEARER DECISIONS</span><span>EXPLORE THE GUIDES ↓</span></div></div></section>
+const guideSlugs = {"zoning": "zoning", "constraints": "site-constraints", "consents": "resource-vs-building-consent", "aee": "assessment-of-environmental-effects", "needconsent": "do-i-need-resource-consent", "subdivision": "subdivision", "granny": "second-dwellings", "documents": "consent-plans-and-reports", "neighbours": "neighbour-approval", "timecost": "consent-time-and-cost"};
+function insightListing(){return `<div class="explainers-intro"><span>FIELD NOTES / 01—10</span><p>Start with the question in front of you. Each guide offers a clear foundation and a considered next step.</p></div><div class="insights-grid explainer-grid">${Object.entries(guides).map(([key,g])=>`<a class="insight-card" href="guides/${guideSlugs[key]}.html" aria-label="Read ${g.title}"><small>${g.n} / ${g.kind}</small><h3>${g.title}</h3><p>${g.sub}</p><span>READ EXPLAINER ${lineArrow}</span></a>`).join('')}</div>`;}
+const guideSources = {
+  "zoning": [
+    [
+      "https://unitaryplanmaps.aucklandcouncil.govt.nz/upviewer/",
+      "Auckland Council · Unitary Plan maps"
+    ],
+    [
+      "https://environment.govt.nz/publications/understanding-the-rma-and-how-to-get-involved/when-you-need-a-resource-consent/",
+      "Ministry for the Environment · When you need resource consent"
+    ]
+  ],
+  "constraints": [
+    [
+      "https://unitaryplanmaps.aucklandcouncil.govt.nz/upviewer/",
+      "Auckland Council · Unitary Plan maps"
+    ],
+    [
+      "https://www.linz.govt.nz/products-services/land-records/types-land-records/property-title",
+      "LINZ · Property titles"
+    ]
+  ],
+  "consents": [
+    [
+      "https://environment.govt.nz/publications/applying-for-a-resource-consent/",
+      "Ministry for the Environment · Applying for resource consent"
+    ],
+    [
+      "https://www.building.govt.nz/projects-and-consents/apply-for-building-consent",
+      "MBIE · Applying for building consent"
+    ]
+  ],
+  "aee": [
+    [
+      "https://environment.govt.nz/guides/making-an-application-for-resource-consent/",
+      "Ministry for the Environment · Resource consent applications and AEEs"
+    ]
+  ],
+  "needconsent": [
+    [
+      "https://environment.govt.nz/publications/understanding-the-rma-and-how-to-get-involved/when-you-need-a-resource-consent/",
+      "Ministry for the Environment · When you need resource consent"
+    ],
+    [
+      "https://www.planning.govt.nz/implementation-and-guidance/transitional-consenting/how-consenting-works-during-the-transition/",
+      "Planning.govt.nz · Consenting during the transition"
+    ]
+  ],
+  "subdivision": [
+    [
+      "https://www.linz.govt.nz/guidance/land-registration/land-registration-guide/subdivisions/subdivision-registration-requirements",
+      "LINZ · Subdivision registration requirements"
+    ],
+    [
+      "https://unitaryplanmaps.aucklandcouncil.govt.nz/upviewer/",
+      "Auckland Council · Unitary Plan maps"
+    ]
+  ],
+  "granny": [
+    [
+      "https://www.building.govt.nz/projects-and-consents/planning-a-successful-build/scope-and-design/check-if-you-need-consents/building-work-that-doesnt-need-a-building-consent/granny-flats-exemption-guidance-and-resources",
+      "MBIE · Granny flats building consent exemption"
+    ],
+    [
+      "https://environment.govt.nz/acts-and-regulations/legislation/nes-dmru/",
+      "Ministry for the Environment · Detached minor residential unit standards"
+    ]
+  ],
+  "documents": [
+    [
+      "https://environment.govt.nz/guides/making-an-application-for-resource-consent/",
+      "Ministry for the Environment · Application guidance"
+    ],
+    [
+      "https://environment.govt.nz/publications/applying-for-a-resource-consent/consent-process/",
+      "Ministry for the Environment · The consent process"
+    ]
+  ],
+  "neighbours": [
+    [
+      "https://environment.govt.nz/publications/information-for-affected-persons/what-does-giving-written-approval-involve/",
+      "Ministry for the Environment · Written approval"
+    ],
+    [
+      "https://www.planning.govt.nz/implementation-and-guidance/transitional-consenting/how-consenting-works-during-the-transition/",
+      "Planning.govt.nz · Consenting during the transition"
+    ]
+  ],
+  "timecost": [
+    [
+      "https://environment.govt.nz/publications/applying-for-a-resource-consent/timeframes/",
+      "Ministry for the Environment · Processing timeframes"
+    ],
+    [
+      "https://www.planning.govt.nz/implementation-and-guidance/transitional-consenting/how-consenting-works-during-the-transition/",
+      "Planning.govt.nz · Consenting during the transition"
+    ]
+  ]
+};
+const guideReviewed = '2026-11-16';
+function officialGuideLinks(key){return `<section class="explainer-sources"><h3>Official sources</h3><ul>${guideSources[key].map(([href,label])=>`<li><a href="${href}">${label}</a></li>`).join('')}</ul></section>`;}
+function guideMarkup(key){const g=guides[key];return `<article class="full-article explainer-detail"><button type="button" class="article-back" data-back-guides>← BACK TO ALL EXPLAINERS</button><header><span>PLANNING EXPLAINED / ${g.kind}</span><h2>${g.title}</h2><p>${g.sub}</p><p class="guide-reviewed">Reviewed <time datetime="${guideReviewed}">16 November 2026</time></p></header><div class="article-body"><div><span>THE QUESTION</span><p>${g.intro}</p></div><div>${g.blocks.map(b=>`<section><h3>${b[0]}</h3><p>${b[1]}</p></section>`).join('')}${officialGuideLinks(key)}<section class="explainer-next" aria-label="Related planning service">${A(g.next[0],g.next[1],'text-link')}</section></div></div></article>`;}
+function insights(){return `<section class="internal-hero insights-hero"><div class="shell">${eyebrow('04','PLANNING EXPLAINED','PRACTICAL AUCKLAND GUIDES')}<div class="internal-headline"><h1>PLANNING,<br><em>EXPLAINED.</em></h1><p>Practical explanations for the questions that shape land, development and what comes next.</p></div><div class="internal-hero-footer"><span>FIELD NOTES / CLEARER DECISIONS</span><span>EXPLORE THE GUIDES ↓</span></div></div></section>
 <section class="page-section insights-content"><div class="shell">${sectionHead('01','THE EXPLAINERS','SHORT / USEFUL / GROUNDED')}<div class="section-intro"><h2>START WITH<br><span>THE QUESTION.</span></h2><p>Better decisions start with better questions. Explore the essentials, then follow the details where they matter.</p></div><div id="insights-viewport">${insightListing()}</div></div></section>
 <section class="information-banner"><div class="shell info-banner-inner"><div><span>IMPORTANT CONTEXT</span><h2>EVERY SITE<br><em>IS DIFFERENT.</em></h2></div><p>Planning begins with context. What applies to a particular property depends on current rules, site conditions and any necessary specialist assessments.</p></div></section>
 `;}
@@ -450,7 +552,7 @@ function privacy(){return `<section class="internal-hero privacy-hero">
 </section>`; }
 
 const renderers = {home,expertise,approach,insights,about,contact,privacy};
-const titles = {home:'Shaping What Comes Next',expertise:'Expertise',approach:'Our Approach',insights:'Insights',about:'About',contact:'Contact',privacy:'Privacy'};
+const titles = {home:'Shaping What Comes Next',expertise:'Expertise',approach:'Our Approach',insights:'Planning Explained',about:'About',contact:'Contact',privacy:'Privacy'};
 const parseRoute = () => {let file=location.pathname.split('/').pop() || 'index.html';let name=file==='index.html'?'home':file.replace(/\.html$/,'');return {page:pages.includes(name)?name:'home',query:new URLSearchParams(location.search)};};
 // On mobile the drawer must be a viewport overlay, not an absolutely positioned child of a sticky header.
 // Moving it out of the header also prevents iOS from attaching it to the header's original document position.
@@ -461,7 +563,7 @@ const updateMobileMenuPosition = () => {
   mobileMenu.style.setProperty('--kova-menu-top', `${Math.max(0, Math.min(window.innerHeight, bottom))}px`);
 };
 const closeMenu = () => {mobileMenu.hidden=true;menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open navigation');document.body.classList.remove('menu-open');};
-const updateNav = page => {document.querySelectorAll('a[data-route]').forEach(el=>{let act=el.dataset.route===page;el.classList.toggle('is-current',act);if(act)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')}); document.getElementById('utility-current').textContent=page==='privacy'?'INFO / PRIVACY':`${String(pages.indexOf(page)+1).padStart(2,'0')} / 06 — ${titles[page].toUpperCase()}`; document.getElementById('header-page-name').textContent=titles[page].toUpperCase(); document.title=`${titles[page]} — KOVA Planning Co.`;};
+const updateNav = page => {document.querySelectorAll('a[data-route]').forEach(el=>{let act=el.dataset.route===page;el.classList.toggle('is-current',act);if(act&&el.closest?.('nav, .header-cta'))el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')}); document.getElementById('utility-current').textContent=page==='privacy'?'INFO / PRIVACY':`${String(pages.indexOf(page)+1).padStart(2,'0')} / 06 — ${titles[page].toUpperCase()}`; document.getElementById('header-page-name').textContent=titles[page].toUpperCase(); document.title=`${titles[page]} — KOVA Planning Co.`;};
 function mount(page,query){
   // Content is mounted only after outgoing motion has made it invisible.
   // Reset once, without an animated scroll-to-top that competes with the fade.
@@ -475,7 +577,7 @@ function mount(page,query){
   setupReveals();
   if(page==='expertise'){
     const key=query.get('focus');
-    if(key&&topicContent[key])selectTopic(key,true,true);
+    if(key&&topicContent[key])openService(key,true);
     const view=query.get('view');
     if(view==='anatomy'||view==='coordination'){
       scrollToTarget(document.getElementById(view==='anatomy'?'anatomy-of-consent':'project-coordination'),true);
@@ -492,7 +594,7 @@ function mount(page,query){
 function go(){
   const {page,query}=parseRoute();
   if(page===currentPage){
-    if(page==='expertise'&&query.has('focus'))selectTopic(query.get('focus'),true);
+    if(page==='expertise'&&query.has('focus'))openService(query.get('focus'));
     if(page==='expertise'&&query.has('view'))scrollToTarget(document.getElementById(query.get('view')==='anatomy'?'anatomy-of-consent':'project-coordination'));
     if(page==='insights'&&(query.has('guide')||query.has('article')))showGuide(query.get('guide')||query.get('article'),true);
     else if(page==='insights'&&guideOpen)backToGuides();
@@ -540,6 +642,13 @@ function go(){
   }
 }
 function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.insights-preview .insight-teasers,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
+function openService(key,instant=false){
+  if(!Object.hasOwn(topicContent,key))return;
+  selectTopic(key,false,true);
+  const card=document.getElementById('service-'+key);
+  card?.focus?.({preventScroll:true});
+  scrollToTarget(card,instant);
+}
 function selectTopic(key,scroll,instant=false){if(!topicContent[key])return;const viewport=document.getElementById('topic-viewport');if(!viewport)return;swapPanel(viewport,topicPanel(key),scroll?()=>scrollToTarget(document.querySelector('.knowledge-section'),instant):null,instant);document.querySelectorAll('.topic-tab').forEach(b=>{let on=b.dataset.topic===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
 function selectStage(idx){const viewport=document.getElementById('stage-viewport');if(!viewport)return;swapPanel(viewport,stagePanel(idx));document.querySelectorAll('.stage-tab').forEach(b=>{let on=+b.dataset.stage===idx;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});}
 function showGuide(key,scroll,instant=false){if(!guides[key])return;const vp=document.getElementById('insights-viewport');if(!vp)return;guideOpen=key;swapPanel(vp,guideMarkup(key),scroll?()=>scrollToTarget(document.querySelector('.insights-content')):null,instant);}
@@ -677,7 +786,7 @@ menuBtn.addEventListener('click',()=>{
   menuBtn.setAttribute('aria-label','Close navigation');
   document.body.classList.add('menu-open');
 });
-document.addEventListener('click',ev=>{const inPage=ev.target.closest('a[href^="#"]:not([href^="#/"])');if(inPage){const target=document.getElementById(inPage.getAttribute('href').slice(1));if(target){ev.preventDefault();scrollToTarget(target);document.querySelectorAll('.expertise-index a').forEach(a=>a.classList.toggle('is-active',a===inPage));return;}}const topic=ev.target.closest('[data-topic]');if(topic)selectTopic(topic.dataset.topic,false);const stage=ev.target.closest('[data-stage]');if(stage)selectStage(+stage.dataset.stage);const next=ev.target.closest('[data-stage-next], [data-stage-prev]');if(next)selectStage(+(next.dataset.stageNext ?? next.dataset.stagePrev)); const anatomy=ev.target.closest('[data-anatomy]');if(anatomy)selectAnatomy(+anatomy.dataset.anatomy); const scenario=ev.target.closest('[data-scenario]');if(scenario)selectScenario(scenario.dataset.scenario);const guide=ev.target.closest('[data-guide]');if(guide){history.replaceState(null,'',`insights.html?guide=${guide.dataset.guide}`);showGuide(guide.dataset.guide,true)}if(ev.target.closest('[data-back-guides]'))backToGuides();if(ev.target.closest('[data-close-dialog]'))document.getElementById('enquiry-dialog').close();});
+document.addEventListener('click',ev=>{const inPage=ev.target.closest('a[href^="#"]:not([href^="#/"])');if(inPage){const target=document.getElementById(inPage.getAttribute('href').slice(1));if(target){ev.preventDefault();if(inPage.classList?.contains('skip'))target.focus?.({preventScroll:true});scrollToTarget(target);document.querySelectorAll('.expertise-index a').forEach(a=>a.classList.toggle('is-active',a===inPage));return;}}const topic=ev.target.closest('[data-topic]');if(topic)selectTopic(topic.dataset.topic,false);const stage=ev.target.closest('[data-stage]');if(stage)selectStage(+stage.dataset.stage);const next=ev.target.closest('[data-stage-next], [data-stage-prev]');if(next)selectStage(+(next.dataset.stageNext ?? next.dataset.stagePrev)); const anatomy=ev.target.closest('[data-anatomy]');if(anatomy)selectAnatomy(+anatomy.dataset.anatomy); const scenario=ev.target.closest('[data-scenario]');if(scenario)selectScenario(scenario.dataset.scenario);const guide=ev.target.closest('[data-guide]');if(guide){history.replaceState(null,'',`insights.html?guide=${guide.dataset.guide}`);showGuide(guide.dataset.guide,true)}if(ev.target.closest('[data-back-guides]'))backToGuides();if(ev.target.closest('[data-close-dialog]'))document.getElementById('enquiry-dialog').close();});
 document.getElementById('enquiry-dialog').addEventListener('click',ev=>{if(ev.target.id==='enquiry-dialog')ev.currentTarget.close()});
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closeMenu()});window.addEventListener('resize',()=>{if(window.innerWidth>860)closeMenu();else if(!mobileMenu.hidden)updateMobileMenuPosition()});window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('popstate',go);
 // Letter-by-letter editorial ripple for desktop nav. Accessible name remains
@@ -718,4 +827,4 @@ checkKovaFonts();
 document.getElementById('year').textContent=new Date().getFullYear();
 const legacyRoute=location.hash.match(/^#\/([a-z]+)(\?.*)?$/);if(legacyRoute && pages.includes(legacyRoute[1]))history.replaceState(null,'',routeFile(legacyRoute[1])+(legacyRoute[2]||''));
 let initial=parseRoute();mount(initial.page,initial.query);
-if(location.hash && !location.hash.startsWith('#/'))setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),150);
+if(location.hash && !location.hash.startsWith('#/') && !initial.query.has('focus'))setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),150);
