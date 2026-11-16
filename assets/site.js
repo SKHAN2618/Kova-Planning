@@ -653,7 +653,23 @@ function go(){
   };
   void run();
 }
-function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
+let revealObserver;
+function setupReveals(){
+  revealObserver?.disconnect();
+  if(reduceMotion||typeof IntersectionObserver!=='function')return;
+  const targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');
+  // Keep observing after entry. Rearm only beyond the viewport, so the fade
+  // can replay in either direction without blanking text at the screen edge.
+  revealObserver=new IntersectionObserver(entries=>{
+    for(const entry of entries){
+      entry.target.classList.toggle('is-visible',entry.isIntersecting);
+    }
+  },{threshold:0,rootMargin:'24px 0px'});
+  for(const target of targets){
+    target.classList.add('reveal');
+    revealObserver.observe(target);
+  }
+}
 function openService(key,instant=false){
   if(!Object.hasOwn(topicContent,key))return;
   selectTopic(key,false,true);

@@ -1904,3 +1904,7 @@ main .section-label,.contact-form label>span,.contact-form .kova-field-label,
 .kova-route-panel:nth-child(2){inset:0 0 0 auto}
 .kova-route-curtain img{position:relative;width:clamp(160px,23vw,270px);height:auto}
 @media(prefers-reduced-motion:reduce){.kova-route-curtain{display:none!important}}
+
+/* Reset only offscreen. Returning sections fade in without a visible fade out. */
+.reveal:not(.is-visible){transition:none!important}
+.reveal:focus-within{opacity:1;transform:none}

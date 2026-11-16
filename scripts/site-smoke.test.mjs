@@ -87,8 +87,8 @@ assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Stat
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=0830/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=0830/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=0831/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=0831/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -162,7 +162,7 @@ const nativeContext=vm.createContext({
   document:nativeDoc,window:nativeWindow,history,location:nativeLocation,
   navigator:{clipboard:{}},URL,URLSearchParams,console,
   requestAnimationFrame(fn){fn()},
-  IntersectionObserver:class{observe(){} unobserve(){}}
+  IntersectionObserver:class{observe(){} disconnect(){}}
 });
 new vm.Script(js,{filename:'assets/site.js'}).runInContext(nativeContext,{timeout:5000});
 assert.ok(rippleLinks.every(link=>link.innerHTML.includes('nav-letter')),'Navigation text is wrapped in ripple spans');
@@ -224,8 +224,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0830/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=0830/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=0831/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=0831/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -311,8 +311,8 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0830/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=0830/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=0831/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=0831/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -344,8 +344,8 @@ assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses 
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0830/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=0830/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=0831/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=0831/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -542,3 +542,33 @@ assert.equal(guideScrollOptions({library:false}).length,0);
 assert.match(expert,/href="guides\/site-constraints\.html"/);
 assert.match(expert,/href="guides\/resource-vs-building-consent\.html"/);
 console.log('PASS: homepage, relevant Expertise links and smooth guide scrolling with mobile and reduced motion fallbacks.');
+
+const revealSrc=js.slice(js.indexOf('let revealObserver;'),js.indexOf('\nfunction openService'));
+const classes=new Set();
+const section={classList:{add:n=>classes.add(n),toggle:(n,on)=>on?classes.add(n):classes.delete(n)}};
+const observers=[];
+const setup=vm.runInNewContext(revealSrc+'\nsetupReveals',{
+  reduceMotion:false,
+  ROOT:{querySelectorAll:()=>[section]},
+  IntersectionObserver:class{
+    constructor(update,options){Object.assign(this,{update,options});observers.push(this);}
+    observe(el){this.target=el;}
+    disconnect(){this.disconnected=true;}
+  }
+});
+setup();
+assert.equal(observers[0].target,section);
+assert.equal(observers[0].options.rootMargin,'24px 0px');
+for(const isIntersecting of [true,false,true,false,true]){
+  observers[0].update([{target:section,isIntersecting}]);
+  assert.equal(classes.has('is-visible'),isIntersecting);
+}
+setup();
+assert.ok(observers[0].disconnected);
+let reducedQueries=0;
+vm.runInNewContext(revealSrc+'\nsetupReveals();',{
+  reduceMotion:true,ROOT:{querySelectorAll(){reducedQueries++;}},IntersectionObserver:class{}
+});
+assert.equal(reducedQueries,0);
+assert.match(css,/\.reveal:not\(\.is-visible\)\{transition:none!important\}/);
+console.log('PASS: scroll reveals replay in both directions and respect reduced motion.');
