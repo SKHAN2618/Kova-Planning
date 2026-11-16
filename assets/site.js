@@ -619,42 +619,39 @@ function go(){
   }
   busy=true;
   closeMenu();
-  const previous=pages.indexOf(currentPage),incoming=pages.indexOf(page);
-  const slide=incoming>=previous?12:-12;
-  document.documentElement.style.setProperty('--kova-route-x',slide+'px');
-  const done=()=>{ROOT.style.opacity='';busy=false;smoothScroll?.start?.();const queued=queuedRoute;queuedRoute=null;queued?.();};
+  const done=()=>{busy=false;smoothScroll?.start?.();const queued=queuedRoute;queuedRoute=null;queued?.();};
   const change=()=>{mount(page,query,hash);smoothScroll?.resize();};
-  if(reduceMotion||typeof ROOT.animate!=='function'){
-    change();done();return;
+  const curtain=document.getElementById('kova-route-curtain');
+  const logo=curtain?.querySelector('img');
+  if(reduceMotion||!curtain?.animate||!logo?.animate){
+    try{change();}finally{done();}
+    return;
   }
-  // Two-phase transition rather than a scroll-and-swap while the old page is
-  // still visible. This removes the "jitter back to top" on page navigation.
   smoothScroll?.stop?.();
-  try{
-    const outgoing=ROOT.animate([
-      {opacity:1,transform:'translate3d(0,0,0) scale(1)'},
-      {opacity:0,transform:'translate3d('+(-slide*.25)+'px,-5px,0) scale(.997)'}
-    ],{duration:205,easing:'cubic-bezier(.45,0,.82,.35)',fill:'forwards'});
-    outgoing.finished.then(()=>{
-      ROOT.style.opacity='0'; // Old page stays invisible during the scroll reset.
-      outgoing.cancel();
-      try{change()}catch(error){console.warn('KOVA navigation failed',error);done();return;}
-      try{
-        const arriving=ROOT.animate([
-          {opacity:0,transform:'translate3d('+slide+'px,9px,0) scale(.995)'},
-          {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
-        ],{duration:565,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'});
-        ROOT.style.opacity=''; // Snapshot remains hidden by the animation fill.
-        arriving.finished.then(()=>{
-          arriving.cancel();done();
-        },()=>{done()});
-      }catch(error){done()}
-    },()=>{
-      change();done();
-    });
-  }catch(error){
-    change();done();
-  }
+  let swapped=false;
+  const swap=()=>{swapped=true;change();};
+  const run=async()=>{
+    try{
+      curtain.hidden=false;
+      logo.animate([{opacity:0,transform:'scale(.96)'},{opacity:1,transform:'scale(1)'}],{duration:170,easing:'ease-out'});
+      await curtain.animate([{opacity:0},{opacity:1}],{duration:170,easing:'ease-out',fill:'forwards'}).finished;
+      swap();
+      // Two panels retract away from the centre, while the document stays still.
+      logo.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.055)'}],{duration:220,easing:'ease-out',fill:'forwards'});
+      const panels=[...curtain.querySelectorAll('.kova-route-panel')];
+      await Promise.all(panels.map((panel,i)=>panel.animate([
+        {transform:'translateX(0)'},{transform:i===0?'translateX(-101%)':'translateX(101%)'}
+      ],{duration:310,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished));
+    }catch(error){
+      if(!swapped)swap();
+      else console.warn('KOVA transition interrupted',error);
+    }finally{
+      curtain.hidden=true;
+      [curtain,logo,...curtain.querySelectorAll('.kova-route-panel')].forEach(el=>el.getAnimations?.().forEach(a=>a.cancel()));
+      done();
+    }
+  };
+  void run();
 }
 function setupReveals(){if(reduceMotion)return;let targets=ROOT.querySelectorAll('.section-intro,.manifesto-grid,.topic-hero,.three-steps,.large-quote,.legal-grid,.principles-grid,.insights-grid,.anatomy-intro,.anatomy-board,.document-header,.sample-grid,.scenario-header,.home-intelligence-inner,.founder-teaser-inner,.services-overview-head,.about-body,.chapter-gateway-inner,.contact-message,.about-drawing,.approach-intro-note,.team-coordination .kova-sketch,.urban-panel');targets.forEach(x=>x.classList.add('reveal'));let io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.09,rootMargin:'0px 0px -40px 0px'});targets.forEach(x=>io.observe(x));}
 function openService(key,instant=false){
