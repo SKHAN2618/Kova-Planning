@@ -299,8 +299,7 @@ function expertise(){return `<section class="internal-hero expertise-internal"><
 </div></section>
 <section class="scenario-section"><div class="shell">${sectionHead('04','SCENARIO EXPLORER','THINK IN QUESTIONS, NOT ASSUMPTIONS')}<div class="scenario-header"><h2>WHAT ARE YOU<br><span>CONSIDERING?</span></h2><p>Start with your idea. Explore the questions that could shape its design, timing and approval pathway.</p></div><div class="scenario-selector" role="group" aria-label="Explore project types">${Object.entries(consentScenarios).map(([key,x])=>`<button type="button" data-scenario="${key}" class="scenario-option ${key==='newhome'?'active':''}" aria-pressed="${key==='newhome'}"><span>${x.n}</span><strong>${x.label}</strong><b><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></b></button>`).join('')}</div><div id="scenario-viewport" class="scenario-viewport" aria-live="polite">${scenarioPanel('newhome')}</div></div></section>
 
-<section class="anatomy-section" id="anatomy-of-consent"><div class="shell">${sectionHead('05','ANATOMY OF A CONSENT','AN INTERACTIVE TECHNICAL STUDY')}<div class="anatomy-intro"><h2 tabindex="-1">WHAT GOES INTO<br><em>A RESOURCE CONSENT APPLICATION?</em></h2><p>Explore the seven parts of the application itself, from the site and proposal to the supporting evidence and conditions.</p></div><div class="anatomy-board"><div class="anatomy-drawing"><div class="anatomy-drawing-meta"><span>FIG. 02 / ANATOMY OF A CONSENT</span><span>LAND / RULES / EVIDENCE</span></div>${anatomySvg()}<div class="anatomy-drawing-bottom"><span>PLANNING ASSESSMENT / 01—07</span><span>SELECT 01—07 TO EXPLORE</span></div></div><div class="anatomy-reading"><div class="anatomy-parts" role="group" aria-label="Consent assessment topics">${anatomyNodes.map((x,i)=>`<button class="anatomy-part ${i===0?'active':''}" data-anatomy="${i}" aria-pressed="${i===0}"><span>${x.n}</span><strong>${x.short}</strong><b><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></b></button>`).join('')}</div><div class="anatomy-detail" id="anatomy-detail" aria-live="polite">${anatomyPanel(0)}</div></div></div><div class="anatomy-bottom-note"><p>Every proposal calls for its own assessment of rules, site conditions and effects.</p></div></div></section>
-<aside class="knowledge-bridge" aria-label="Planning Explained"><div class="shell knowledge-bridge-inner"><strong>Need the basics?</strong>${A('insights','Explore Planning Explained','text-link')}</div></aside>
+<section class="anatomy-section" id="anatomy-of-consent"><div class="shell">${sectionHead('05','ANATOMY OF A CONSENT','AN INTERACTIVE TECHNICAL STUDY')}<div class="anatomy-intro"><h2 tabindex="-1">WHAT GOES INTO<br><em>A RESOURCE CONSENT APPLICATION?</em></h2><p>Explore the seven parts of the application itself, from the site and proposal to the supporting evidence and conditions.</p></div><div class="anatomy-board"><div class="anatomy-drawing"><div class="anatomy-drawing-meta"><span>FIG. 02 / ANATOMY OF A CONSENT</span><span>LAND / RULES / EVIDENCE</span></div>${anatomySvg()}<div class="anatomy-drawing-bottom"><span>PLANNING ASSESSMENT / 01—07</span><span>SELECT 01—07 TO EXPLORE</span></div></div><div class="anatomy-reading"><div class="anatomy-parts" role="group" aria-label="Consent assessment topics">${anatomyNodes.map((x,i)=>`<button class="anatomy-part ${i===0?'active':''}" data-anatomy="${i}" aria-pressed="${i===0}"><span>${x.n}</span><strong>${x.short}</strong><b><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></b></button>`).join('')}</div><div class="anatomy-detail" id="anatomy-detail" aria-live="polite">${anatomyPanel(0)}</div></div></div><div class="anatomy-bottom-note"><p>Every proposal calls for its own assessment of rules, site conditions and effects. Read more in <a class="context-guide-link" href="insights.html" data-route="insights">Planning Explained</a>.</p></div></div></section>
 `;}
 
 const approachStages = [
@@ -634,19 +633,19 @@ function go(){
   const run=async()=>{
     try{
       curtain.hidden=false;
-      logo.animate([{opacity:0,transform:'scale(.94)'},{opacity:.72,transform:'scale(1)'}],{duration:155,easing:'ease-out',fill:'forwards'});
-      await curtain.animate([{opacity:0},{opacity:1}],{duration:155,easing:'ease-out',fill:'forwards'}).finished;
+      logo.animate([{opacity:0,transform:'scale(.94)'},{opacity:.72,transform:'scale(1)'}],{duration:210,easing:'ease-out',fill:'forwards'});
+      await curtain.animate([{opacity:0},{opacity:1}],{duration:210,easing:'ease-out',fill:'forwards'}).finished;
       swap();
       // A soft ring expands from the K without translating the document.
-      const ease='cubic-bezier(.22,.7,.35,1)';
+      const ease='cubic-bezier(.28,.66,.34,1)';
       await Promise.all([
-        logo.animate([{opacity:.72,transform:'scale(1)'},{opacity:0,transform:'scale(1.045)'}],{duration:245,easing:ease,fill:'forwards'}).finished,
+        logo.animate([{opacity:.72,transform:'scale(1)'},{opacity:0,transform:'scale(1.045)'}],{duration:340,easing:ease,fill:'forwards'}).finished,
         ripple.animate([
           {opacity:0,transform:'scale(.055)',offset:0},
           {opacity:.5,transform:'scale(.25)',offset:.22},
           {opacity:0,transform:'scale(1)',offset:1}
-        ],{duration:365,easing:ease,fill:'forwards'}).finished,
-        curtain.animate([{opacity:1},{opacity:0}],{duration:365,easing:'ease-in-out',fill:'forwards'}).finished
+        ],{duration:520,easing:ease,fill:'forwards'}).finished,
+        curtain.animate([{opacity:1},{opacity:0}],{duration:520,easing:'ease-in-out',fill:'forwards'}).finished
       ]);
     }catch(error){
       if(!swapped)swap();

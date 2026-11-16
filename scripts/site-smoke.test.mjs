@@ -87,8 +87,8 @@ assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Stat
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=0832/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=0832/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=0833/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=0833/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -105,8 +105,6 @@ const homepage=readFileSync('index.html','utf8');
 assert.doesNotMatch(homepage,/class="insights-preview /,'No guide previews on the static homepage');
 api.mount('home',new URLSearchParams());
 assert.doesNotMatch(byId('main').innerHTML,/class="insights-preview /,'No guide previews on client navigation Home');
-assert.match(homepage,/<nav class="desktop-nav"[^>]*>[\s\S]*?href="insights\.html"[^>]*>Planning Explained/);
-assert.match(homepage,/<div class="footer-directory shell">[\s\S]*?href="insights\.html"[^>]*>Planning Explained/);
 assert.match(css,/KOVA v07\.1 — responsive spacing audit/,'v07.1 CSS is present');
 assert.match(css,/\.insights-preview \.insight-teasers>a:nth-child\(2\)\{/,'Dark card uses an explicit gutter');
 assert.match(css,/@media\(max-width:760px\)/,'Tablet card spacing included');
@@ -138,7 +136,7 @@ assert.match(js,/No separate Google Fonts connection is required/,'Interactive p
 console.log('PASS: v07.2 font, transitions, accessible navigation ripple and architectural motion.');
 
 /* Native transition and nav ripple lifecycle test: exercises runtime, not only source strings. */
-const rippleLabels=['Home','Expertise','Our Approach','Planning Explained','About'];
+const rippleLabels=['Home','Expertise','Our Approach','About'];
 const rippleLinks=rippleLabels.map(label=>({
   textContent:label,innerHTML:'',querySelector(){return null},
   setAttribute(name,value){this[name]=value}
@@ -227,8 +225,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0832/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=0832/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=0833/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=0833/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -314,8 +312,8 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0832/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=0832/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=0833/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=0833/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -347,8 +345,8 @@ assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses 
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0832/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=0832/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=0833/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=0833/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -385,7 +383,7 @@ assert.match(slowCSS,/#topic-viewport,#stage-viewport/,'Single-panel styling app
 assert.doesNotMatch(css,/\.kova-panel-ghost\s*\{/,'Overlay styling is removed');
 assert.doesNotMatch(js,/ghost\.innerHTML|appendChild\(ghost\)/,'JS never duplicates outgoing paragraphs');
 assert.match(js,/ONE PANEL AT A TIME/,'Single-panel motion replaces concurrent ghost snapshots');
-assert.match(js,/duration:365/,'Brief centre-out reveal');
+assert.match(js,/duration:520/,'Brief centre-out reveal');
 console.log('PASS: no overlapping content, correct iPhone gutter and single-panel animation styles.');
 
 /* v08.0 — exercise actual fade-out -> replace -> slow fade-in and height tween. */
@@ -575,3 +573,15 @@ vm.runInNewContext(revealSrc+'\nsetupReveals();',{
 assert.equal(reducedQueries,0);
 assert.match(css,/\.reveal:not\(\.is-visible\)\{transition:none!important\}/);
 console.log('PASS: scroll reveals replay in both directions and respect reduced motion.');
+
+for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+  const html=readFileSync(page+'.html','utf8');
+  assert.doesNotMatch(html,/class="shell footer-invitation"|class="knowledge-bridge"/,page+' has no redundant enquiry or guides band');
+  assert.doesNotMatch(html,/<a href="insights\.html" data-route="insights">(?:<span>04 \/<\/span> )?Planning Explained/,page+' does not promote guides in global navigation');
+  assert.match(html,/class="footer-enquiry-link">Discuss a project/,page+' has a primary footer enquiry action');
+}
+assert.match(expert,/class="context-guide-link" href="insights.html"/);
+assert.match(expert,/href="guides\/site-constraints\.html"/);
+assert.match(js,/duration:210/);
+assert.match(js,/duration:520/);
+console.log('PASS: consolidated footer, contextual guide links and slower circular transition.');

@@ -1907,3 +1907,30 @@ main .section-label,.contact-form label>span,.contact-form .kova-field-label,
 /* Reset only offscreen. Returning sections fade in without a visible fade out. */
 .reveal:not(.is-visible){transition:none!important}
 .reveal:focus-within{opacity:1;transform:none}
+
+/* One enquiry area in the footer directory, with the drawing kept behind it. */
+.v05-footer .footer-signature{padding-block:clamp(38px,5vw,68px);gap:24px}
+.v05-footer .footer-directory{padding-block:clamp(30px,4.2vw,56px)}
+.footer-directory>.footer-directory-contact{padding:0 clamp(8px,3vw,40px) 0 0;gap:10px}
+.footer-directory-contact::after{inset:8px 0 0 auto;width:min(60%,290px);opacity:.11}
+.footer-directory-contact h2{font-size:clamp(25px,2.2vw,32px);line-height:1.12;letter-spacing:-.035em}
+.footer-directory-contact p{max-width:34ch;line-height:1.62}
+.footer-directory-contact>.footer-enquiry-link{justify-content:space-between;gap:24px;margin:3px 0 0;padding:0 14px;border:1px solid #687781;text-decoration:none}
+.footer-directory-contact>.footer-enquiry-link:hover{background:#30383f;color:#fff}
+.footer-enquiry-location{color:#afbbc5;font-size:12px}
+.context-guide-link{text-decoration:underline;text-underline-offset:.2em}
+
+/* Existing drafting studies add texture beside, not over, key content. */
+main>.tools-intro,.contact-aside,.standalone-guide .full-article>header{position:relative;isolation:isolate}
+main>.tools-intro::after,.contact-aside::after,.standalone-guide .full-article>header::after{
+  content:"";position:absolute;inset:0 0 0 auto;width:min(48%,550px);
+  background-position:right center;background-repeat:no-repeat;background-size:contain;
+  pointer-events:none;z-index:-1;opacity:.16;
+}
+main>.tools-intro::after{background-image:url('study-parcels.svg')}
+.contact-aside::after{background-image:url('study-streetscape.svg');top:24px;opacity:.13}
+.standalone-guide .full-article>header::after{background-image:url('study-contours.svg');opacity:.11}
+@media(max-width:650px){
+  main>.tools-intro::after,.contact-aside::after,.standalone-guide .full-article>header::after{opacity:.08}
+  .footer-directory-contact::after{opacity:.07}
+}

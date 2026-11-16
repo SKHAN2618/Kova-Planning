@@ -15,7 +15,7 @@ const escape = text=>String(text).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&l
 const date = new Intl.DateTimeFormat('en-NZ',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(guideReviewed));
 const linkList = [
   ['index.html','Home'],['expertise.html','Expertise'],['approach.html','Our Approach'],
-  ['insights.html','Planning Explained'],['about.html','About']
+  ['about.html','About']
 ].map(([href,label])=>`<a href="../${href}">${label}</a>`).join('');
 const cssVersion = readFileSync('index.html','utf8').match(/assets\/site\.css\?v=(\d+)/)[1];
 
@@ -77,7 +77,7 @@ for(const [key,g] of entries){
       </div>
     </article></div>
   </main>
-  <footer class="site-footer"><div class="shell footer-bottom"><span>© 2026 KOVA PLANNING CO. · AUCKLAND</span><a href="../insights.html">Planning Explained</a><a href="../privacy.html">Privacy</a></div></footer>
+  <footer class="site-footer"><div class="shell footer-bottom"><span>© 2026 KOVA PLANNING CO. · AUCKLAND</span><a href="../contact.html">Discuss a project ↗</a><a href="../privacy.html">Privacy</a></div></footer>
 <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js" defer></script>
 <script src="../assets/guide-scroll.js?v=0829" defer></script>
 </body>
