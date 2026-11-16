@@ -16,22 +16,29 @@
     <path d="M85 206C132 255 139 314 111 380M107 176C168 240 173 303 141 380M139 158C199 222 208 303 172 380"/>
     <path d="M792 64C823 125 873 154 960 153M820 64C848 112 897 128 960 128"/>
   </g>
+  <path d="M173 428H865" fill="none" stroke="#a7b5bf" stroke-width="1" stroke-dasharray="10 8"/>
+  <g fill="none" stroke="#8c9fab" stroke-width="1" opacity=".68">
+    <path d="M86 45H48V83M954 45h38v38M86 447H48v-38M954 447h38v-38"/>
+    <path d="M295 86v18m-9-9h18m428 13v18m-9-9h18m4 254v18m-9-9h18m-476-9v18m-9-9h18"/>
+  </g>
   <path d="M173 407H865M173 449H865" fill="none" stroke="#9aaab5" stroke-width="1.2"/>
   <use href="#parcel" fill="#f3f5f6"/>
   <g clip-path="url(#land)">
     <use href="#hazard" fill="#dce5ea"/>
     <use href="#hazard" fill="url(#hatch)"/>
+    <path d="M326 86C360 139 317 180 345 235S390 321 373 388" fill="none" stroke="#718794" stroke-width="1.1" stroke-dasharray="3 6"/>
+    <path d="M487 116C472 164 492 207 477 260S477 347 496 381M509 116C494 163 510 209 497 260S500 345 519 381" fill="none" stroke="#9cafba" stroke-width="1" opacity=".58"/>
   </g>
   <use href="#parcel" fill="none" stroke="#364750" stroke-width="2"/>
   <path d="M526 203H657V258H619V283H526Z" fill="#d0dae1" stroke="#364750" stroke-width="2"/>
   <path d="M526 203 551 224H632L657 203M526 283 551 259V224M551 259H598L619 283M598 259 632 231V224" fill="none" stroke="#728593" stroke-width="1.3"/>
-  <path d="M648 448V341L594 283" fill="none" stroke="#e9eef1" stroke-width="13"/>
-  <path d="M648 448V341L594 283" fill="none" stroke="#4c606d" stroke-width="2" stroke-dasharray="6 6"/>
+  <path d="M675 448V360Q675 350 665 350H625" fill="none" stroke="#e9eef1" stroke-width="13"/>
+  <path d="M675 448V360Q675 350 665 350H625" fill="none" stroke="#4c606d" stroke-width="2" stroke-dasharray="6 6"/>
   <g fill="none" stroke="#536a78" stroke-width="1.4">
-    <path d="M362 230H245L192 181H139M595 203V163L636 73H790M648 346H775L827 307H901"/>
+    <path d="M362 230H245L192 181H139M595 203V163L636 73H790M675 370H775L827 307H901"/>
   </g>
   <g fill="#344a57">
-    <circle cx="362" cy="230" r="3.5"/><circle cx="595" cy="203" r="3.5"/><circle cx="648" cy="346" r="3.5"/>
+    <circle cx="362" cy="230" r="3.5"/><circle cx="595" cy="203" r="3.5"/><circle cx="675" cy="370" r="3.5"/>
   </g>
   <g fill="#f3f5f6" stroke="#536a78" stroke-width="1.3">
     <circle cx="120" cy="181" r="19"/><circle cx="809" cy="73" r="19"/><circle cx="920" cy="307" r="19"/>

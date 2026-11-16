@@ -548,7 +548,7 @@ function privacy(){return `<section class="internal-hero privacy-hero">
  </div>
 </section>`; }
 
-function work(){return `<section class="work-study"><div class="shell">
+function work(){return `<section class="work-study" id="popes-road"><div class="shell">
   <div class="work-index"><span>OUR WORK / 01</span><span>PLANNING &amp; CONCEPT FEASIBILITY</span></div>
   <header class="work-heading">
     <h1>POPES ROAD,<br><em>TAKANINI.</em></h1>
@@ -557,7 +557,7 @@ function work(){return `<section class="work-study"><div class="shell">
 
   <figure class="work-figure">
     <div class="work-sheet-title"><span>FIG. 01 / SITE FEASIBILITY STUDY</span><span>ILLUSTRATIVE ONLY</span></div>
-    <img src="assets/work-feasibility.svg?v=2" width="1040" height="484" fetchpriority="high" alt="Illustrative site diagram. A hatched hazard area, a building footprint and a dashed access route show three different questions a feasibility assessment might consider.">
+    <img src="assets/work-feasibility.svg?v=3" width="1040" height="484" fetchpriority="high" alt="Illustrative site diagram. A hatched hazard area, a building footprint and a dashed access route show three different questions a feasibility assessment might consider.">
     <figcaption>
       <ol class="work-key"><li><span>01</span> Mapped hazards</li><li><span>02</span> Building footprint</li><li><span>03</span> Vehicle access</li></ol>
       <p>Fictional parcel. The drawing does not depict the Popes Road property and is not to scale.</p>
@@ -569,6 +569,44 @@ function work(){return `<section class="work-study"><div class="shell">
     <div class="work-details">
       <section><span class="work-kicker">01 / DESKTOP PLANNING ASSESSMENT</span><h3>What the planning rules and site constraints meant.</h3><p>We reviewed zoning, mapped flooding, access, servicing and airport height controls. The report distinguished the rules in force at the time from proposed changes and longer term growth plans.</p></section>
       <section><span class="work-kicker">02 / CONCEPT FEASIBILITY STUDY</span><h3>How four options might fit.</h3><p>We compared refurbishing the existing home, extending it, adding a minor dwelling and replacing the main house. Indicative layouts tested siting and scale, and showed where survey, flood analysis, safe access and servicing checks would inform detailed design.</p></section>
+    </div>
+  </div>
+</div></section>
+<section class="work-study" id="kaipara-road" aria-labelledby="kaipara-road-title"><div class="shell">
+  <div class="work-index"><span>OUR WORK / 02</span><span>RESOURCE CONSENT APPROVED</span></div>
+  <header class="work-heading">
+    <h2 id="kaipara-road-title" style="font:500 clamp(2.25rem,6.3vw,5.5rem)/.94 'Space Grotesk',sans-serif;letter-spacing:-.055em">KAIPARA ROAD,<br><span style="color:#4e6371">CLEVEDON.</span></h2>
+    <p>KOVA assessed site feasibility and engaged surveyors to support the resource consent process.</p>
+  </header>
+  <figure class="work-figure">
+    <div class="work-sheet-title"><span>FIG. 02 / SURVEY &amp; ACCESS STUDY</span><span>ILLUSTRATIVE ONLY</span></div>
+    <img src="assets/work-survey.svg" width="1040" height="484" loading="lazy" alt="Fictional survey plan with a parcel boundary, survey points and a dashed access route to an open area.">
+    <figcaption><ol class="work-key"><li><span>01</span> Site boundary</li><li><span>02</span> Survey points</li><li><span>03</span> Access route</li></ol><p>Fictional study drawing. It does not depict the Kaipara Road property and is not to scale.</p></figcaption>
+  </figure>
+  <div class="work-findings">
+    <div class="work-finding-lead"><span class="work-kicker">THE OUTCOME</span><h2>From feasibility to approval.</h2><p>Resource consent was granted. The project brought the early planning assessment and survey inputs into the consent process.</p></div>
+    <div class="work-details">
+      <section><span class="work-kicker">01 / SITE FEASIBILITY</span><h3>Understand the site before progressing.</h3><p>KOVA looked at the site from a planning perspective to identify what needed to be checked before progressing to consent.</p></section>
+      <section><span class="work-kicker">02 / SURVEY &amp; CONSENT</span><h3>Bring survey information into the planning process.</h3><p>KOVA engaged surveyors and coordinated their input as the project moved from feasibility into the resource consent process.</p></section>
+    </div>
+  </div>
+</div></section>
+<section class="work-study" id="sandstone-road" aria-labelledby="sandstone-road-title"><div class="shell">
+  <div class="work-index"><span>OUR WORK / 03</span><span>RESOURCE CONSENT APPROVED</span></div>
+  <header class="work-heading">
+    <h2 id="sandstone-road-title" style="font:500 clamp(2.25rem,6.3vw,5.5rem)/.94 'Space Grotesk',sans-serif;letter-spacing:-.055em">SANDSTONE ROAD,<br><span style="color:#4e6371">WHITFORD.</span></h2>
+    <p>KOVA took the project from site feasibility through the resource consent process, with survey and geotechnical input.</p>
+  </header>
+  <figure class="work-figure">
+    <div class="work-sheet-title"><span>FIG. 03 / GROUND &amp; LEVELS STUDY</span><span>ILLUSTRATIVE ONLY</span></div>
+    <img src="assets/work-ground.svg" width="1040" height="484" loading="lazy" alt="Fictional site section showing sloping ground, a stepped building setting and conceptual ground investigation points.">
+    <figcaption><ol class="work-key"><li><span>01</span> Ground profile</li><li><span>02</span> Building setting</li><li><span>03</span> Investigation points</li></ol><p>Fictional study drawing. It does not depict the Sandstone Road property and is not to scale.</p></figcaption>
+  </figure>
+  <div class="work-findings">
+    <div class="work-finding-lead"><span class="work-kicker">THE OUTCOME</span><h2>Planning, survey and geotechnical input.</h2><p>Resource consent was granted. Survey and geotechnical specialists supported the project as it moved from the initial feasibility assessment to the consent decision.</p></div>
+    <div class="work-details">
+      <section><span class="work-kicker">01 / SITE FEASIBILITY</span><h3>Set the direction for the consent work.</h3><p>KOVA assessed the site at desktop feasibility stage and identified where specialist input was needed before progressing.</p></section>
+      <section><span class="work-kicker">02 / SPECIALIST COORDINATION</span><h3>Bring levels and ground conditions into the assessment.</h3><p>KOVA brought in surveyors and geotechnical specialists and coordinated their inputs through the resource consent process.</p></section>
     </div>
   </div>
   <div class="work-end">
