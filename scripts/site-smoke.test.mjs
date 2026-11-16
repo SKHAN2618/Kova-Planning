@@ -462,7 +462,8 @@ for(const key of ['feasibility','resource','aee','building']){
 }
 const homeHtml=readFileSync('index.html','utf8');
 assert.match(homeHtml,/<div class="hero-bottom"><p>Auckland planning advice .+?href="contact.html" data-route="contact">Discuss a project/);
-assert.match(contact,/it does not send an enquiry/);
+assert.match(contact,/method="post" action="https:\/\/formspree\.io\/f\/meagavgw"/);
+assert.match(contact,/Send enquiry/);
 console.log('PASS: service scope anchors, homepage CTA, ten standalone guides, related services and sitemap.');
 
 const approachHtml=readFileSync('approach.html','utf8');

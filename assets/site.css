@@ -1858,3 +1858,8 @@ main>.information-banner::before{inset-block:0;background-image:url('study-conto
 .footer-directory-contact p{margin:0;color:#c0c9d1;font-size:14px;line-height:1.55;max-width:31ch}
 .footer-directory-contact>.footer-enquiry-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:15px;letter-spacing:0;color:#f5f8fa;text-decoration:underline;text-underline-offset:.28em}
 .footer-directory-contact>.footer-enquiry-link span{font-size:inherit;margin:0}
+
+.enquiry-status:empty{display:none}
+.enquiry-status{color:#26343d;border-left:2px solid #6b7b87;padding:.7rem 1rem;font-size:15px;line-height:1.55}
+.enquiry-status[data-state="error"]{border-color:#7a4646}
+.form-submit:disabled{opacity:.65;cursor:wait}

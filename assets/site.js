@@ -1,6 +1,6 @@
 /* KOVA PLANNING CO. / WEBSITE V08.2
  * Brand assets: supplied official KOVA vector artwork, unmodified.
- * No analytics, backend or storage. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
+ * No site analytics. Form enquiries are processed by Formspree. Optional Lenis smooth scrolling (MIT) is desktop-only; native fallback remains. Content is maintained for KOVA editorial review.
  */
 'use strict';
 const ROOT = document.getElementById('main');
@@ -511,14 +511,14 @@ function about(){return `
 `;}
 
 function contact(){return `<section class="internal-hero contact-hero"><div class="shell">${eyebrow('06','CONTACT','START A CONVERSATION')}<div class="internal-headline"><h1>WHAT'S YOUR<br><em>NEXT MOVE?</em></h1><p>Every project begins with an ambition and a few important questions. Tell us what you are considering.</p></div><div class="internal-hero-footer"><span>AUCKLAND / AOTEAROA NEW ZEALAND</span><span>ENQUIRE BELOW ↓</span></div></div></section>
-<section class="contact-section page-section"><div class="shell">${sectionHead('01','PROJECT ENQUIRY','THE STARTING POINT')}<div class="contact-layout"><div class="contact-message"><h2>LET'S MAKE<br>IT <span>CLEAR.</span></h2><p>Every idea begins somewhere. Tell us about the place, the possibility and the questions you are working through, so the next step can be considered with clarity.</p><div class="contact-aside"><span>HELPFUL DETAILS</span><ul><li>Where is the site?</li><li>What are you looking to do?</li><li>What decision or approval are you unsure about?</li><li>Are there plans or existing documents?</li></ul></div><p class="contact-aside-note">Share the essentials to prepare a clear project brief you can review and save.</p></div>
-<form id="enquiry-form" class="contact-form">
+<section class="contact-section page-section"><div class="shell">${sectionHead('01','PROJECT ENQUIRY','THE STARTING POINT')}<div class="contact-layout"><div class="contact-message"><h2>LET'S MAKE<br>IT <span>CLEAR.</span></h2><p>Every idea begins somewhere. Tell us about the place, the possibility and the questions you are working through, so the next step can be considered with clarity.</p><div class="contact-aside"><span>HELPFUL DETAILS</span><ul><li>Where is the site?</li><li>What are you looking to do?</li><li>What decision or approval are you unsure about?</li><li>Are there plans or existing documents?</li></ul></div><p class="contact-aside-note">Share the essentials so we can understand your project and follow up.</p></div>
+<form id="enquiry-form" class="contact-form" method="post" action="https://formspree.io/f/meagavgw">
  <div class="form-pair"><label><span>01 / YOUR NAME *</span><input name="name" autocomplete="name" placeholder="Full name" required maxlength="120"></label><label><span>02 / EMAIL ADDRESS *</span><input name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="200"></label></div>
  <div class="form-pair"><label><span>03 / CONTACT NUMBER</span><input name="phone" type="tel" autocomplete="tel" placeholder="Optional" maxlength="40"></label><label><span>04 / PROJECT LOCATION</span><input name="location" placeholder="Street, suburb or region" maxlength="250"></label></div>
  <div class="kova-field"><span class="kova-field-label" id="service-label">05 / WHAT DO YOU NEED HELP WITH? *</span><select name="service" id="service-native" required aria-labelledby="service-label"><option value="" disabled selected>Select a service</option><option>Resource consent</option><option>Building consent coordination</option><option>Architectural drawings & consultant coordination</option><option>Assessment of Environmental Effects</option><option>Site feasibility</option><option>Development planning advice</option><option>General Inquiries</option></select></div>
  <label><span>06 / TELL US ABOUT YOUR PROJECT *</span><textarea name="message" placeholder="What are you planning, and what would you like to understand?" rows="5" required maxlength="4000"></textarea></label>
- <label class="consent-check"><input type="checkbox" name="ack" required><span>I understand that this prepares a draft for my review; it does not send an enquiry.</span></label>
- <button class="btn btn-dark form-submit" type="submit">Prepare my enquiry <span><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></span></button><p class="form-under">Your enquiry stays on this device unless you choose to share the draft. It is not sent automatically. <a href="privacy.html">How we handle information</a>. Required fields marked *.</p>
+ 
+ <button class="btn btn-dark form-submit" type="submit">Send enquiry <span><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></span></button><p class="form-under">We use your details to respond to your enquiry. <a href="privacy.html">How we handle information</a>. Required fields marked *.</p><p id="enquiry-status" class="enquiry-status" role="status" aria-live="polite"></p>
  </form></div></div></section>`;}
 
 
@@ -529,8 +529,8 @@ function contact(){return `<section class="internal-hero contact-hero"><div clas
 function privacy(){return `<section class="internal-hero privacy-hero">
  <div class="shell">
   <div class="eyebrow-row"><span>KOVA / PRIVACY</span><span>WEBSITE INFORMATION</span></div>
-  <div class="internal-headline"><h1>PRIVACY,<br><em>WITH PURPOSE.</em></h1><p>Clear information about what happens when you visit KOVA, prepare a project enquiry or get in touch.</p></div>
-  <div class="internal-hero-footer"><span>NEW ZEALAND / PRIVACY ACT 2020</span><span>REVIEWED 05 NOVEMBER 2026</span></div>
+  <div class="internal-headline"><h1>PRIVACY,<br><em>WITH PURPOSE.</em></h1><p>Clear information about what happens when you visit KOVA, send a project enquiry or get in touch.</p></div>
+  <div class="internal-hero-footer"><span>NEW ZEALAND / PRIVACY ACT 2020</span><span>REVIEWED 17 NOVEMBER 2026</span></div>
  </div>
 </section>
 <section class="privacy-content page-section" id="privacy-statement">
@@ -539,14 +539,14 @@ function privacy(){return `<section class="internal-hero privacy-hero">
   <div class="privacy-opening"><h2>YOUR INFORMATION<br><span>MATTERS.</span></h2><p>Planning involves people, places and important decisions. We believe the handling of personal information deserves the same clarity and care. This statement explains our website's current operation and how information may be handled when you correspond with KOVA outside the website.</p></div>
   <div class="privacy-chapters">
    <section class="privacy-chapter" id="privacy-identity"><div class="privacy-chapter-label"><span>01 / WHO WE ARE</span></div><div><h3>KOVA Planning Co.</h3><p>KOVA Planning Co. is a founder-led planning consultancy based in Auckland, New Zealand. This statement covers visits to our website and personal information that may be received when people make enquiries or engage with us through separate communication channels.</p></div></section>
-   <section class="privacy-chapter" id="privacy-visiting"><div class="privacy-chapter-label"><span>02 / VISITING THE WEBSITE</span></div><div><h3>What happens when you browse.</h3><p>Our site is hosted using GitHub Pages. GitHub states that it logs visitors' IP addresses for security purposes. That hosting activity is separate from KOVA collecting a project enquiry. For details of GitHub's practices, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.</p><p>KOVA has not installed a separate website analytics service, advertising trackers or an online marketing signup system. The site serves its Space Grotesk and Instrument Sans typefaces directly from KOVA's GitHub Pages host. No separate Google Fonts connection is required. An optional smooth-scrolling library is loaded through unpkg; your browser may send that provider technical connection information, including your IP address, when requesting its script. The local enquiry draft is not transmitted to either provider. We will update this statement if our services change.</p></div></section>
-   <section class="privacy-chapter" id="privacy-enquiries"><div class="privacy-chapter-label"><span>03 / PROJECT ENQUIRIES</span></div><div><h3>Drafted here. Not automatically sent.</h3><p>The current project enquiry form asks for your name, email address, optional telephone number, site location, service and project details. It prepares a draft locally in your browser that you can copy or download. Submitting this form does <strong>not</strong> transmit an enquiry to KOVA, a mailing list or a website database.</p><p>Any copy or downloaded file is controlled by you and your device. If you choose to share that draft through a separate email or messaging service, the privacy terms of that service may also apply.</p></div></section>
+   <section class="privacy-chapter" id="privacy-visiting"><div class="privacy-chapter-label"><span>02 / VISITING THE WEBSITE</span></div><div><h3>What happens when you browse.</h3><p>Our site is hosted using GitHub Pages. GitHub states that it logs visitors' IP addresses for security purposes. That hosting activity is separate from KOVA collecting a project enquiry. For details of GitHub's practices, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's privacy statement</a>.</p><p>KOVA has not installed a separate website analytics service, advertising trackers or an online marketing signup system. The site serves its Space Grotesk and Instrument Sans typefaces directly from KOVA's GitHub Pages host. No separate Google Fonts connection is required. An optional smooth-scrolling library is loaded through unpkg; your browser may send that provider technical connection information, including your IP address, when requesting its script. We will update this statement if our services change.</p></div></section>
+   <section class="privacy-chapter" id="privacy-enquiries"><div class="privacy-chapter-label"><span>03 / PROJECT ENQUIRIES</span></div><div><h3>When you submit an enquiry.</h3><p>The form asks for your name, email, optional phone number and site location, the service you are interested in and a brief description of your project. We use this information to assess your enquiry and get back to you.</p><p>Formspree processes your submission and forwards it to KOVA’s enquiry inbox. Formspree may store submissions, and your information may be processed outside New Zealand. See <a href="https://formspree.io/legal/privacy-policy/">Formspree’s privacy policy</a>. Please leave out sensitive documents or details that are not needed for a first enquiry.</p></div></section>
    <section class="privacy-chapter" id="privacy-contact"><div class="privacy-chapter-label"><span>04 / DIRECT CORRESPONDENCE</span></div><div><h3>When you contact KOVA directly.</h3><p>If you communicate with KOVA outside this website, we may receive contact details and the project information you choose to provide. That information may be used to understand your enquiry, assess the requested services, communicate about a project, coordinate appropriate specialist inputs and maintain necessary business records.</p><p>Providing information for an initial enquiry is generally voluntary, but without enough detail we may not be able to assess or respond meaningfully to the request.</p></div></section>
    <section class="privacy-chapter" id="privacy-sharing"><div class="privacy-chapter-label"><span>05 / SHARING &amp; SECURITY</span></div><div><h3>Only where there is a reason.</h3><p>Planning work can involve architectural designers, surveyors, engineers, councils and other specialists. Where appropriate for a project, relevant information may need to be shared with those involved, with suitable regard to the purpose of the work, confidentiality and applicable law.</p><p>We aim to limit access to information to those who need it, take reasonable steps to protect it, and retain it no longer than needed for legitimate purposes and legal obligations. No online method of communication is entirely risk-free; avoid sending sensitive documents unless an appropriate channel has been agreed.</p></div></section>
-   <section class="privacy-chapter" id="privacy-rights"><div class="privacy-chapter-label"><span>06 / YOUR RIGHTS</span></div><div><h3>Access, correction and questions.</h3><p>Under New Zealand's Privacy Act 2020, you can ask to access personal information an organisation holds about you and ask for it to be corrected if inaccurate. If you have already communicated with KOVA, please use that existing correspondence channel to make an access, correction or privacy enquiry.</p><p><strong>Current website limitation:</strong> the online enquiry form only creates a draft; it cannot deliver privacy requests to us. We will publish a direct privacy contact channel when online enquiries are activated. In the meantime, do not assume a message has been received merely because you completed the website form.</p><p>You can learn more about your rights through the <a href="https://www.privacy.org.nz/your-rights/your-privacy-rights/" target="_blank" rel="noopener noreferrer">Office of the Privacy Commissioner</a>.</p></div></section>
-   <section class="privacy-chapter" id="privacy-changes"><div class="privacy-chapter-label"><span>07 / UPDATES</span></div><div><h3>Keeping this current.</h3><p>We will review this statement when website functionality or personal information practices change. A connected online enquiry service, new analytics or different providers would require this statement to be updated before launch.</p><p class="privacy-date">LAST REVIEWED / 09 NOVEMBER 2026</p></div></section>
+   <section class="privacy-chapter" id="privacy-rights"><div class="privacy-chapter-label"><span>06 / YOUR RIGHTS</span></div><div><h3>Access, correction and questions.</h3><p>Under New Zealand's Privacy Act 2020, you can ask to access personal information an organisation holds about you and ask for it to be corrected if inaccurate. If you have already communicated with KOVA, please use that existing correspondence channel to make an access, correction or privacy enquiry.</p><p>If you do not already have a correspondence channel with KOVA, you can use the <a href="contact.html" data-route="contact">contact form</a> for privacy questions and requests. Please do not include sensitive documents in the form.</p><p>You can learn more about your rights through the <a href="https://www.privacy.org.nz/your-rights/your-privacy-rights/" target="_blank" rel="noopener noreferrer">Office of the Privacy Commissioner</a>.</p></div></section>
+   <section class="privacy-chapter" id="privacy-changes"><div class="privacy-chapter-label"><span>07 / UPDATES</span></div><div><h3>Keeping this current.</h3><p>We will review this statement when website functionality or personal information practices change. We will update this statement if our enquiry or website providers change.</p><p class="privacy-date">LAST REVIEWED / 17 NOVEMBER 2026</p></div></section>
   </div>
-  <div class="privacy-return"><a href="contact.html" data-route="contact">See how to prepare an enquiry <svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 25L25 7M10 7h15v15"/></svg></a><span>SHAPING WHAT COMES NEXT.</span></div>
+  <div class="privacy-return"><a href="contact.html" data-route="contact">Contact KOVA <svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 25L25 7M10 7h15v15"/></svg></a><span>SHAPING WHAT COMES NEXT.</span></div>
  </div>
 </section>`; }
 
@@ -787,7 +787,46 @@ function enhanceKovaSelects(root){
   });
 }
 
-function setupForm(){const form=document.getElementById('enquiry-form');if(!form)return;enhanceKovaSelects(form);form.addEventListener('submit',ev=>{ev.preventDefault();if(!form.querySelector('.kova-select')?.kovaValidate())return;if(!form.reportValidity())return;const d=new FormData(form);const summary=['KOVA PLANNING CO. — PROJECT ENQUIRY DRAFT','',`Name: ${safe(d.get('name'))}`,`Email: ${safe(d.get('email'))}`,`Phone: ${safe(d.get('phone'))||'Not provided'}`,`Site: ${safe(d.get('location'))||'Not provided'}`,`Service: ${safe(d.get('service'))}`,'', 'Project details:',safe(d.get('message')),'','Enquiry draft — not sent.','This draft is prepared on your device and is not delivered automatically.'].join('\n'); const dialog=document.getElementById('enquiry-dialog');dialog.setAttribute('data-lenis-prevent','');const body=document.getElementById('enquiry-dialog-body');body.innerHTML=`<div class="dialog-kicker">KOVA / ENQUIRY PREVIEW</div><h2>READY TO<br><em>TAKE THE NEXT STEP.</em></h2><p>We've prepared your project enquiry below. Nothing has been sent or saved online.</p><pre id="draft-text"></pre><div class="dialog-actions"><button type="button" class="btn btn-dark" id="copy-draft">Copy enquiry <span><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></span></button><button type="button" class="btn btn-outline" id="download-draft">Download .txt <span>↓</span></button></div><p id="draft-status" role="status">To send this in future, the live website will need a connected email or enquiry service.</p>`;body.querySelector('#draft-text').textContent=summary;dialog.showModal();body.querySelector('#copy-draft').addEventListener('click',()=>{navigator.clipboard?.writeText(summary).then(()=>{body.querySelector('#draft-status').textContent='Copied. This draft has not been sent.'}).catch(()=>{body.querySelector('#draft-status').textContent='Copy is unavailable in this browser. You can select the enquiry text manually.'})});body.querySelector('#download-draft').addEventListener('click',()=>{let blob=new Blob([summary],{type:'text/plain;charset=utf-8'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='KOVA_Enquiry_Draft.txt';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),5000)});});}
+function setupForm(){
+  const form=document.getElementById('enquiry-form');
+  if(!form)return;
+  enhanceKovaSelects(form);
+  const status=form.querySelector('#enquiry-status');
+  const button=form.querySelector('button[type="submit"]');
+  const label=button.firstChild;
+  let sending=false;
+  form.addEventListener('submit',async ev=>{
+    ev.preventDefault();
+    if(sending || form.querySelector('.kova-select')?.kovaValidate?.()===false || !form.reportValidity())return;
+    sending=true;
+    button.disabled=true;
+    label.textContent='Sending… ';
+    status.dataset.state='pending';
+    status.textContent='Sending your enquiry…';
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),12000);
+    try{
+      const response=await fetch(form.action,{
+        method:'POST',body:new FormData(form),headers:{Accept:'application/json'},signal:controller.signal
+      });
+      if(!response.ok)throw Error('Submission was not accepted');
+      const result=await response.json();
+      if(result.ok!==true)throw Error('Submission was not confirmed');
+      form.reset();
+      form.querySelector('select')?.dispatchEvent(new Event('change',{bubbles:true}));
+      status.dataset.state='success';
+      status.textContent='Enquiry sent. Thanks for getting in touch with KOVA.';
+    }catch{
+      status.dataset.state='error';
+      status.textContent='We could not confirm your enquiry was sent. Your details are still here. Please try again.';
+    }finally{
+      clearTimeout(timeout);
+      sending=false;
+      button.disabled=false;
+      label.textContent='Send enquiry ';
+    }
+  });
+}
 function updateProgress(){let height=document.documentElement.scrollHeight-window.innerHeight;let p=height>0?window.scrollY/height:0;document.getElementById('reading-progress').style.transform=`scaleX(${Math.min(1,Math.max(0,p))})`}
 function navigateTo(url){
   if(busy){queuedRoute=()=>navigateTo(url);return;}
@@ -815,7 +854,7 @@ menuBtn.addEventListener('click',()=>{
   menuBtn.setAttribute('aria-label','Close navigation');
   document.body.classList.add('menu-open');
 });
-document.addEventListener('click',ev=>{const inPage=ev.target.closest('a[href^="#"]:not([href^="#/"])');if(inPage){const target=document.getElementById(inPage.getAttribute('href').slice(1));if(target){ev.preventDefault();if(inPage.classList?.contains('skip')){target.focus?.({preventScroll:true});scrollToTarget(target);}else landAt(target.id,false);document.querySelectorAll('.expertise-index a').forEach(a=>a.classList.toggle('is-active',a===inPage));return;}}const topic=ev.target.closest('[data-topic]');if(topic)selectTopic(topic.dataset.topic,false);const stage=ev.target.closest('[data-stage]');if(stage)selectStage(+stage.dataset.stage);const next=ev.target.closest('[data-stage-next], [data-stage-prev]');if(next)selectStage(+(next.dataset.stageNext ?? next.dataset.stagePrev)); const anatomy=ev.target.closest('[data-anatomy]');if(anatomy)selectAnatomy(+anatomy.dataset.anatomy); const scenario=ev.target.closest('[data-scenario]');if(scenario)selectScenario(scenario.dataset.scenario);const guide=ev.target.closest('[data-guide]');if(guide){history.replaceState(null,'',`insights.html?guide=${guide.dataset.guide}`);showGuide(guide.dataset.guide,true)}if(ev.target.closest('[data-back-guides]'))backToGuides();if(ev.target.closest('[data-close-dialog]'))document.getElementById('enquiry-dialog').close();});
+document.addEventListener('click',ev=>{const inPage=ev.target.closest('a[href^="#"]:not([href^="#/"])');if(inPage){const target=document.getElementById(inPage.getAttribute('href').slice(1));if(target){ev.preventDefault();if(inPage.classList?.contains('skip')){target.focus?.({preventScroll:true});scrollToTarget(target);}else landAt(target.id,false);document.querySelectorAll('.expertise-index a').forEach(a=>a.classList.toggle('is-active',a===inPage));return;}}const topic=ev.target.closest('[data-topic]');if(topic)selectTopic(topic.dataset.topic,false);const stage=ev.target.closest('[data-stage]');if(stage)selectStage(+stage.dataset.stage);const next=ev.target.closest('[data-stage-next], [data-stage-prev]');if(next)selectStage(+(next.dataset.stageNext ?? next.dataset.stagePrev)); const anatomy=ev.target.closest('[data-anatomy]');if(anatomy)selectAnatomy(+anatomy.dataset.anatomy); const scenario=ev.target.closest('[data-scenario]');if(scenario)selectScenario(scenario.dataset.scenario);const guide=ev.target.closest('[data-guide]');if(guide){history.replaceState(null,'',`insights.html?guide=${guide.dataset.guide}`);showGuide(guide.dataset.guide,true)}if(ev.target.closest('[data-back-guides]'))backToGuides();});
 document.addEventListener('keydown',ev=>{
   const tab=ev.target.closest?.('[data-topic],[data-stage]');
   if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(ev.key))return;
@@ -827,7 +866,6 @@ document.addEventListener('keydown',ev=>{
   tabs[next].focus();
   tabs[next].click();
 });
-document.getElementById('enquiry-dialog').addEventListener('click',ev=>{if(ev.target.id==='enquiry-dialog')ev.currentTarget.close()});
 document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closeMenu()});window.addEventListener('resize',()=>{if(window.innerWidth>860)closeMenu();else if(!mobileMenu.hidden)updateMobileMenuPosition()});window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('popstate',go);
 // Letter-by-letter editorial ripple for desktop nav. Accessible name remains
 // on each link while decorative letters are hidden from screen readers.
