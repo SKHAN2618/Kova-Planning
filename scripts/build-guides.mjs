@@ -15,7 +15,7 @@ const escape = text=>String(text).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&l
 const date = new Intl.DateTimeFormat('en-NZ',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(guideReviewed));
 const linkList = [
   ['index.html','Home'],['expertise.html','Expertise'],['approach.html','Our Approach'],
-  ['about.html','About']
+  ['work.html','Our Work'],['about.html','About']
 ].map(([href,label])=>`<a href="../${href}">${label}</a>`).join('');
 const cssVersion = readFileSync('index.html','utf8').match(/assets\/site\.css\?v=(\d+)/)[1];
 
@@ -56,7 +56,7 @@ for(const [key,g] of entries){
 </head>
 <body class="standalone-guide">
   <a class="skip" href="#main">Skip to content</a>
-  <div class="utility-bar"><div class="shell utility-inner"><span>KOVA / PLANNING CO.</span><span class="utility-location">TĀMAKI MAKAURAU · AOTEAROA NZ</span><span>04 / PLANNING EXPLAINED</span></div></div>
+  <div class="utility-bar"><div class="shell utility-inner"><span>KOVA / PLANNING CO.</span><span class="utility-location">TĀMAKI MAKAURAU · AOTEAROA NZ</span><span>05 / PLANNING EXPLAINED</span></div></div>
   <header class="header"><div class="shell header-inner">
     <a class="wordmark" href="../index.html" aria-label="KOVA Planning Co. home"><img src="../assets/kova-primary-black.svg" alt="KOVA Planning Co."></a>
     <nav class="desktop-nav" aria-label="Main navigation">${linkList}</nav>
@@ -87,7 +87,7 @@ for(const [key,g] of entries){
 
 const core=[
   ['',guideReviewed],['expertise.html',guideReviewed],['approach.html','2026-11-05'],
-  ['insights.html',guideReviewed],['about.html','2026-11-05'],['contact.html','2026-11-05'],
+  ['work.html','2026-11-17'],['insights.html',guideReviewed],['about.html','2026-11-05'],['contact.html','2026-11-05'],
   ['privacy.html','2026-11-05']
 ];
 writeFileSync('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`+

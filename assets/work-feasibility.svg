@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 484">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#aebbc5" stroke-opacity=".4" stroke-width=".65"/>
+    </pattern>
+    <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(34)">
+      <path d="M0 0V9" stroke="#738694" stroke-width="1" opacity=".56"/>
+    </pattern>
+    <path id="parcel" d="M244 91 765 137 733 407 292 393Z"/>
+    <clipPath id="land"><use href="#parcel"/></clipPath>
+    <clipPath id="sheet"><path d="M0 0H1040V484H0Z"/></clipPath>
+  </defs>
+  <path fill="#e9eef1" d="M0 0H1040V484H0Z"/>
+  <path fill="url(#grid)" d="M0 0H1040V484H0Z"/>
+  <g clip-path="url(#sheet)" fill="none" stroke="#a0afba" stroke-width="1" opacity=".57">
+    <path d="M-25 233C111 269 124 331 108 492M-25 205C142 257 156 332 141 492M-25 173C156 209 182 331 174 492M-25 139C167 175 230 319 209 492M-25 106C202 150 255 312 244 492"/>
+    <path d="M813-10C850 99 925 149 1070 132M842-10C880 85 937 114 1070 100M875-10C899 59 966 88 1070 66M909-10C927 42 993 66 1070 39"/>
+    <path d="M48 40 245 62 431 72 684 94 857 119 990 113M154 403 140 64M801 401 838 123M856 403 889 122" stroke-dasharray="5 5"/>
+  </g>
+  <path d="M0 421C320 424 658 426 1040 462V484H0Z" fill="#dce5eb"/>
+  <g fill="none" stroke="#8595a1">
+    <path d="M0 421C320 424 658 426 1040 462" stroke-width="1.6"/>
+    <path d="M0 452C320 455 658 457 1014 490" stroke-dasharray="12 8"/>
+  </g>
+  <use href="#parcel" fill="#f2f5f6"/>
+  <g clip-path="url(#land)">
+    <path d="M204 63C443 113 349 186 415 253S474 308 461 427L209 427Z" fill="#dae2e7"/>
+    <path d="M204 63C443 113 349 186 415 253S474 308 461 427L209 427Z" fill="url(#hatch)"/>
+    <path d="M204 63C443 113 349 186 415 253S474 308 461 427" fill="none" stroke="#899da9" stroke-width="1.2"/>
+    <path d="M276 91C363 133 307 184 362 246S418 319 409 407" fill="none" stroke="#5c7383" stroke-dasharray="4 7" stroke-width="1.5"/>
+    <path d="M475 100C501 172 465 211 515 261S551 345 534 425M515 100C542 174 506 202 550 248S598 343 577 425M560 100C585 167 553 201 593 248S643 342 618 425M604 100C632 165 592 197 637 246S671 327 660 425" fill="none" stroke="#c8d3db" stroke-width=".9"/>
+  </g>
+  <use href="#parcel" fill="none" stroke="#27353f" stroke-width="2"/>
+  <g fill="none" stroke="#6c818e" stroke-width="1.15">
+    <path d="M244 80v22m-11-11h22m510 35v22m-11-11h22m-43 259v22m-11-11h22m-452-25v22m-11-11h22"/>
+    <path d="M480 225h19m-9-9v18m168 78h16m-8-8v16" opacity=".7"/>
+  </g>
+  <g transform="rotate(5 595 278)">
+    <path d="M527 245H657V298H616V323H527Z" fill="#d3dde3" stroke="#263743" stroke-width="1.8"/>
+    <path d="M527 245 554 269H632L657 245M527 323 554 299V269M554 299H605L616 323M605 299 632 276V269" fill="none" stroke="#6a818f" stroke-width="1.25"/>
+    <path d="M508 231H675V332H508Z" fill="none" stroke="#607d8e" stroke-width="1.1" stroke-dasharray="6 6"/>
+  </g>
+  <path d="M690 441 697 365 659 323" fill="none" stroke="#f2f5f6" stroke-width="17"/>
+  <path d="M690 441 697 365 659 323" fill="none" stroke="#344d5e" stroke-width="2" stroke-dasharray="6 5"/>
+  <g fill="none" stroke="#394f5e" stroke-width="1.45">
+    <path d="M334 204H196L149 160H103M592 240V176L647 108H817M697 369H794L833 329H927"/>
+  </g>
+  <g fill="#253842">
+    <circle cx="334" cy="204" r="4"/><circle cx="592" cy="240" r="4"/><circle cx="697" cy="369" r="4"/>
+    <circle cx="83" cy="160" r="19"/><circle cx="837" cy="108" r="19"/><circle cx="947" cy="329" r="19"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="monospace" font-size="17" font-weight="600">
+    <text x="83" y="166">01</text><text x="837" y="114">02</text><text x="947" y="335">03</text>
+  </g>
+  <g fill="none" stroke="#6a818f" stroke-width="1.3">
+    <path d="M24 54V24h30m932 0h30v30M24 430v30h30m932 0h30v-30"/>
+  </g>
+</svg>

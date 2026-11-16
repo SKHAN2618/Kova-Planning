@@ -85,17 +85,17 @@ const contact=readFileSync('contact.html','utf8');
 assert.match(expert,/data-anatomy="6"/,'Last anatomy option is present in static HTML');
 assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Static HTML contains all ten explainers');
 assert.match(contact,/>General Inquiries</,'General enquiries option');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=0835/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=0835/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=0836/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=0836/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
 const css=readFileSync('assets/site.css','utf8');
 assert.match(js,/new window\.Lenis/, 'Desktop smooth scrolling with native fallback');
 assert.match(css,/KOVA V07\.0/, 'KOVA v07 motion and contrast design system');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/lenis@1\.3\.27/, 'Pinned scroll library on '+page);
 }
@@ -121,7 +121,7 @@ assert.match(css,/--font-display:'Space Grotesk'/,'Space Grotesk gives headlines
 assert.match(css,/::view-transition-new\(kova-content\)/,'New page fades in through View Transitions');
 assert.match(css,/@keyframes kova-letter-ripple/,'Navigation ripple is defined');
 assert.match(css,/\.about-drawing\.reveal img/,'Architectural drawing entrance implemented');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/assets\/fonts\/instrument-sans-latin-wght-normal\.woff2/,'Instrument Sans preload on '+page);
   assert.match(html,/assets\/fonts\/space-grotesk-latin-wght-normal\.woff2/,'Space Grotesk preload on '+page);
@@ -215,10 +215,10 @@ assert.doesNotMatch(js,/--kova-route-x/,'No directional route offset');
 assert.match(js,/scrollToTarget\(document\.querySelector\('\.knowledge-section'\),instant\)/,'Deep-link focus positions without animated top jumping');
 assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and page-reset styles included');
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0835/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=0835/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=0836/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=0836/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -252,7 +252,7 @@ assert.doesNotMatch(css,/font-family\s*:\s*Arial/i,'No element explicitly uses A
 assert.doesNotMatch(css,/--font(?:-display)?\s*:[^;]*Arial/i,'Approved stacks never fall back to hard-coded Arial');
 assert.match(js,/function checkKovaFonts\(/,'Every page can inspect actual loaded fonts');
 assert.match(js,/fonts\.load\(/,'Font checks use browser FontFaceSet rather than guessing from CSS');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/assets\/font-families\.css\?v=076/,'Local face CSS linked on '+page);
   assert.doesNotMatch(html,/fonts\.googleapis\.com|fonts\.gstatic\.com/,'No external font host on '+page);
@@ -302,10 +302,10 @@ assert.match(contrast,/\.insights-content \.explainer-grid \.insight-card:nth-ch
 assert.match(contrast,/study-parcels\.svg|study-contours\.svg|study-streetscape\.svg/,'KOVA urban drawings add quiet visual depth');
 assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules included');
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0835/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=0835/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=0836/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=0836/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -335,10 +335,10 @@ for(const asset of coolArtwork){
 const studioCool=readFileSync('type-study.html','utf8');
 assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses the cool palette');
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0835/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=0835/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=0836/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=0836/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -565,7 +565,7 @@ assert.equal(reducedQueries,0);
 assert.match(css,/\.reveal:not\(\.is-visible\)\{transition:none!important\}/);
 console.log('PASS: scroll reveals replay in both directions and respect reduced motion.');
 
-for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
+for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.doesNotMatch(html,/class="shell footer-invitation"|class="knowledge-bridge"/,page+' has no redundant enquiry or guides band');
   const header=html.match(/<header\b[\s\S]*?<\/header>/)[0];
@@ -580,3 +580,15 @@ console.log('PASS: consolidated footer, contextual guide links and slower circul
 assert.match(contact,/<p class="form-under">We’ll use your details to respond to your enquiry/);
 assert.match(contact,/class="form-required">\* Required fields/);
 assert.match(css,/\.contact-message \.contact-aside-note,\s*\.contact-form \.form-under\{[^}]*font-size:15px;[^}]*letter-spacing:normal/);
+
+const workPage=readFileSync('work.html','utf8');
+const workMarkup=workPage.match(/<main\b[^>]*>\s*([\s\S]*?)\s*<\/main>/)[1];
+assert.equal(new vm.Script('renderers.work()').runInContext(context),workMarkup,'Static and enhanced case study match');
+assert.match(workMarkup,/<h1>POPES ROAD,<br><em>TAKANINI\.<\/em><\/h1>/);
+assert.match(workMarkup,/Fictional parcel\. The drawing does not depict the Popes Road property/);
+assert.doesNotMatch(workMarkup,/170 Popes|190018|5087656|NA119C\/935/i);
+assert.match(workMarkup,/href="contact\.html" data-route="contact">Discuss a similar site/);
+assert.match(expert,/href="work\.html" data-route="work">See the Popes Road case study/);
+assert.ok(sitemap.includes('/Kova-Planning/work.html</loc>'));
+assert.match(readFileSync('assets/work-feasibility.svg','utf8'),/<svg[\s\S]*<\/svg>/);
+console.log('PASS: Our Work case study, fallback markup, fictional drawing, enquiry and discovery links.');
