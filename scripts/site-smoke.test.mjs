@@ -102,10 +102,11 @@ for(const page of ['index','expertise','approach','insights','about','contact','
 }
 
 const homepage=readFileSync('index.html','utf8');
-assert.match(homepage,/Explore all our planning explainers/,'Static homepage CTA is timeless');
-assert.match(js,/Explore all our planning explainers/,'Dynamic homepage CTA matches');
-assert.doesNotMatch(homepage,/Explore all 10 planning explainers/,'No numeric CTA in static markup');
-assert.doesNotMatch(js,/Explore all 10 planning explainers/,'No numeric CTA in dynamic markup');
+assert.doesNotMatch(homepage,/class="insights-preview /,'No guide previews on the static homepage');
+api.mount('home',new URLSearchParams());
+assert.doesNotMatch(byId('main').innerHTML,/class="insights-preview /,'No guide previews on client navigation Home');
+assert.match(homepage,/<nav class="desktop-nav"[^>]*>[\s\S]*?href="insights\.html"[^>]*>Planning Explained/);
+assert.match(homepage,/<div class="footer-directory shell">[\s\S]*?href="insights\.html"[^>]*>Planning Explained/);
 assert.match(css,/KOVA v07\.1 — responsive spacing audit/,'v07.1 CSS is present');
 assert.match(css,/\.insights-preview \.insight-teasers>a:nth-child\(2\)\{/,'Dark card uses an explicit gutter');
 assert.match(css,/@media\(max-width:760px\)/,'Tablet card spacing included');
@@ -455,7 +456,9 @@ for(const path of standalone){
   assert.match(html,/href="\.\.\/expertise\.html\?focus=[a-z]+#service-[a-z]+"/,'Related service for each guide');
   assert.ok(html.includes('rel="canonical" href="https://skhan2618.github.io/Kova-Planning/'+path+'"'));
   assert.ok(sitemap.includes('/Kova-Planning/'+path+'</loc>'));
-  assert.doesNotMatch(html,/<script\b/,'Guide reads without external or runtime JS: '+path);
+  assert.match(html,/lenis@1\.3\.27.+defer/,'Guide uses the pinned desktop scroll library');
+  assert.match(html,/assets\/guide-scroll\.js\?v=0829" defer/,'Guide enables optional desktop scrolling');
+  assert.doesNotMatch(html,/assets\/site\.js/,'Guide content does not need the main runtime');
 }
 for(const key of ['feasibility','resource','aee','building']){
   assert.ok(expert.includes('id="service-'+key+'"'));
@@ -507,3 +510,22 @@ assert.match(js,/Enquiry submitted\. Thanks for getting in touch with KOVA\./);
 assert.doesNotMatch(js,/Enquiry sent\. Thanks/);
 assert.match(js,/if \(!response\.ok\)|if\(!response\.ok\)/);
 assert.match(js,/if\(result\.ok!==true\)/);
+
+const guideRuntime=readFileSync('assets/guide-scroll.js','utf8');
+function guideScrollOptions({desktop=true,reduced=false,library=true}={}){
+  const options=[];
+  vm.runInNewContext(guideRuntime,{window:{
+    matchMedia: query=>({matches:query.includes('reduced-motion')?reduced:desktop}),
+    Lenis:library ? class{constructor(config){options.push(config);}} : undefined
+  },console});
+  return options;
+}
+assert.equal(guideScrollOptions()[0].lerp,.073);
+assert.equal(guideScrollOptions()[0].wheelMultiplier,.88);
+assert.equal(guideScrollOptions()[0].syncTouch,false);
+assert.equal(guideScrollOptions({desktop:false}).length,0);
+assert.equal(guideScrollOptions({reduced:true}).length,0);
+assert.equal(guideScrollOptions({library:false}).length,0);
+assert.match(expert,/href="guides\/site-constraints\.html"/);
+assert.match(expert,/href="guides\/resource-vs-building-consent\.html"/);
+console.log('PASS: homepage, relevant Expertise links and smooth guide scrolling with mobile and reduced motion fallbacks.');
