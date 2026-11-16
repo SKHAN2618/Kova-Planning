@@ -568,7 +568,9 @@ console.log('PASS: scroll reveals replay in both directions and respect reduced 
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.doesNotMatch(html,/class="shell footer-invitation"|class="knowledge-bridge"/,page+' has no redundant enquiry or guides band');
-  assert.doesNotMatch(html,/<a href="insights\.html" data-route="insights">(?:<span>04 \/<\/span> )?Planning Explained/,page+' does not promote guides in global navigation');
+  const header=html.match(/<header\b[\s\S]*?<\/header>/)[0];
+  assert.doesNotMatch(header,/href="insights\.html"/,page+' keeps guides out of the main navigation');
+  assert.match(html,/03 \/ KOVA<\/span><a href="index\.html" data-route="home">Home<\/a><a href="insights\.html" data-route="insights">Planning Explained<\/a><a href="privacy\.html">Privacy<\/a>/,page+' has the requested footer order');
   assert.match(html,/class="footer-enquiry-link">Discuss a project/,page+' has a primary footer enquiry action');
 }
 assert.match(expert,/class="context-guide-link" href="insights.html"/);
