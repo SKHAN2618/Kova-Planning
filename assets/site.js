@@ -580,8 +580,8 @@ function work(){return `<section class="work-study" id="popes-road"><div class="
   </header>
   <figure class="work-figure">
     <div class="work-sheet-title"><span>FIG. 02 / SURVEY &amp; ACCESS STUDY</span><span>ILLUSTRATIVE ONLY</span></div>
-    <img src="assets/work-survey.svg" width="1040" height="484" loading="lazy" alt="Fictional survey plan with a parcel boundary, survey points and a dashed access route to an open area.">
-    <figcaption><ol class="work-key"><li><span>01</span> Site boundary</li><li><span>02</span> Survey points</li><li><span>03</span> Access route</li></ol><p>Fictional study drawing. It does not depict the Kaipara Road property and is not to scale.</p></figcaption>
+    <img src="assets/work-survey.svg?v=2" width="1040" height="484" loading="lazy" alt="Fictional site plan with three attached townhouse roofs, a parcel boundary and a dashed vehicle access route.">
+    <figcaption><ol class="work-key"><li><span>01</span> Site boundary</li><li><span>02</span> Townhouse footprints</li><li><span>03</span> Access route</li></ol><p>Fictional study drawing. It does not depict the Kaipara Road property and is not to scale.</p></figcaption>
   </figure>
   <div class="work-findings">
     <div class="work-finding-lead"><span class="work-kicker">THE OUTCOME</span><h2>From feasibility to approval.</h2><p>Resource consent was granted. The project brought the early planning assessment and survey inputs into the consent process.</p></div>
