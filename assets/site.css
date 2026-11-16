@@ -1898,11 +1898,10 @@ main .section-label,.contact-form label>span,.contact-form .kova-field-label,
  main .section-label,.contact-form label>span,.contact-form .kova-field-label,.footer-directory .footer-label{font-size:11px}
  .v05-footer .footer-question span{font-size:clamp(32px,8vw,40px)}
 }
-.kova-route-curtain{position:fixed;inset:0;z-index:9990;display:grid;place-items:center;pointer-events:none;overflow:hidden}
+.kova-route-curtain{position:fixed;inset:0;z-index:9990;display:grid;place-items:center;pointer-events:none;overflow:hidden;background:rgba(245,248,250,.54)}
 .kova-route-curtain[hidden]{display:none}
-.kova-route-panel{position:absolute;inset:0 auto 0 0;width:calc(50% + 1px);background:#f5f8fa}
-.kova-route-panel:nth-child(2){inset:0 0 0 auto}
-.kova-route-curtain img{position:relative;width:clamp(160px,23vw,270px);height:auto}
+.kova-route-ripple{position:absolute;width:148vmax;height:148vmax;top:50%;left:50%;margin:-74vmax 0 0 -74vmax;opacity:0;border-radius:50%;background:radial-gradient(circle closest-side,transparent 63%,rgba(245,248,250,.18) 78%,rgba(245,248,250,.72) 89%,rgba(245,248,250,.2) 97%,transparent 100%)}
+.kova-route-curtain img{position:relative;width:clamp(84px,11vw,144px);height:auto;filter:invert(1)}
 @media(prefers-reduced-motion:reduce){.kova-route-curtain{display:none!important}}
 
 /* Reset only offscreen. Returning sections fade in without a visible fade out. */

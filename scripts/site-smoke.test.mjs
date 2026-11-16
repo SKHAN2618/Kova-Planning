@@ -87,8 +87,8 @@ assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Stat
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=0831/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=0831/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=0832/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=0832/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -177,9 +177,9 @@ const overlayPart=(name)=>({
  }
 });
 const logoPart=overlayPart('logo');
-const panels=[overlayPart('left'),overlayPart('right')];
+const ripplePart=overlayPart('ripple');
 const curtain=Object.assign(overlayPart('curtain'),{
-  hidden:true,querySelector:()=>logoPart,querySelectorAll:()=>panels
+  hidden:true,querySelector:selector=>selector==='img'?logoPart:ripplePart
 });
 nativeDoc.getElementById=(id)=>id==='kova-route-curtain'?curtain:byId(id);
 activeMain.animate=()=>assert.fail('Page content must not animate or shift');
@@ -190,9 +190,12 @@ assert.equal(curtain.hidden,false,'Logo curtain is visible before the route swap
 assert.equal(activeMain.innerHTML,oldMarkup,'Old content remains until cover fade completes');
 await new Promise(resolve=>setImmediate(resolve));
 assert.match(activeMain.innerHTML,/id="consent-explorer"/,'New page mounts behind the covered curtain');
-assert.deepEqual(navigationAnimations.map(a=>a.name),['logo','curtain','logo','left','right']);
-assert.equal(navigationAnimations[3].keyframes[1].transform,'translateX(-101%)');
-assert.equal(navigationAnimations[4].keyframes[1].transform,'translateX(101%)');
+assert.deepEqual(navigationAnimations.map(a=>a.name),['logo','curtain','logo','ripple','curtain']);
+assert.equal(navigationAnimations[3].keyframes[0].transform,'scale(.055)');
+assert.equal(navigationAnimations[3].keyframes[2].transform,'scale(1)');
+assert.equal(navigationAnimations[3].keyframes[1].opacity,.5);
+assert.match(css,/\.kova-route-ripple\{[^}]*radial-gradient/);
+assert.match(homepage,/id="kova-route-curtain"[^>]+><span class="kova-route-ripple"><\/span><img src="assets\/kova-wave\.svg"/);
 await new Promise(resolve=>setImmediate(resolve));
 assert.equal(curtain.hidden,true,'Curtain is removed from view after reveal');
 assert.equal(nativeDoc.transitions,0,'Legacy immediate view-transition swap is no longer used');
@@ -224,8 +227,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0831/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=0831/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=0832/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=0832/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -311,8 +314,8 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0831/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=0831/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=0832/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=0832/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -344,8 +347,8 @@ assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses 
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0831/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=0831/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=0832/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=0832/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -382,7 +385,7 @@ assert.match(slowCSS,/#topic-viewport,#stage-viewport/,'Single-panel styling app
 assert.doesNotMatch(css,/\.kova-panel-ghost\s*\{/,'Overlay styling is removed');
 assert.doesNotMatch(js,/ghost\.innerHTML|appendChild\(ghost\)/,'JS never duplicates outgoing paragraphs');
 assert.match(js,/ONE PANEL AT A TIME/,'Single-panel motion replaces concurrent ghost snapshots');
-assert.match(js,/duration:310/,'Brief centre-out reveal');
+assert.match(js,/duration:365/,'Brief centre-out reveal');
 console.log('PASS: no overlapping content, correct iPhone gutter and single-panel animation styles.');
 
 /* v08.0 — exercise actual fade-out -> replace -> slow fade-in and height tween. */

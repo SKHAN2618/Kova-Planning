@@ -623,7 +623,8 @@ function go(){
   const change=()=>{mount(page,query,hash);smoothScroll?.resize();};
   const curtain=document.getElementById('kova-route-curtain');
   const logo=curtain?.querySelector('img');
-  if(reduceMotion||!curtain?.animate||!logo?.animate){
+  const ripple=curtain?.querySelector('.kova-route-ripple');
+  if(reduceMotion||!curtain?.animate||!logo?.animate||!ripple?.animate){
     try{change();}finally{done();}
     return;
   }
@@ -633,21 +634,26 @@ function go(){
   const run=async()=>{
     try{
       curtain.hidden=false;
-      logo.animate([{opacity:0,transform:'scale(.96)'},{opacity:1,transform:'scale(1)'}],{duration:170,easing:'ease-out'});
-      await curtain.animate([{opacity:0},{opacity:1}],{duration:170,easing:'ease-out',fill:'forwards'}).finished;
+      logo.animate([{opacity:0,transform:'scale(.94)'},{opacity:.72,transform:'scale(1)'}],{duration:155,easing:'ease-out',fill:'forwards'});
+      await curtain.animate([{opacity:0},{opacity:1}],{duration:155,easing:'ease-out',fill:'forwards'}).finished;
       swap();
-      // Two panels retract away from the centre, while the document stays still.
-      logo.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.055)'}],{duration:220,easing:'ease-out',fill:'forwards'});
-      const panels=[...curtain.querySelectorAll('.kova-route-panel')];
-      await Promise.all(panels.map((panel,i)=>panel.animate([
-        {transform:'translateX(0)'},{transform:i===0?'translateX(-101%)':'translateX(101%)'}
-      ],{duration:310,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished));
+      // A soft ring expands from the K without translating the document.
+      const ease='cubic-bezier(.22,.7,.35,1)';
+      await Promise.all([
+        logo.animate([{opacity:.72,transform:'scale(1)'},{opacity:0,transform:'scale(1.045)'}],{duration:245,easing:ease,fill:'forwards'}).finished,
+        ripple.animate([
+          {opacity:0,transform:'scale(.055)',offset:0},
+          {opacity:.5,transform:'scale(.25)',offset:.22},
+          {opacity:0,transform:'scale(1)',offset:1}
+        ],{duration:365,easing:ease,fill:'forwards'}).finished,
+        curtain.animate([{opacity:1},{opacity:0}],{duration:365,easing:'ease-in-out',fill:'forwards'}).finished
+      ]);
     }catch(error){
       if(!swapped)swap();
       else console.warn('KOVA transition interrupted',error);
     }finally{
       curtain.hidden=true;
-      [curtain,logo,...curtain.querySelectorAll('.kova-route-panel')].forEach(el=>el.getAnimations?.().forEach(a=>a.cancel()));
+      [curtain,logo,ripple].forEach(el=>el.getAnimations?.().forEach(a=>a.cancel()));
       done();
     }
   };
