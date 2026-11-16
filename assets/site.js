@@ -17,7 +17,7 @@ const routeHref = input => {
   return routeFile(name)+(query?'?'+query:'')+(anchor?'#'+anchor:'');
 };
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let currentPage = '', busy = false, guideOpen = null;
+let currentPage = '', busy = false, guideOpen = null, queuedRoute = null;
 
 // Desktop-only scroll easing; touch devices and reduced-motion settings stay native.
 const smoothScroll = (() => {
@@ -606,6 +606,7 @@ function mount(page,query,hash=''){
   updateProgress();
 }
 function go(){
+  if(busy){queuedRoute=()=>go();return;}
   const {page,query,hash}=parseRoute();
   if(page===currentPage){
     if(page==='expertise'&&query.has('focus'))openService(query.get('focus'),true);
@@ -616,13 +617,12 @@ function go(){
     else if(!query.toString())scrollToTop();
     return;
   }
-  if(busy)return;
   busy=true;
   closeMenu();
   const previous=pages.indexOf(currentPage),incoming=pages.indexOf(page);
   const slide=incoming>=previous?12:-12;
   document.documentElement.style.setProperty('--kova-route-x',slide+'px');
-  const done=()=>{ROOT.style.opacity='';busy=false;smoothScroll?.start?.();};
+  const done=()=>{ROOT.style.opacity='';busy=false;smoothScroll?.start?.();const queued=queuedRoute;queuedRoute=null;queued?.();};
   const change=()=>{mount(page,query,hash);smoothScroll?.resize();};
   if(reduceMotion||typeof ROOT.animate!=='function'){
     change();done();return;
@@ -788,7 +788,22 @@ function enhanceKovaSelects(root){
 
 function setupForm(){const form=document.getElementById('enquiry-form');if(!form)return;enhanceKovaSelects(form);form.addEventListener('submit',ev=>{ev.preventDefault();if(!form.querySelector('.kova-select')?.kovaValidate())return;if(!form.reportValidity())return;const d=new FormData(form);const summary=['KOVA PLANNING CO. — PROJECT ENQUIRY DRAFT','',`Name: ${safe(d.get('name'))}`,`Email: ${safe(d.get('email'))}`,`Phone: ${safe(d.get('phone'))||'Not provided'}`,`Site: ${safe(d.get('location'))||'Not provided'}`,`Service: ${safe(d.get('service'))}`,'', 'Project details:',safe(d.get('message')),'','Enquiry draft — not sent.','This draft is prepared on your device and is not delivered automatically.'].join('\n'); const dialog=document.getElementById('enquiry-dialog');dialog.setAttribute('data-lenis-prevent','');const body=document.getElementById('enquiry-dialog-body');body.innerHTML=`<div class="dialog-kicker">KOVA / ENQUIRY PREVIEW</div><h2>READY TO<br><em>TAKE THE NEXT STEP.</em></h2><p>We've prepared your project enquiry below. Nothing has been sent or saved online.</p><pre id="draft-text"></pre><div class="dialog-actions"><button type="button" class="btn btn-dark" id="copy-draft">Copy enquiry <span><svg class="kova-line-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 25L25 7M10 7h15v15"/></svg></span></button><button type="button" class="btn btn-outline" id="download-draft">Download .txt <span>↓</span></button></div><p id="draft-status" role="status">To send this in future, the live website will need a connected email or enquiry service.</p>`;body.querySelector('#draft-text').textContent=summary;dialog.showModal();body.querySelector('#copy-draft').addEventListener('click',()=>{navigator.clipboard?.writeText(summary).then(()=>{body.querySelector('#draft-status').textContent='Copied. This draft has not been sent.'}).catch(()=>{body.querySelector('#draft-status').textContent='Copy is unavailable in this browser. You can select the enquiry text manually.'})});body.querySelector('#download-draft').addEventListener('click',()=>{let blob=new Blob([summary],{type:'text/plain;charset=utf-8'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='KOVA_Enquiry_Draft.txt';a.click();window.setTimeout(()=>URL.revokeObjectURL(url),5000)});});}
 function updateProgress(){let height=document.documentElement.scrollHeight-window.innerHeight;let p=height>0?window.scrollY/height:0;document.getElementById('reading-progress').style.transform=`scaleX(${Math.min(1,Math.max(0,p))})`}
-document.addEventListener('click',event=>{const link=event.target.closest('a[data-route]');if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();if(busy)return;const url=new URL(link.href,location.href);if(url.pathname===location.pathname&&url.search===location.search&&url.hash===location.hash){if(!url.hash)scrollToTop();else landAt(url.hash.slice(1));closeMenu();return;}history.pushState(null,'',url.pathname+url.search+url.hash);go();});
+function navigateTo(url){
+  if(busy){queuedRoute=()=>navigateTo(url);return;}
+  if(url.pathname===location.pathname&&url.search===location.search&&url.hash===location.hash){
+    if(!url.hash)scrollToTop();else landAt(url.hash.slice(1));
+    closeMenu();
+    return;
+  }
+  history.pushState(null,'',url.pathname+url.search+url.hash);
+  go();
+}
+document.addEventListener('click',event=>{
+  const link=event.target.closest('a[data-route]');
+  if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();
+  navigateTo(new URL(link.href,location.href));
+});
 menuBtn.addEventListener('click',()=>{
   const isOpen=menuBtn.getAttribute('aria-expanded')==='true';
   if(isOpen){closeMenu();return;}
