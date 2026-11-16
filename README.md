@@ -1,6 +1,14 @@
-# KOVA Planning Co. | Website v08.1
+# KOVA Planning Co. | Website v08.2
 
 Six-page static website for a founder-led Auckland planning consultancy.
+
+## v08.2 — Site review
+
+- Makes service deliverables and specialist coordination easier to find, with two homepage starting points and clearer service links.
+- Moves Anatomy of a Consent under the seven stages on Our Approach, with compatibility for legacy Expertise links.
+- Keeps the existing About story and qualification, removes duplicate navigation panels and clarifies the coordinated application package.
+- Corrects header underlines and deep-link focus, with visible keyboard focus on interactive controls.
+- Leaves the enquiry workflow, inbox and case study unchanged.
 
 ## v08.1 — Service scope and Planning Explained
 
