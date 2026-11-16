@@ -501,3 +501,9 @@ assert.match(js,/immediate \|\| reduceMotion \? 'instant' : 'smooth'/,'Reduced m
 assert.match(css,/#planning-services \+ #service-scope\{padding-top:clamp\(18px,2\.5vw,34px\)\}/,'Adjacent service sections do not stack full section padding');
 assert.doesNotMatch(expert,/>Explore the consent tools/,'No redundant jump link immediately above the explorer');
 assert.match(expert,/id="consent-explorer"/,'Consent explorer remains on Expertise');
+
+// Formspree acceptance is not a receipt from the destination inbox.
+assert.match(js,/Enquiry submitted\. Thanks for getting in touch with KOVA\./);
+assert.doesNotMatch(js,/Enquiry sent\. Thanks/);
+assert.match(js,/if \(!response\.ok\)|if\(!response\.ok\)/);
+assert.match(js,/if\(result\.ok!==true\)/);

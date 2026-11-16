@@ -815,10 +815,10 @@ function setupForm(){
       form.reset();
       form.querySelector('select')?.dispatchEvent(new Event('change',{bubbles:true}));
       status.dataset.state='success';
-      status.textContent='Enquiry sent. Thanks for getting in touch with KOVA.';
+      status.textContent='Enquiry submitted. Thanks for getting in touch with KOVA.';
     }catch{
       status.dataset.state='error';
-      status.textContent='We could not confirm your enquiry was sent. Your details are still here. Please try again.';
+      status.textContent='We could not confirm your submission. Your details are still here. Please try again.';
     }finally{
       clearTimeout(timeout);
       sending=false;
