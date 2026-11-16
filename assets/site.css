@@ -1898,11 +1898,6 @@ main .section-label,.contact-form label>span,.contact-form .kova-field-label,
  main .section-label,.contact-form label>span,.contact-form .kova-field-label,.footer-directory .footer-label{font-size:11px}
  .v05-footer .footer-question span{font-size:clamp(32px,8vw,40px)}
 }
-.kova-route-curtain{position:fixed;inset:0;z-index:9990;display:grid;place-items:center;pointer-events:none;overflow:hidden;background:rgba(245,248,250,.54)}
-.kova-route-curtain[hidden]{display:none}
-.kova-route-ripple{position:absolute;width:148vmax;height:148vmax;top:50%;left:50%;margin:-74vmax 0 0 -74vmax;opacity:0;border-radius:50%;background:radial-gradient(circle closest-side,transparent 63%,rgba(245,248,250,.18) 78%,rgba(245,248,250,.72) 89%,rgba(245,248,250,.2) 97%,transparent 100%)}
-.kova-route-curtain img{position:relative;width:clamp(84px,11vw,144px);height:auto;filter:invert(1)}
-@media(prefers-reduced-motion:reduce){.kova-route-curtain{display:none!important}}
 
 /* Reset only offscreen. Returning sections fade in without a visible fade out. */
 .reveal:not(.is-visible){transition:none!important}
@@ -1915,8 +1910,8 @@ main .section-label,.contact-form label>span,.contact-form .kova-field-label,
 .footer-directory-contact::after{inset:8px 0 0 auto;width:min(60%,290px);opacity:.11}
 .footer-directory-contact h2{font-size:clamp(25px,2.2vw,32px);line-height:1.12;letter-spacing:-.035em}
 .footer-directory-contact p{max-width:34ch;line-height:1.62}
-.footer-directory-contact>.footer-enquiry-link{justify-content:space-between;gap:24px;margin:3px 0 0;padding:0 14px;border:1px solid #687781;text-decoration:none}
-.footer-directory-contact>.footer-enquiry-link:hover{background:#30383f;color:#fff}
+.footer-directory-contact>.footer-enquiry-link{gap:9px;margin:3px 0 0;padding:0;border:0;text-decoration:underline;text-decoration-color:#81909a;text-decoration-thickness:1px;text-underline-offset:.3em}
+.footer-directory-contact>.footer-enquiry-link:hover{color:#fff;text-decoration-color:currentColor}
 .footer-enquiry-location{color:#afbbc5;font-size:12px}
 .context-guide-link{text-decoration:underline;text-underline-offset:.2em}
 

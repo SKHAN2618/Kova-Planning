@@ -620,39 +620,34 @@ function go(){
   closeMenu();
   const done=()=>{busy=false;smoothScroll?.start?.();const queued=queuedRoute;queuedRoute=null;queued?.();};
   const change=()=>{mount(page,query,hash);smoothScroll?.resize();};
-  const curtain=document.getElementById('kova-route-curtain');
-  const logo=curtain?.querySelector('img');
-  const ripple=curtain?.querySelector('.kova-route-ripple');
-  if(reduceMotion||!curtain?.animate||!logo?.animate||!ripple?.animate){
+  if(reduceMotion||typeof ROOT.animate!=='function'){
     try{change();}finally{done();}
     return;
   }
   smoothScroll?.stop?.();
-  let swapped=false;
-  const swap=()=>{swapped=true;change();};
+  const animations=[];
+  const fade=(from,to)=>{
+    const animation=ROOT.animate([{opacity:from},{opacity:to}],{
+      duration:320,easing:'cubic-bezier(.4,0,.2,1)',fill:'both'
+    });
+    animations.push(animation);
+    return animation;
+  };
   const run=async()=>{
+    let mounted=false;
     try{
-      curtain.hidden=false;
-      logo.animate([{opacity:0,transform:'scale(.94)'},{opacity:.72,transform:'scale(1)'}],{duration:210,easing:'ease-out',fill:'forwards'});
-      await curtain.animate([{opacity:0},{opacity:1}],{duration:210,easing:'ease-out',fill:'forwards'}).finished;
-      swap();
-      // A soft ring expands from the K without translating the document.
-      const ease='cubic-bezier(.28,.66,.34,1)';
-      await Promise.all([
-        logo.animate([{opacity:.72,transform:'scale(1)'},{opacity:0,transform:'scale(1.045)'}],{duration:340,easing:ease,fill:'forwards'}).finished,
-        ripple.animate([
-          {opacity:0,transform:'scale(.055)',offset:0},
-          {opacity:.5,transform:'scale(.25)',offset:.22},
-          {opacity:0,transform:'scale(1)',offset:1}
-        ],{duration:520,easing:ease,fill:'forwards'}).finished,
-        curtain.animate([{opacity:1},{opacity:0}],{duration:520,easing:'ease-in-out',fill:'forwards'}).finished
-      ]);
+      const outgoing=fade(1,0);
+      await outgoing.finished;
+      mounted=true;
+      change();
+      const incoming=fade(0,1);
+      outgoing.cancel();
+      await incoming.finished;
     }catch(error){
-      if(!swapped)swap();
-      else console.warn('KOVA transition interrupted',error);
+      if(!mounted)change();
+      else console.warn('KOVA page fade interrupted',error);
     }finally{
-      curtain.hidden=true;
-      [curtain,logo,ripple].forEach(el=>el.getAnimations?.().forEach(a=>a.cancel()));
+      animations.forEach(animation=>animation.cancel());
       done();
     }
   };
