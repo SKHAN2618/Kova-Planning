@@ -493,3 +493,7 @@ for(const [hash,search] of [['#anatomy-of-consent',''],['','?view=anatomy']]){
   assert.equal(redirect.hash,'anatomy-of-consent');
 }
 console.log('PASS v08.2: four service packages, seven coordination stages, moved Anatomy, legacy destinations and streamlined About.');
+
+assert.match(js,/else landAt\(target\.id,false\)/,'In-page links use smooth scrolling');
+assert.match(js,/immediate \|\| reduceMotion \? 'instant' : 'smooth'/,'Reduced motion still permits immediate scrolling');
+assert.match(css,/#planning-services \+ #service-scope\{padding-top:clamp\(18px,2\.5vw,34px\)\}/,'Adjacent service sections do not stack full section padding');
