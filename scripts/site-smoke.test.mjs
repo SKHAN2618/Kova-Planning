@@ -87,7 +87,7 @@ assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Stat
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=0839/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.js\?v=0840/,'Fresh versioned JavaScript on '+page);
  assert.match(html,/assets\/site\.css\?v=0837/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
@@ -218,7 +218,7 @@ assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot
 for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/assets\/site\.css\?v=0837/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=0839/,'New JS version '+page);
+  assert.match(html,/assets\/site\.js\?v=0840/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -305,7 +305,7 @@ assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced
 for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/assets\/site\.css\?v=0837/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=0839/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.js\?v=0840/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -338,7 +338,7 @@ assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics rem
 for(const page of ['index','expertise','approach','work','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
   assert.match(html,/assets\/site\.css\?v=0837/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=0839/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=0840/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -599,4 +599,7 @@ for(const [project,asset] of [['kaipara-road','survey'],['sandstone-road','groun
  assert.match(readFileSync('assets/work-'+asset+'.svg','utf8'),/<svg[\s\S]*<\/svg>/);
 }
 assert.match(workMarkup,/engaged surveyors/);
-assert.match(workMarkup,/surveyors and geotechnical specialists/);
+assert.match(workMarkup,/Resource consent was granted for the townhouse proposal/);
+assert.match(workMarkup,/boundaries shown on council plans did not match/);
+assert.match(workMarkup,/Resource consent was granted for the extension/);
+assert.match(workMarkup,/Geotechnical advice helped confirm how the extension could be accommodated on the sloping part/);
