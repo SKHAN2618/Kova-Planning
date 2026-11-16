@@ -1792,3 +1792,61 @@ html,html.lenis{scroll-padding-top:var(--v05-header,93px)}
 /* Treat the coordination callout and service scope as adjacent content. */
 #planning-services{padding-bottom:clamp(28px,4vw,52px)}
 #planning-services + #service-scope{padding-top:clamp(18px,2.5vw,34px)}
+
+/* KOVA editorial rhythm: keep full heroes, tighten the content between them. */
+:root{
+  --section-start:clamp(38px,5.4vw,76px);
+  --section-end:clamp(44px,6vw,86px);
+  --section-heading-gap:clamp(24px,3.5vw,49px);
+}
+main>.page-section:not(.guide-page-section),
+main>.services-overview,main>.team-coordination,main>.knowledge-section,
+main>.scenario-section,main>.anatomy-section,main>.stages-section,
+main>.process-trust,main>.about-intro-panel,main>.about-chapter,main>.information-banner{
+  padding-block:var(--section-start) var(--section-end);
+}
+main>.page-section .section-intro,
+.services-overview-head,.stages-heading,.scenario-header,.anatomy-intro{
+  margin-block:var(--section-heading-gap) clamp(24px,3.2vw,45px);
+}
+main>.manifesto-section .manifesto-top{
+  padding-block:var(--section-start) var(--section-end);
+}
+.manifesto-top .manifesto-grid{margin-top:var(--section-heading-gap)}
+main>.tools-intro{padding-block:clamp(34px,4vw,58px)}
+main>.tools-intro + .knowledge-section{padding-top:clamp(24px,3.5vw,44px)}
+main>.anatomy-section{padding-bottom:clamp(32px,4.6vw,60px)}
+.knowledge-bridge{padding-block:clamp(13px,2vw,24px);border-bottom:1px solid var(--rule)}
+.knowledge-bridge-inner.shell{display:flex;justify-content:space-between;align-items:center;gap:8px 24px}
+.knowledge-bridge-inner>strong{font-size:clamp(15px,1.45vw,19px);font-weight:650;color:#26343d}
+.knowledge-bridge-inner .text-link{margin:0;min-height:44px;display:inline-flex;align-items:center;font-size:15px}
+.v05-footer .footer-invitation{padding-block:clamp(24px,3.5vw,48px) clamp(30px,4vw,54px)!important}
+.v05-footer .footer-prelude{margin-top:clamp(22px,3vw,40px)!important}
+.v05-footer .footer-question{margin-top:12px;padding-bottom:clamp(17px,3vw,29px)!important}
+.v05-footer .footer-question span{font-size:clamp(52px,4.7vw,64px);letter-spacing:-.06em;line-height:1.02}
+.v05-footer .footer-question:hover span{transform:none}
+.v05-footer .footer-invitation-bottom{margin-top:14px}
+.v05-footer .footer-invitation-bottom>a{font-size:15px!important;min-height:44px;padding-bottom:4px}
+@media(max-width:650px){
+  .v05-footer .footer-question span{font-size:clamp(32px,8vw,40px)}
+  .knowledge-bridge-inner.shell{flex-wrap:wrap}
+  .knowledge-bridge-inner .text-link{max-width:100%}
+}
+
+/* Existing KOVA architectural studies, placed in spare space and under the content. */
+main>.service-scopes,main>.about-intro-panel,main>.process-trust,main>.information-banner{
+  position:relative;isolation:isolate;overflow:clip;
+}
+main>.service-scopes::before,main>.about-intro-panel::before,
+main>.process-trust::before,main>.information-banner::before{
+  content:'';position:absolute;right:0;z-index:-1;pointer-events:none;
+  width:min(49%,640px);background-position:right center;background-repeat:no-repeat;background-size:contain;
+}
+main>.service-scopes::before{top:0;height:235px;background-image:url('study-contours.svg');opacity:.13}
+main>.about-intro-panel::before{bottom:-44px;height:250px;background-image:url('study-parcels.svg');opacity:.11}
+main>.process-trust::before{bottom:-35px;height:280px;background-image:url('study-streetscape.svg');filter:invert(1);opacity:.13}
+main>.information-banner::before{inset-block:0;background-image:url('study-contours.svg');opacity:.11}
+@media(max-width:650px){
+  main>.service-scopes::before,main>.about-intro-panel::before,
+  main>.process-trust::before,main>.information-banner::before{width:64%;opacity:.07}
+}

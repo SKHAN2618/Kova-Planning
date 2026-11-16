@@ -55,7 +55,7 @@ const click=selectorAndNode=>{
  for(const handler of callbacks['document:click']||[])handler(event);
 };
 assert.equal((callbacks['document:click']||[]).length>=2,true,'Delegated clicks should be registered');
-api.mount('approach',new URLSearchParams());
+api.mount('expertise',new URLSearchParams());
 assert.match(byId('main').innerHTML,/id="anatomy-of-consent"/);
 assert.equal((byId('main').innerHTML.match(/class="anatomy-part(?:\s|")/g)||[]).length,7,'Seven anatomy topic controls');
 for(let i=0;i<7;i++){
@@ -82,7 +82,7 @@ for(const [key,guide] of Object.entries(api.guides)){
 const expert=readFileSync('expertise.html','utf8');
 const insights=readFileSync('insights.html','utf8');
 const contact=readFileSync('contact.html','utf8');
-assert.match(readFileSync('approach.html','utf8'),/data-anatomy="6"/,'Last anatomy option is present in static HTML');
+assert.match(expert,/data-anatomy="6"/,'Last anatomy option is present in static HTML');
 assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Static HTML contains all ten explainers');
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
@@ -471,8 +471,10 @@ assert.match(homeHtml,/I’m checking a site/);
 assert.match(homeHtml,/I’m planning a project/);
 assert.equal((expert.match(/What we can coordinate/g)||[]).length,4);
 assert.match(expert,/coordination-callout/);
-assert.equal((expert.match(/class="anatomy-section"/g)||[]).length,0);
-assert.ok(approachHtml.indexOf('class="stages-section"')<approachHtml.indexOf('class="anatomy-section"'));
+assert.equal((expert.match(/class="anatomy-section"/g)||[]).length,1);
+assert.doesNotMatch(approachHtml,/class="anatomy-section"/);
+assert.ok(expert.indexOf('class="scenario-section"')<expert.indexOf('class="anatomy-section"'));
+assert.match(expert,/href="#anatomy-of-consent">See what goes into an application/);
 assert.match(approachHtml,/expertise\.html\?view=coordination#project-coordination/);
 assert.doesNotMatch(aboutHtml,/class="about-future"|class="chapter-gateway"/);
 assert.match(aboutHtml,/Bachelor of Urban Planning \(Honours\)/);
@@ -485,11 +487,10 @@ for(let index=0;index<7;index++){
 }
 assert.equal(extended.routeHref('expertise?view=coordination#project-coordination'),'expertise.html?view=coordination#project-coordination');
 assert.equal(extended.routeHref('expertise?focus=feasibility'),'expertise.html?focus=feasibility#service-feasibility');
-location.pathname='/Kova-Planning/expertise.html';
-for(const [hash,search] of [['#anatomy-of-consent',''],['','?view=anatomy']]){
-  Object.assign(location,{hash,search});
+for(const [file,hash,search] of [['expertise','#anatomy-of-consent',''],['expertise','','?view=anatomy'],['approach','#anatomy-of-consent','']]){
+  Object.assign(location,{pathname:'/Kova-Planning/'+file+'.html',hash,search});
   const redirect=extended.parseRoute();
-  assert.equal(redirect.page,'approach');
+  assert.equal(redirect.page,'expertise');
   assert.equal(redirect.hash,'anatomy-of-consent');
 }
 console.log('PASS v08.2: four service packages, seven coordination stages, moved Anatomy, legacy destinations and streamlined About.');
