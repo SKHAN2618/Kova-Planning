@@ -87,8 +87,8 @@ assert.equal((insights.match(/href="guides\/[^"]+\.html"/g)||[]).length,10,'Stat
 assert.match(contact,/>General Inquiries</,'General enquiries option');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
  const html=readFileSync(page+'.html','utf8');
- assert.match(html,/assets\/site\.js\?v=0833/,'Fresh versioned JavaScript on '+page);
- assert.match(html,/assets\/site\.css\?v=0833/,'Fresh versioned styles on '+page);
+ assert.match(html,/assets\/site\.js\?v=0834/,'Fresh versioned JavaScript on '+page);
+ assert.match(html,/assets\/site\.css\?v=0834/,'Fresh versioned styles on '+page);
 }
 console.log('PASS: syntax, seven anatomy controls, ten guide open/return interactions, consent topics, scenarios, approach stages, mobile-safe delegation and versioned assets.');
 
@@ -225,8 +225,8 @@ assert.match(css,/KOVA v07\.4 \/ EDITORIAL NAVIGATION/,'Soft tab-selection and p
 assert.match(css,/#main\{view-transition-name:none!important/,'Obsolete snapshot transition disabled');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0833/,'New CSS version '+page);
-  assert.match(html,/assets\/site\.js\?v=0833/,'New JS version '+page);
+  assert.match(html,/assets\/site\.css\?v=0834/,'New CSS version '+page);
+  assert.match(html,/assets\/site\.js\?v=0834/,'New JS version '+page);
 }
 const typeStudy=readFileSync('type-study.html','utf8');
 assert.match(typeStudy,/assets\/font-families\.css\?v=076/,'Font specimen uses local shared families');
@@ -312,8 +312,8 @@ assert.match(contrast,/@media\(max-width:650px\)/,'Compact mobile contrast rules
 assert.match(contrast,/@media\(prefers-reduced-motion:reduce\)/,'Respect reduced-motion accessibility');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0833/,'Updated contrast stylesheet on '+page);
-  assert.match(html,/assets\/site\.js\?v=0833/,'Updated JS cache on '+page);
+  assert.match(html,/assets\/site\.css\?v=0834/,'Updated contrast stylesheet on '+page);
+  assert.match(html,/assets\/site\.js\?v=0834/,'Updated JS cache on '+page);
   assert.match(html,/assets\/font-families\.css\?v=076/,'Approved self-hosted fonts preserved on '+page);
 }
 console.log('PASS: v07.7 contrast across Home, Expertise, Approach, Insights, About and Contact.');
@@ -345,8 +345,8 @@ assert.match(studioCool,/Typeface Specimens — v07\.8/,'Typography studio uses 
 assert.match(studioCool,/auditKovaFonts/,'Typography studio font diagnostics remain intact');
 for(const page of ['index','expertise','approach','insights','about','contact','privacy']){
   const html=readFileSync(page+'.html','utf8');
-  assert.match(html,/assets\/site\.css\?v=0833/,'Current cool stylesheet linked on '+page);
-  assert.match(html,/assets\/site\.js\?v=0833/,'Current runtime linked on '+page);
+  assert.match(html,/assets\/site\.css\?v=0834/,'Current cool stylesheet linked on '+page);
+  assert.match(html,/assets\/site\.js\?v=0834/,'Current runtime linked on '+page);
   assert.match(html,/content="#F5F8FA"/,'Cool device theme on '+page);
 }
 console.log('PASS: v07.8 cool paper, concrete, steel and graphite across site, drawings, studio and mobile themes.');
@@ -585,3 +585,7 @@ assert.match(expert,/href="guides\/site-constraints\.html"/);
 assert.match(js,/duration:210/);
 assert.match(js,/duration:520/);
 console.log('PASS: consolidated footer, contextual guide links and slower circular transition.');
+
+assert.match(contact,/<p class="form-under">We’ll use your details to respond to your enquiry/);
+assert.match(contact,/class="form-required">\* Required fields/);
+assert.match(css,/\.contact-message \.contact-aside-note,\s*\.contact-form \.form-under\{[^}]*font-size:15px;[^}]*letter-spacing:normal/);

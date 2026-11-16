@@ -1934,3 +1934,19 @@ main>.tools-intro::after{background-image:url('study-parcels.svg')}
   main>.tools-intro::after,.contact-aside::after,.standalone-guide .full-article>header::after{opacity:.08}
   .footer-directory-contact::after{opacity:.07}
 }
+
+/* Contact guidance is body copy, not a tracked interface label. */
+.contact-message .contact-aside-note,
+.contact-form .form-under{
+  font-family:var(--font);
+  font-size:15px;
+  font-weight:400;
+  letter-spacing:normal;
+  line-height:1.6;
+  color:#46545e;
+  text-transform:none;
+}
+.contact-message .contact-aside-note{margin-top:clamp(19px,2.5vw,32px);max-width:42ch}
+.contact-form .form-under{margin-top:-12px;max-width:52ch}
+.contact-form .form-under a{font-weight:600;color:#26343d;text-underline-offset:.18em}
+.form-required{display:block;margin-top:5px;font-size:13px}
