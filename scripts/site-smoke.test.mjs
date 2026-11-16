@@ -497,3 +497,5 @@ console.log('PASS v08.2: four service packages, seven coordination stages, moved
 assert.match(js,/else landAt\(target\.id,false\)/,'In-page links use smooth scrolling');
 assert.match(js,/immediate \|\| reduceMotion \? 'instant' : 'smooth'/,'Reduced motion still permits immediate scrolling');
 assert.match(css,/#planning-services \+ #service-scope\{padding-top:clamp\(18px,2\.5vw,34px\)\}/,'Adjacent service sections do not stack full section padding');
+assert.doesNotMatch(expert,/>Explore the consent tools/,'No redundant jump link immediately above the explorer');
+assert.match(expert,/id="consent-explorer"/,'Consent explorer remains on Expertise');
