@@ -1863,3 +1863,6 @@ main>.information-banner::before{inset-block:0;background-image:url('study-conto
 .enquiry-status{color:#26343d;border-left:2px solid #6b7b87;padding:.7rem 1rem;font-size:15px;line-height:1.55}
 .enquiry-status[data-state="error"]{border-color:#7a4646}
 .form-submit:disabled{opacity:.65;cursor:wait}
+
+/* Home already has a project CTA in the hero and footer directory. */
+body:has(main[data-page="home"]) .v05-footer .footer-invitation{display:none}
