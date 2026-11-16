@@ -549,15 +549,15 @@ function privacy(){return `<section class="internal-hero privacy-hero">
 </section>`; }
 
 function work(){return `<section class="work-study"><div class="shell">
-  <div class="work-index"><span>OUR WORK / 01</span><span>DESKTOP PLANNING ASSESSMENT</span></div>
+  <div class="work-index"><span>OUR WORK / 01</span><span>PLANNING &amp; CONCEPT FEASIBILITY</span></div>
   <header class="work-heading">
     <h1>POPES ROAD,<br><em>TAKANINI.</em></h1>
-    <p>What could be done with the existing property, and what needed checking before anyone committed to a design?</p>
+    <p>A desktop planning assessment and a concept feasibility study looked at what could be done with the existing property before committing to design.</p>
   </header>
 
   <figure class="work-figure">
-    <div class="work-sheet-title"><span>FIG. 01 / HOW WE READ A SITE</span><span>ILLUSTRATIVE ONLY</span></div>
-    <img src="assets/work-feasibility.svg" width="1040" height="484" fetchpriority="high" alt="Illustrative site diagram. A hatched hazard area, a building footprint and a dashed access route show three different questions a feasibility assessment might consider.">
+    <div class="work-sheet-title"><span>FIG. 01 / SITE FEASIBILITY STUDY</span><span>ILLUSTRATIVE ONLY</span></div>
+    <img src="assets/work-feasibility.svg?v=2" width="1040" height="484" fetchpriority="high" alt="Illustrative site diagram. A hatched hazard area, a building footprint and a dashed access route show three different questions a feasibility assessment might consider.">
     <figcaption>
       <ol class="work-key"><li><span>01</span> Mapped hazards</li><li><span>02</span> Building footprint</li><li><span>03</span> Vehicle access</li></ol>
       <p>Fictional parcel. The drawing does not depict the Popes Road property and is not to scale.</p>
@@ -567,13 +567,11 @@ function work(){return `<section class="work-study"><div class="shell">
   <div class="work-findings">
     <div class="work-finding-lead"><span class="work-kicker">THE TAKEAWAY</span><h2>Start with what’s already there.</h2><p>The assessment identified improvements to the existing property as the clearest option to investigate. Flooding was the main constraint. The review did not establish subdivision potential, an entitlement to another dwelling or a date for urban rezoning.</p></div>
     <div class="work-details">
-      <section><span class="work-kicker">01 / THE BRIEF</span><h3>Clarify the site’s potential before sale.</h3><p>KOVA prepared a desktop assessment to explain which options were worth investigating and which assumptions the available information didn’t support.</p></section>
-      <section><span class="work-kicker">02 / WHAT WE REVIEWED</span><h3>Rules, hazards and practical constraints.</h3><p>We reviewed zoning, mapped flood hazards, vehicle access, servicing and airport height controls. We separated the planning rules in force at the time from longer term growth signals and proposed changes.</p></section>
-      <section><span class="work-kicker">03 / WHAT CAME NEXT</span><h3>A clear order for the next checks.</h3><p>The report set out what to confirm before design: survey levels, flood behaviour and safe access, servicing options, and relevant title and consent records.</p></section>
+      <section><span class="work-kicker">01 / DESKTOP PLANNING ASSESSMENT</span><h3>What the planning rules and site constraints meant.</h3><p>We reviewed zoning, mapped flooding, access, servicing and airport height controls. The report distinguished the rules in force at the time from proposed changes and longer term growth plans.</p></section>
+      <section><span class="work-kicker">02 / CONCEPT FEASIBILITY STUDY</span><h3>How four options might fit.</h3><p>We compared refurbishing the existing home, extending it, adding a minor dwelling and replacing the main house. Indicative layouts tested siting and scale, and showed where survey, flood analysis, safe access and servicing checks would inform detailed design.</p></section>
     </div>
   </div>
   <div class="work-end">
-    <p>Desktop assessment completed in November 2026. It did not include a site inspection or engineering assessment and did not establish any approval.</p>
     <a class="text-link" href="contact.html" data-route="contact">Discuss a similar site <span aria-hidden="true">↗</span></a>
   </div>
 </div></section>`; }

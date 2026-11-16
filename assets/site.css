@@ -1972,6 +1972,6 @@ main>.tools-intro::after{background-image:url('study-parcels.svg')}
 .work-details p{max-width:59ch}
 .work-end{display:flex;justify-content:space-between;align-items:start;gap:22px;border-top:1px solid #c0cdd6;padding-top:20px}
 .work-end p{max-width:59ch;font-size:.84rem}
-.work-end .text-link{flex-shrink:0}
+.work-end .text-link{flex-shrink:0;margin-left:auto}
 @media(max-width:850px){.work-figure figcaption{grid-template-columns:1fr;gap:6px}}
-@media(max-width:620px){.work-heading,.work-findings{grid-template-columns:1fr}.work-heading h1{font-size:clamp(36px,10.4vw,62px)}.work-findings{gap:28px;padding-bottom:12px}.work-end{display:grid}.work-end .text-link{justify-self:start}.work-key{gap:5px 13px}}
+@media(max-width:620px){.work-heading,.work-findings{grid-template-columns:1fr}.work-heading h1{font-size:clamp(36px,10.4vw,62px)}.work-findings{gap:28px;padding-bottom:12px}.work-end{display:grid}.work-end .text-link{justify-self:start;margin-left:0}.work-key{gap:5px 13px}}
